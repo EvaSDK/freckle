@@ -3,7 +3,7 @@
 <div class="box">
 	<h3>Outils</h3>
 	<p>Ceci est une liste non exhaustive des outils recommandés pour se
-    servir efficacement des fichiers de freckle ou pour proposer des documents.</p>
+		servir efficacement des fichiers de freckle ou pour proposer des documents.</p>
 	<ul>
 		<li><a href="http://www.adobe.com/products/acrobat/readstep2.html">Acrobat Reader</a>
 			<p>Permet de visualiser le document <acronym title="Portable Document Format">PDF</acronym> et existe sur une grande variété d'OS</p></li>

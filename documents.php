@@ -1,5 +1,5 @@
 <h2 class="titre-page">Documents</h2>
-  
+	
 <div class="box">
 	<h3>Trouver...</h3>
 	<p>Afficher les documents de la catégorie:</p>
