@@ -8,8 +8,8 @@
 /* connection à la base de données */
 function db_connect()
 {
-	$link = mysql_connect("localhost","freckle","bidon");
-	mysql_select_db("freckle",$link);
+	$link = mysql_connect($hostname, $username, $password);
+	mysql_select_db($dbname, $link);
 	return $link;
 }
 		
