@@ -6,7 +6,7 @@
  */
 function display_documents( $critere1, $critere2 )
 {
-	$link = dbconn();
+	$link = db_connect();
 
 	if( $critere1 == "last" ) {
 		$sql = "SELECT * FROM reference,fichiers WHERE fichiers.id=reference.id_fichier ORDER BY id DESC LIMIT 10;";
@@ -52,7 +52,7 @@ function display_documents( $critere1, $critere2 )
 
 /* affiche le tableau des categories */
 function display_categorie() {
-	$link = dbconn();
+	$link = db_connect();
 	$ptr = pg_query($link,"SELECT * FROM categorie ORDER BY id;");
 	$i=0;
 	
@@ -77,7 +77,7 @@ function display_categorie() {
 /* affiche 2 boites de séléction de catégorie */
 function display_categorie_select()
 {
-	$link = dbconn();
+	$link = db_connect();
 	$ptr = pg_query($link,"SELECT * FROM categorie;");
 
 	echo "<select name='cat1'>\n";
@@ -97,7 +97,7 @@ function display_categorie_select()
 
 function display_types_select()
 {
-	$link = dbconn();
+	$link = db_connect();
 	$result = pg_query($link, "SELECT * FROM types;");
 
 	echo "<select name='type'>\n";

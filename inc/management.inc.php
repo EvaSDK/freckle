@@ -14,7 +14,7 @@
 /* renvoie la requête adéquate pour une des 2 fonctions suivantes */
 function list_query($what,$offset,$step,$limit)
 {
-	$link = dbconn();
+	$link = db_connect();
 	if ($what!="affect" and $what!="defect")
 	{
 		$query = "SELECT * FROM $what";

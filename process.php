@@ -2,6 +2,7 @@
 	session_start();
 	include("./inc/auth.inc.php");
 	include("./inc/general.inc.php");
+	include("./inc/backend_sql.php");
 
 	if($_SESSION['admin']==FALSE) {
 		header("Location: index.php"); 
@@ -69,13 +70,14 @@
 		}
 	} else if ($action=="Classer")
 	{
-		 $_SESSION['message'] = "Fichier $id classé";
-		 $query = "INSERT INTO reference (id_categorie,id_fichier,id_type) VALUES ('".$_POST['cat1']."','#ID#','".$_POST['type']."');";
+		$_SESSION['message'] = "Fichier $id classé";
 		 
-		 if ($_POST['cat2']!='')
-		 {
-			 $query .= "INSERT INTO reference (id_categorie,id_fichier,id_type) VALUES ('".$_POST['cat1']."','#ID#','".$_POST['type']."');";
-		 }
+		if( isset($_POST['cat2']) )
+		{
+			$query .= "INSERT INTO reference (id_categorie1,id_categorie2,id_fichier,id_type) VALUES ('".$_POST['cat1']."','".$_POST['cat2']."','#ID#','".$_POST['type']."');";
+		} else {
+			$query = "INSERT INTO reference (id_categorie1,id_categorie2,id_fichier,id_type) VALUES ('".$_POST['cat1']."','0','#ID#','".$_POST['type']."');";
+		}
 	} else if ($action=="Désaffecter")
 	{
 		$_SESSION['message'] = "Fichier $id déclassé";

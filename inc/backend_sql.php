@@ -13,6 +13,17 @@ function db_query( $link, $query )
 	return $result;
 }
 
+function db_close( $link )
+{
+	global $SQL;
+	switch ( $SQL )
+	{
+		case "mySQL": $result = mysql_close($link); break;
+		case "pgSQL": $result =    pg_close($link); break;
+	}
+	return $result;
+}
+
 function q_num_rows( $o1 )
 {
 	global $SQL;
