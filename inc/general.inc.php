@@ -11,7 +11,7 @@ function display_categorie() {
 	{
 		if( $i==0 ) echo "<tr>\n";
 		echo " <td class='right'>[$row->ccourt]</td>\n";
-		echo " <td><a href='documents.php?see'>$row->clong</a></td>\n";
+		echo " <td><a href='index.php?what=search&amp;cat1=".$row->id."&amp;cat2='>$row->clong</a></td>\n";
 		if( $i==1 ) {
 			echo "</tr>\n";
 			$i=-1;

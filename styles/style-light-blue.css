@@ -290,6 +290,11 @@ tr:hover {
 	background-color: white;
 }
 */
+
+td {
+	padding: 0 4px 0 4px;
+}
+
 td img {
 	height: 16px;
 	width: 16px;

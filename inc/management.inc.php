@@ -259,12 +259,12 @@ function vfs_handling( $arr )
 		case "file" :
 			$arr["url"] = preg_replace("/file:\/\//", $repos_html, $arr["url"]);
 			$arr["disp"] = basename( substr( $arr["url"], strpos( $arr["url"], "-",  strpos( $arr["url"], "-") + 1 ) + 1 ) );
-			$arr["icon"] = getIcon($arr["disp"])
+			$arr["icon"] = getIcon($arr["disp"]);
 			break;
 
 		case "http" :
 			$arr["disp"] = $arr["commentaire"];
-			$arr["icon"] = "~freckle/_icon/website.png";
+			$arr["icon"] = "_icon/link.png";
 			break;
 	}
 
