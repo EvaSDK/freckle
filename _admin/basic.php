@@ -39,10 +39,10 @@
   <ul>
   <li><h2>Général</h2>
   <ul>
-   <li><a href="index.php">Accueil</a></li>
-   <li><a href="documents.php">Documents</a></li>
-   <li><a href="display.php?what=site">Autres sites ESIEE</a></li>
-   <li><a href="tools.php">Outils et recommandations</a></li>
+   <li><a href="../index.php">Accueil</a></li>
+   <li><a href="../documents.php">Documents</a></li>
+   <li><a href="../display.php?what=site">Autres sites ESIEE</a></li>
+   <li><a href="../tools.php">Outils et recommandations</a></li>
   </ul></li>
   <li><h2>Statistiques</h2>
   <ul class="pop">
@@ -53,7 +53,7 @@
   </ul></li>
   <li><h2>Webmaster</h2>
   <ul>
-   <li><a href="../index2.php">Retour au site</a></li>
+   <li><a href="../index.php">Retour au site</a></li>
    <li><a href="./auth.php?what=logout">Logout</a></li>
   </ul></li>
   </ul>

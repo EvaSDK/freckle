@@ -64,9 +64,17 @@ function display_documents( $long, $conn )
   if($ptr = mysql_query($sql)) {
     $lcat = getCatCode();
     while($row = mysql_fetch_object($ptr)) {
+      $filename = str_replace("&", "&amp;", $row->file);
+      
+      if( strlen($filename) >= 35 )
+      {
+        $filename = "<abbr title=\"$filename\">" . substr($filename,0,20) . "...</abbr>";
+      }
+      
+      $link = str_replace("&", "&amp;", $row->link);
       echo "<tr>\n";
-      echo "  <td width='16px'><img src='" . getIcon($row->file) . "' alt='icon'/></td>\n";
-      echo "  <td><a href='../$row->link'>" . "$row->file</a></td>\n";
+      echo "  <td class='icon'><img src='" . getIcon($row->file) . "' alt='icon'/></td>\n";
+      echo "  <td><a href='../$link'>$filename</a></td>\n";
       echo "  <td style='text-align: right;'>" . getCat($row->cat , $lcat) . "</td>\n</tr>\n";
     };
     /*if ($ptr==NULL) echo "<tr><td><p>Pas de Résultats dans cette catégorie</p></td></tr>\n";*/
@@ -107,16 +115,15 @@ function display_categorie() {
   while( $row = mysql_fetch_object($ptr) )
   {
     if( $i==0 ) echo "<tr>\n";
-    echo "<td align='right'>[$row->code]</a></td>";
-    echo "<td><a href='index.php?location=file&amp;focus=yes&amp;focus1="
-		 . pow(2,$row->id) . "'>$row->nom</a></td>";
+    echo "<td style='text-align: right;'>[$row->code]</td>";
+    echo "<td><a href='documents.php?see=4&amp;categorie=" . pow(2,$row->id) . "'>$row->nom</a></td>";
     if( $i==1 ) {
 	  echo "</tr>\n";
 	  $i=-1;
 	}
     $i = $i+1;
   }
-  echo "</table>\n";
+  echo "</tr>\n</table>\n";
 }
 
 ?>

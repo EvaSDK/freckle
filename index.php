@@ -75,7 +75,7 @@
   <div class="box">
    <h3>Qu'est ce que Freckle</h3>
    <p>
-    Freckle, pour ceux qui ne le sauraient pas encore, est un site rassemblant tous les documents fournis par les élèves, les administratifs et les enseignants de l'ESIEE.
+    <strong>Freckle</strong>, pour ceux qui ne le sauraient pas encore, est un site rassemblant tous les documents fournis par les élèves, les administratifs et les enseignants de l'ESIEE. Vous êtes <em>fortement encouragé</em> à contribuer en envoyant un mail avec vos documents à <strong>freckle [at] esiee [point] fr</strong>.
    </p>
    <ul>
     <li><a href="documents.php">Accéder au documents</a></li>
@@ -87,7 +87,7 @@
   <div class="box">
    <h3>Nouveaux</h3>
    <h4>Les 10 documents les plus récents</h4>
-   <table width='100%'>
+   <table>
    <?php
      display_documents( "10", $conn );
    ?>

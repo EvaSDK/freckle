@@ -73,35 +73,19 @@
   <h2 class="titre-page">Documents</h2>
 
   <div class="box">
-   <?php if( $see != 4 )
-     {
-       echo "<h3>Nouveaux</h3>\n";
-       echo "<h4>Les 10 documents les plus récents</h4>\n";
-       echo "<table width='100%'>\n";
-       display_documents( "10", $conn );
-     } else {
-       echo "<h3>Résultats</h3>\n";
-       echo "<table width='100%'>\n";
-       display_documents( $categorie, $conn );
-     }
-   ?>
-   </table>
-  </div>
-
-  <div class="box">
    <h3>Trouver...</h3>
    <p>Afficher les documents de la catégorie:</p>
    <form>
     <input name="see" type="hidden" value="4" />
-   <?php
+    <?php
      $ptr = mysql_query("select * from cat order by code");
      echo "<select name='categorie'>\n";
      while($row = mysql_fetch_object($ptr)) {
        echo "<option value='" . pow(2,$row->id) ."'>[$row->code] $row->nom</option>\n";
 	}
      echo "</select>";
-   ?>
-   <input type="submit" name="Submit2" value="Voir" />
+    ?>
+    <input type="submit" name="Submit2" value="Voir" />
 
 <!--
 	  <a href=\"index.php?location=file&focus=yes&focus1="
@@ -109,12 +93,28 @@
        echo "<td class=\"$class\"><a href=\"index.php?location=file&focus=yes&focus1="
          . pow(2,$row->id) . "\">$row->nom</a></td></tr>";
 -->
-   </form>
-   </div>
+  </form>
+ </div>
 
-   <div class="box" id="gene">
-    Freckle - Mis à jour le 19/02/2004 - Généré en <?php echo round(microtime() - $start_time, 3); ?> secondes.
-   </div>
+ <div class="box">
+   <?php if( $see != 4 )
+     {
+       echo "<h3>Nouveaux</h3>\n";
+       echo "<h4>Les 10 documents les plus récents</h4>\n";
+       echo "<table>\n";
+       display_documents( "10", $conn );
+     } else {
+       echo "<h3>Résultats</h3>\n";
+       echo "<table>\n";
+       display_documents( $categorie, $conn );
+     }
+   ?>
+   </table>
+  </div>
+
+  <div class="box" id="gene">
+   Freckle - Mis à jour le 19/02/2004 - Généré en <?php echo round(microtime() - $start_time, 3); ?> secondes.
+  </div>
 
  </div>
 
