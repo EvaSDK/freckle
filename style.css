@@ -39,27 +39,32 @@ a:hover,a:visited:hover {
 	position: relative;	
 	top: 0;
 	left: 0;
-	height: 74px;
-	background: white;
-	padding: 16px 0px 16px 0px;
+	height: 80px;
+	background-color: white;
+/*	padding: 16px 0px 16px 0px;*/
 /*	border-bottom: 1px solid #000000;*/
 }
 
 .head h1 {
+	visibility: hidden;
 	font-size: 24px;
 	font-weight: bold;
 	letter-spacing: 0.1em;
 	margin: 0;
 	padding: 0px 0 0px 10px;
+	padding: 0;
 }
 
 .head img {
-	float: right;
-	height: 74px;
-	width: 150px;
+/*	float: right;*/
+	height: 72px;
+/*	width: 150px;*/
+	margin: 0;
+	padding:0;
 	position: absolute;
-	top: 0;
-	right: 0;
+	top: 2px;
+/*	right: 0;*/
+	left: 10px;
 }
 
 .content {

@@ -1,5 +1,5 @@
 <?
-// MySQL Web Interface Version 0.8
+  // MySQL Web Interface Version 0.8
  
 include("param.php"); 
 $HOSTNAME = $dns;
@@ -44,17 +44,17 @@ function listTables() {
 	echo "Table List\n";
 	echo "<p class=location>$dbname</p>\n";
 	echoQueryResult();
-	echo "<form action='$PHP_SELF' method=\"post\">\n";
-	echo "<input type=hidden name=action value=createTable>\n";
-	echo "<input type=hidden name=dbname value=$dbname>\n";
-	echo "<input type=text name=tablename>\n";
-	echo "<input type=submit value='Create Table'>\n";
-	echo "</form>\n";
-	echo "<form action='$PHP_SELF' method=\"post\" enctype=\"multipart/form-data\">\n";
-	echo "<input type=hidden name=action value=query>\n";
-	echo "<input type=hidden name=dbname value=$dbname>\n";
-	echo "<textarea name=queryStr cols=\"70\" rows=\"10\"></textarea><br>";
-	echo "<input type=submit value='Query'>\n";
+	echo "<form action='$PHP_SELF' method='post'>\n";
+	echo "  <input type='hidden' name='action' value='createTable'>\n";
+	echo "  <input type='hidden' name='dbname' value='$dbname'>\n";
+	echo "  <input type='text' name='tablename'>\n";
+	echo "  <input type='submit' value='Créer une Table'>\n";
+	echo "</form>\n\n";
+	echo "<form action='$PHP_SELF' method='post' enctype='multipart/form-data'>\n";
+	echo "  <input type='hidden' name='action' value='query'>\n";
+	echo "  <input type='hidden' name='dbname' value='$dbname'>\n";
+	echo "  <textarea name='queryStr' cols='70' rows='10'></textarea><br />";
+	echo "  <input type='submit' value='Query'>\n";
 	echo "</form>\n";
 
 	$pTable = mysql_list_tables( $dbname );
@@ -66,22 +66,15 @@ function listTables() {
 	}
 	$num = mysql_num_rows( $pTable );
 
-	echo "<table cellspacing=1 cellpadding=5>\n";
+	echo "<ul>\n";
 
 	for( $i = 0; $i < $num; $i++ ) {
 		$tablename = mysql_tablename( $pTable, $i );
 
-		echo "<tr>\n";
-		echo "<td>\n";
-		echo "$tablename\n";
-		echo "</td>\n";
-		echo "<td>\n";
-		echo "<a href='$PHP_SELF?action=viewData&dbname=$dbname&tablename=$tablename'>Data</a>\n";
-		echo "</td>\n";
-		echo "</tr>\n";
+		echo "<li><a href='$PHP_SELF?action=viewData&dbname=$dbname&tablename=$tablename'>data</a> | $tablename</li>\n";
 	}
 
-	echo "</table>";
+	echo "</ul>";
 }
 
 function createTable() {
@@ -379,7 +372,7 @@ function manageField( $cmd ) {
 		echo "<input type=submit value='Add Field'>\n";
 	else if( $cmd == "edit" )
 		echo "<input type=submit value='Edit Field'>\n";
-	echo "<input type=button value=Cancel onClick='history.back()'>\n";
+	echo "<input type=button value='Cancel' onClick='history.back()'>\n";
 	echo "</form>\n";
 }
 
@@ -592,21 +585,21 @@ function manageData( $cmd ) {
 		$data = mysql_fetch_array( $pResult );
 	}
 
-	echo "<p class=location>$dbname &gt; $tablename</p>\n";
+	echo "<h2 class='titre-page'>$dbname &gt; $tablename</h2>\n";
 
-	echo "<form action='$PHP_SELF' method=post>\n";
+	echo "<form action='$PHP_SELF' method='post'>\n";
+
 	if( $cmd == "add" )
-		echo "<input type=hidden name=action value=addData_submit>\n";
+	  echo "<input type='hidden' name='action' value='addData_submit'>\n";
 	else if( $cmd == "edit" )
-		echo "<input type=hidden name=action value=editData_submit>\n";
-	echo "<input type=hidden name=dbname value=$dbname>\n";
-	echo "<input type=hidden name=tablename value=$tablename>\n";
+	  echo "<input type='hidden' name='action' value='editData_submit'>\n";
+	  
+	echo "<input type='hidden' name=dbname value=$dbname>\n";
+	echo "<input type='hidden' name=tablename value=$tablename>\n";
+
 	echo "<table cellspacing=1 cellpadding=2>\n";
 	echo "<tr>\n";
-	echo "<th>Name</th>\n";
-	echo "<th>Type</th>\n";
-	echo "<th>Function</th>\n";
-	echo "<th>Data</th>\n";
+	echo "<th>Name</th><th>Type</th><th>Function</th><th>Data</th>\n";
 	echo "</tr>\n";
 
 	$pResult = mysql_db_query( $dbname, "SHOW fields FROM $tablename" );
@@ -694,13 +687,15 @@ function manageData( $cmd ) {
 	}
 	echo "</table><p>\n";
 	if( $cmd == "add" )
-		echo "<input type=submit value='Add Data'>\n";
+		echo "<input type='submit' value='Add Data'>\n";
 	else if( $cmd == "edit" )
-		echo "<input type=submit value='Edit Data'>\n";
+		echo "<input type='submit' value='Edit Data'>\n";
 	echo "<input type=button value='Cancel' onClick='history.back()'>\n";
 	echo "</form>\n";
 }
 
+
+/* fonction de gestion de l'édition et de la modification de la base */
 function manageData_submit( $cmd ) {
 	global $mysqlHandle, $dbname, $tablename, $fieldname, $PHP_SELF, $queryStr, $errMsg;
 
