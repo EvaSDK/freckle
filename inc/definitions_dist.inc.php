@@ -16,4 +16,7 @@
 	/* nombre de résultats par page */
 	$step = 15;
 
+  /* répertoire de base pour l'entrepôt de fichiers */
+	$repos_abs  = "/home/eva/web/files/";
+	$repos_html = "~freckle/files/";
 ?>
