@@ -91,25 +91,27 @@ function getIcon ( $file ) {
 function description_critere()
 {
 	$link = db_connect();
+	$cat1 = $_GET['cat1'];
+	$cat2 = $_GET['cat2'];
 
-	if( $_GET['cat1']!="" )
+	if( $cat1!="" )
 		echo "<h4>Recherche des documents en ";
 	
-	if( isset( $_GET['cat1'] ) )
+	if( $cat1!="" )
 	{
-		$result = db_query($link,"SELECT ccourt FROM categorie where id='".$_GET['cat1']."'");
+		$result = db_query($link,"SELECT ccourt FROM categorie where id='$cat1'");
 		$res =  db_fetch_object($result);
 		echo $res->ccourt;
 	}
-	if( $_GET['cat2']!=0)
+	if( $cat2!="" and $cat2!=0 )
 	{
 		echo " et ";
-		$result = db_query($link,"SELECT ccourt FROM categorie where id='".$_GET['cat2']."'");
+		$result = db_query($link,"SELECT ccourt FROM categorie where id='$cat2'");
 		$res = db_fetch_object($result);
 		echo $res->ccourt;
 	}
 
-	if( $_GET['cat1']!="" )
+	if( $cat1!="" )
 		echo ".</h4>\n";
 		
 	db_close($link);
