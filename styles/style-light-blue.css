@@ -294,7 +294,7 @@ input[type=button]:hover, input[type=submit]:hover {
 	background-color: #fffcd2;
 }
 
-textarea:hover, input[type=text]:hover {
+textarea:hover, input[type=text]:hover, input[type=password]:hover {
 	border-color: black;
 	background-color: #fffcd2;
 }
