@@ -75,10 +75,9 @@
   <div class="box">
    <h3>Outils</h3>
    <p>
-    Ceci est une liste non exhaustive des outils nécessaires pour se
-    servir des fichiers de freckle ou pour proposer des documents.
+    Ceci est une liste non exhaustive des outils recommandés pour se
+    servir efficacement des fichiers de freckle ou pour proposer des documents.
    </p>
-   <object>
    <ul>
     <li>
      <a href="http://www.adobe.com/products/acrobat/readstep2.html">Acrobat Reader</a>
@@ -90,24 +89,26 @@
     </li>
     <li>
      <a href="http://www.tug.org/teTeX/">teTex</a>
-     <p>Tout comme LaTeX, outils de mise en forme très puissant qui à l'avantage d'être libre et relativement facile à apprendre</p>
+     <p>Tout comme LaTeX, outils de mise en forme très puissant qui à l'avantage d'être libre et relativement facile à apprendre, parfait pour faire des rapports de TP</p>
     </li>
     <li>
      <a href="http://www.latex-project.org/">LaTeX</a>
      <p>Voir teTeX</p>
     </li>
    </ul>
-   </object>
   </div>
 
   <div class="box">
    <h3>Recommandations</h3>
    <p>
-    Afin d'uniformiser le type de fichier qu'on peut trouver sur ce site,
-    vous êtes prié de fournir des documents de préférence sous forme de
-    <acronym title="Portable Document Format">PDF</acronym> avec leur sources
-    de préférence en LaTeX ou en teTeX, le tout zippé. Vous pouvez pour cela
-    vous servir des outils évoqués ci-dessus.
+    Afin d'uniformiser les types de fichiers disponibles sur ce site,
+    nous recommendons l'utilsation du format 
+    <acronym title="Portable Document Format">PDF</acronym>. Cela permet de consulter
+    Freckle et ses documents sur n'importe quelle platforme (y-compris les stations Unix 
+    HP-UX en 5004 et 5006). Afin de pouvoir mettre à jour les PDF facilement, nous vous 
+    demandons de les fournir avec leur sources (LaTeX, OpenOffice, document MSOffice, ...).
+    Nous vous conseillons d'utiliser LaTeX (un peu complexe au début mais résultat professionel)
+    ou bien OpenOffice qui propose en standard un bouton "Export to PDF" dans sa barre de menu.
    </p>
    <p>
     Notes: les documents existants seront progressivement amenés vers 
@@ -117,10 +118,10 @@
     sources.
    </p>
    <p>
-    Pour ceux qui ne saurait pas encore se servir de LaTeX et Cie. le
-    Club*nix organisera probablement quelques séances d'initiation
-    dans les prochains mois. Pour plus d'informations envoyez un mail
-    à <a href="mailto://clubnix@esiee.fr">clubnix@esiee.fr</a>.
+    Pour ceux qui ne sauraient pas encore se servir de LaTeX et Cie. le
+    Club*Nix organise des séances d'initiation (selon la demande)
+    Pour plus d'informations envoyez un mail à 
+    <a href="mailto://clubnix@esiee.fr">clubnix@esiee.fr</a>.
    </p>
    </div>
 
