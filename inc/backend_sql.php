@@ -8,7 +8,7 @@ function q_num_rows( $o1 )
 	switch ( $SQL )
 	{
 		case "mySQL": $result = mysql_num_rows($o1); break;
-		case "pgSQL": $result =    pg_num_rows($o2); break;
+		case "pgSQL": $result =    pg_num_rows($o1); break;
 	}
 	return $result;
 }
