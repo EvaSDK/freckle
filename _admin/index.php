@@ -1,6 +1,6 @@
 <?php
 include("param.php");
-include("../forums/include.php");
+include("../inc/forum.inc.php");
 
 $conn = mysql_pconnect($dns,$usr,$pwd);
 mysql_select_db ( $db , $conn );

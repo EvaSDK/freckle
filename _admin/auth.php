@@ -1,6 +1,6 @@
 <?php
   include("param.php");
-  include("../forums/include.php");
+  include("../inc/forum.inc.php");
   include("../inc/auth.inc.php");
   include("../inc/stats.inc.php");
 

@@ -3,9 +3,9 @@
   ob_start();
 
   @include("_admin/param.php");
-  include("forums/include.php");
-  include("./inc/stats.inc.php");
-  include("./inc/general.inc.php");
+  include("inc/forum.inc.php");
+  include("inc/stats.inc.php");
+  include("inc/general.inc.php");
 
   $countup=0;
   if ( $_COOKIE["freckle-esiee"] != "1" )

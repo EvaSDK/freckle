@@ -1,8 +1,8 @@
 <?php
   include("param.php");
-  include("../forums/include.php");
-  include("../inc/stats.inc");
-  include("../inc/news.inc");
+  include("../inc/forum.inc.php");
+  include("../inc/stats.inc.php");
+  include("../inc/news.inc.php");
 
   $conn = mysql_pconnect($dns,$usr,$pwd);
   mysql_select_db ( $db , $conn );
