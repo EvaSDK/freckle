@@ -15,7 +15,7 @@ Section ADMIN
  * permettre à process.php de renvoyer un message via $_SESSION à management.php même en cas d'erreur
  - (?) suppression des fichiers directement par l'interface web
  @ fonction de génération d'un formulaire à 2 entrées gérant les catégories
- - ajouter des vérifications sur les données envoyés à process.php pour éviter des oublis 
+ * ajouter des vérifications sur les données envoyés à process.php pour éviter des oublis 
  - (?) petit javascript pour compléter automatiquement les champs dans l'interface d'administration pour une gestion plus simple des fichiers
  - ajouter une interface de contrôle de la cohérence de la base de données vis à vis du système de fichiers (existance des fichiers présent dans la base de données)
 

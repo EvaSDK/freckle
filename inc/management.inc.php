@@ -23,7 +23,7 @@ function list_query($what,$offset,$step,$limit)
 		$query = "SELECT * FROM fichiers WHERE id NOT IN (SELECT id_fichier FROM reference) ";
 	} else if ($what=="defect")
 	{
-		$query = "SELECT (select ccourt FROM categorie WHERE id=id_categorie1) as cat1, (SELECT ccourt FROM categorie WHERE id=id_categorie2) as cat2,id_fichier,annee_prod,url FROM reference,fichiers WHERE fichiers.id=reference.id_fichier";
+		$query = "SELECT id_fichier,url,annee_prod,feinte.ccourt,categorie.ccourt FROM reference,fichiers,categorie, categorie as feinte WHERE fichiers.id=reference.id_fichier AND categorie.id=id_categorie1 AND feinte.id=id_categorie2 ORDER BY id_fichier";
 	}
 
 	if ($limit==TRUE)
@@ -50,29 +50,30 @@ function display_list_entries($what,$offset,$step)
 	while ($object = db_fetch_object($result))
 	{
 		$i++;
+		$id = $object->id;
 		switch($what) {
 			case fichiers:
-				echo "<tr><td>$object->id</td>";
-				echo "<td><input type='checkbox' name='ids-$i' value='".$object->id."'/>";
+				echo "<tr><td>$id</td>";
+				echo "<td><input type='checkbox' name='ids-$id' value='$id'/>";
 				echo "<td>$object->anne_prod</td><td>$object->url</td>\n"; break;
 				echo "<td>$object->comment</td></tr>\n"; break;
 			case categorie:
-				echo "<tr><td>$object->id</td>";
-				echo "<td><input type='checkbox' name='ids-$i' value='".$object->id."'/>";
+				echo "<tr><td>$id</td>";
+				echo "<td><input type='checkbox' name='ids-$id' value='$id'/>";
 				echo "<td>$object->ccourt</td>";
 				echo "<td>$object->clong</td></tr>\n"; break;
 			case types: 
-				echo "<tr><td>$object->id</td>";
-				echo "<td><input type='checkbox' name='ids-$i' value='".$object->id."'/>";
+				echo "<tr><td>$id</td>";
+				echo "<td><input type='checkbox' name='ids-$id' value='$id'/>";
 				echo "<td>$object->type</td></tr>\n"; break;
 			case affect:
-				echo "<tr><td>$object->id</td>\n";
-				echo "<td><input type='checkbox' name='ids-$i' value='".$object->id."'/>\n";
+				echo "<tr><td>$id</td>\n";
+				echo "<td><input type='checkbox' name='ids-$id' value='$id'/>\n";
 				echo "<td>$object->url</td></tr>\n";
 				break;
 			case defect:
 				echo "<tr><td>$object->id_fichier</td>";
-				echo "<td><input type='checkbox' name='ids-$i' value='".$object->id_fichier."'/>";
+				echo "<td><input type='checkbox' name='ids-".$object->id_fichier."' value='".$object->id_fichier."'/>";
 				echo "<td>$object->cat1</td>";
 				echo "<td>$object->cat2</td>";
 				echo "<td>$object->url</td></tr>\n";

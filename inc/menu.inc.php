@@ -10,7 +10,7 @@
 	echo "<ul>\n";
 	echo "\t<li><h2>Général</h2>\n";
 	echo "\t<ul>\n";
-	echo "\t\t<li><a href='index.php?action=accueil'>Accueil</a></li>\t";
+	echo "\t\t<li><a href='index.php?action=accueil'>Accueil</a></li>\n";
 	echo "\t\t<li><a href='index.php?action=docs'>Documents</a></li>\n";
 	//echo "\t\t<li><a href='display.php?what=site'>Autres sites ESIEE</a></li>\n";
 	echo "\t\t<li><a href='index.php?action=tools'>Outils et recommandations</a></li>\n";

@@ -1,7 +1,8 @@
 <?
 	session_start();
-	require("./inc/definitions.php");
+	require("./inc/definitions.inc.php");
 	require("./inc/backend_sql.php");
+
 	include("./inc/auth.inc.php");
 	include("./inc/general.inc.php");
 
@@ -12,6 +13,17 @@
  
 	$action = $_POST['action'];
 	$what = $_POST['what'];
+	
+	$cat1 = $_POST['cat1'];
+	$cat2 = $_POST['cat2'];
+
+	/* triage des catégories */
+	if( $cat1 > $cat2 and $cat2!=0 )
+	{
+		$cat2 = $cat1;
+		$cat1 = $_POST['cat2'];
+	}
+	
 /*	$id = $_POST['id'];*/
 /*
 	if( !is_integer( $id ) )
@@ -73,11 +85,11 @@
 	{
 		$_SESSION['message'] = "Fichier $id classé";
 		 
-		if( isset($_POST['cat2']) )
+		if( isset($cat2) )
 		{
-			$query .= "INSERT INTO reference (id_categorie1,id_categorie2,id_fichier,id_type) VALUES ('".$_POST['cat1']."','".$_POST['cat2']."','#ID#','".$_POST['type']."');";
+			$query .= "INSERT INTO reference (id_categorie1,id_categorie2,id_fichier,id_type) VALUES ('".$cat1."','".$cat2."','#ID#','".$_POST['type']."');";
 		} else {
-			$query = "INSERT INTO reference (id_categorie1,id_categorie2,id_fichier,id_type) VALUES ('".$_POST['cat1']."','0','#ID#','".$_POST['type']."');";
+			$query = "INSERT INTO reference (id_categorie1,id_categorie2,id_fichier,id_type) VALUES ('".$cat1."','0','#ID#','".$_POST['type']."');";
 		}
 	} else if ($action=="Désaffecter")
 	{
@@ -97,7 +109,7 @@
 
 	$cids = count( $ids );
 
-	if( $what=="Ajouter" and $cids!=1 )
+	if( ($what=="Ajouter" or $what=="Modifier") and $cids!=1 )
 	{
 		$_SESSION['message'] = "Impossible de faire des requêtes simultanées pour ajouter des éléments";
 		header("Location: ./management.php?what=$what");
@@ -109,6 +121,11 @@
 		db_query( $dblink, preg_replace("/.ID./",$ids[$i],$query) );
 	}
 	db_close($dblink);
+
+	if( $cids==0 )
+	{
+		$_SESSION['message'] = "Rien à faire";
+	}
 
 	header("Location: ./management.php?what=$what");
 ?>

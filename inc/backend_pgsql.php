@@ -32,7 +32,7 @@ function db_num_rows( $resource )
 
 function db_fetch_object( $resource )
 {
-  return mysql_fetch_object( $resource );
+  return pg_fetch_object( $resource );
 }
 
 ?>
