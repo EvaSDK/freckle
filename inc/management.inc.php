@@ -57,44 +57,54 @@ function display_list_entries($what,$offset)
 
 	echo "<table>\n";
 	$i = 0;
-	while ($object = db_fetch_object($result))
+	while ($arr = db_fetch_array($result))
 	{
 		$i++;
-		$id = $object->id;
+
+		if( array_key_exists("id_fichier",$arr) )
+		{
+			$arr["id"] = $id_fichier;
+		}
+		$id = $arr["id"];
+		
+		echo "<tr>\n";
+
+		if( $_SESSION["admin"]==TRUE )
+		{
+				echo "\t<td>$id</td>\n";
+		}
+		
 		switch($what) {
 			case "fichiers":
-				echo "<tr><td>$id</td>";
-				echo "<td><input type='checkbox' name='ids-$id' value='$id'/>";
-				echo "<td>$object->anne_prod</td><td>$object->url</td>\n"; break;
-				echo "<td>$object->comment</td></tr>\n"; break;
+				echo "\t<td><input type='checkbox' name='ids-$id' value='$id'/></td>\n";
+				echo "\t<td>".$arr["anne_prod"]."</td>\n";
+				echo "\t<td>".$arr["url"]."</td>\n"; break;
+				//echo "\t<td>".$arr["comment"]."</td></tr>\n"; break;
 			case "categorie":
-				echo "<tr><td>$id</td>";
-				echo "<td><input type='checkbox' name='ids-$id' value='$id'/>";
-				echo "<td>$object->ccourt</td>";
-				echo "<td>$object->clong</td></tr>\n"; break;
+				echo "\t<td><input type='checkbox' name='ids-$id' value='$id'/></td>\n";
+				echo "\t<td>".$arr["ccourt"]."</td>\n";
+				echo "\t<td>".$arr["clong"]."</td>\n"; break;
 			case "types": 
-				echo "<tr><td>$id</td>";
-				echo "<td><input type='checkbox' name='ids-$id' value='$id'/>";
-				echo "<td>$object->type</td></tr>\n"; break;
+				echo "\t<td><input type='checkbox' name='ids-$id' value='$id'/>\n";
+				echo "\t<td>".$arr["type"]."</td>\n"; break;
 			case "affect":
-				echo "<tr><td>$id</td>\n";
-				echo "<td><input type='checkbox' name='ids-$id' value='$id'/>\n";
-				echo "<td>$object->url</td></tr>\n";
+				echo "\t<td><input type='checkbox' name='ids-$id' value='$id'/>\n";
+				echo "\t<td>".$arr["url"]."</td></tr>\n";
 				break;
 			case "search":
-				echo "<tr><td>$object->id_fichier</td>";
-				$filename = $object->url;
-				echo "<td><img src='".getIcon($filename)."' alt='icon'/></td>\n";
-				echo "<td><a href='files/$filename'>".basename($filename)."</a></td></tr>\n";
+				$filename = $arr["url"];
+				echo "\t<td><img src='".getIcon($filename)."' alt='icon'/></td>\n";
+				echo "\t<td><a href='files/$filename'>".basename($filename)."</a></td></tr>\n";
 				break;
 			case "defect":
-				echo "<tr><td>$object->id_fichier</td>";
-				echo "<td><input type='checkbox' name='ids-".$object->id_fichier."' value='".$object->id_fichier."'/>";
-				echo "<td>$object->cat1</td>";
-				echo "<td>$object->cat2</td>";
-				echo "<td>$object->url</td></tr>\n";
+				echo "\t<td><input type='checkbox' name='ids-$id' value='$id'/>\n";
+				echo "\t<td>".$arr["cat1"]."</td>\n";
+				echo "\t<td>".$arr["cat2"]."</td>\n";
+				echo "\t<td>".$arr["url"]."</td>\n";
 				break;
 		}
+
+		echo "</tr>\n";
 	}
 	echo "</table>\n";
 	db_close($link);
@@ -231,6 +241,29 @@ function dive_fs( $dir, &$files, $handle )
 		if( $entrie!="." and $entrie!=".." and is_file($entrie) )
 			$files[] = $dir.$entrie;
 	}
+}
+
+function vfs_handling( $link )
+{
+	global $repos;
+	$scheme = substr($file, strpos( $link, "/", strpos( $link,"/") ));
+
+	echo $scheme;
+	
+	switch( $scheme )
+	{
+		case "file://" :
+			$link = preg_replace("/file:\/\//",$repos,$link);
+			$disp = "scheme file";
+			break;
+
+		case "http://" :
+	//		$disp = $ récup commentaire
+			$disp = "scheme http";
+			break;
+	}
+
+	return array($link,$disp);
 }
 
 ?>

@@ -36,6 +36,11 @@ function db_fetch_object( $resource )
 	return mysql_fetch_object( $resource );
 }
 
+function db_fetch_array( $resource )
+{
+	return mysql_fetch_array( $resource );
+}
+
 /* génére la partie limitant le nombre de réstulats de la requête */
 function sql_limit($offset)
 {
