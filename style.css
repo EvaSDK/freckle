@@ -35,8 +35,12 @@ a:hover,a:visited:hover {
 	text-decoration: none;
 }
 
-/*abbr, acronym {
-	display: help;
+/*abbr:before {
+	content: "<acronym title='"attr(title)"'>";
+}
+
+abbr:after {
+	content: "</acronym>";
 }*/
 
 .head {
