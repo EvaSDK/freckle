@@ -7,7 +7,7 @@
 	$hostname = "localhost";
 	$username = "freckle";
 	$password = "bidon";
-	$dbname   = "freckle";
+	$dbname   = "FRECKLE";
 
 	/* paramètre section administration */
 	$admin_pass = "coin";
