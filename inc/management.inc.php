@@ -12,7 +12,8 @@
 
 
 /* renvoie la requête adéquate pour une des 2 fonctions suivantes
- * $what est l'action à effectuer
+ *
+ * $what = action à effectuer
  */
 function get_query($what)
 {
@@ -217,6 +218,8 @@ function get_form($what)
 	echo "\t</fieldset>\n";
 }
 
+
+/* fonction inutile pour le moment */
 function crawl_fs()
 {
 	global $repos;
@@ -248,6 +251,11 @@ function dive_fs( $dir, &$files, $handle )
 	}
 }
 
+
+/* Gestion du mini-vfs
+ *
+ * $arr = lien à analyser
+ */
 function vfs_handling( $arr )
 {
 

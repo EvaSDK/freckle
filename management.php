@@ -63,13 +63,15 @@
 
 		echo "<h3>Vue des données</h3>\n";
 		echo "<h4>\n";
-		echo "\t<div class='admin-datalist'><a href='management?what=types'>Types</a>";
-		echo "<a href='management.php?what=fichiers'>Fichiers</a>";
-		echo "<a href='management.php?what=categorie'>Catégorie</a>";
-		echo "<a href='management.php?what=affect'>Classer</a>\n";
-		echo "<a href='management.php?what=defect'>Désaffecter</a></div>\n";
+		echo "\t<div class='admin-datalist' id='".$_GET['what']."'>\n";
+		echo "\t<a id='types'     href='management.php?what=types'>Types</a>\n";
+		echo "\t<a id='fichiers'  href='management.php?what=fichiers'>Fichiers</a>\n";
+		echo "\t<a id='categorie' href='management.php?what=categorie'>Catégorie</a>\n";
+		echo "\t<a id='affect'    href='management.php?what=affect'>Classer</a>\n";
+		echo "\t<a id='defect'    href='management.php?what=defect'>Désaffecter</a>\n";
+		echo "\t</div>\n";
 		display_list_access($what,$current);
-		echo "\n</h4>\n";
+		echo "</h4>\n";
 
 		$msg = $_SESSION['message'];
 		unset($_SESSION['message']);
