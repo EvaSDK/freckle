@@ -89,7 +89,7 @@ function display_list_access($what,$offset,$step)
 
 	for($i=0; $i<pg_num_rows($result); $i+=$step)
 	{
-	 echo "<a href='management.php?what=$what&amp;current=$i'>".($i+1)."-".($i+$step)."</a> ";
+		echo "<a href='management.php?what=$what&amp;current=$i'>".($i+1)/*."-".($i+$step)*/."</a> ";
 	}
 	echo "</div>";
 }
