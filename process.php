@@ -1,4 +1,4 @@
-<?
+<?php
 	session_start();
 	require("./inc/definitions.inc.php");
 	require("./inc/backend_sql.php");
@@ -24,12 +24,6 @@
 		$cat1 = $_POST['cat2'];
 	}
 	
-/*	$id = $_POST['id'];*/
-/*
-	if( !is_integer( $id ) )
-		header("Location: index.php"); 
-*/
-
 	if($action=='Ajouter')
 	{
 		switch($what)
@@ -83,7 +77,7 @@
 		}
 	} else if ($action=="Classer")
 	{
-		$_SESSION['message'] = "Fichier $id classé";
+		$_SESSION['message'] = "Fichier(s) classé(s)";
 		 
 		if( isset($cat2) )
 		{
@@ -124,9 +118,13 @@
 	} else {
 		$cids = count( $ids );
 
+		//print_r( $ids );
+
 		for( $i=0; $i<$cids; $i++ )
 		{
 			db_query( $dblink, preg_replace("/.ID./",$ids[$i],$query) );
+			//echo "<p>".preg_replace("/.ID./",$ids[$i],$query)."</p>";
+
 		}
 	}
 

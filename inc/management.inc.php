@@ -19,21 +19,21 @@ function get_query($what)
 	switch( $what )
 	{
 		case "affect":
-			$query = "SELECT * FROM fichiers LEFT JOIN reference ON id=id_fichier WHERE id_fichier IS NULL ";
+			$query = "SELECT id,url,annee_prod,commentaire FROM fichiers LEFT JOIN reference ON id=id_fichier WHERE id_fichier IS NULL ";
 			break;
 		case "defect":
-			$query = "SELECT id_fichier,url,annee_prod,feinte.ccourt,categorie.ccourt,commentaire FROM reference,fichiers,categorie, categorie as feinte WHERE fichiers.id=reference.id_fichier AND categorie.id=id_categorie1 AND feinte.id=id_categorie2 ORDER BY id_fichier";
+			$query = "SELECT id_fichier,url,annee_prod,feinte.ccourt as cat1,categorie.ccourt as cat2,commentaire FROM reference,fichiers,categorie, categorie as feinte WHERE fichiers.id=reference.id_fichier AND categorie.id=id_categorie1 AND feinte.id=id_categorie2 ORDER BY id_fichier";
 			break;
 		case "search":
 			$cat1 = $_GET['cat1'];
 			$cat2 = $_GET['cat2'];
 
 			if( $cat1=="" and $cat2=="" ) {
-				$query = "SELECT id_fichier,url,annee_prod,commentaire FROM reference,fichiers WHERE fichiers.id=reference.id_fichier ORDER BY id_fichier DESC";
+				$query = "SELECT id_fichier,url,annee_prod,feinte.ccourt as cat1,categorie.ccourt as cat2,commentaire FROM reference,fichiers,categorie, categorie as feinte WHERE fichiers.id=reference.id_fichier AND categorie.id=id_categorie1 AND feinte.id=id_categorie2 ORDER BY id_fichier DESC";	
 			} else if ($cat2!=0) {
-				$query = "SELECT * FROM reference,fichiers WHERE reference.id_fichier=fichiers.id AND ((id_categorie1=$cat1 AND id_categorie2=$cat2) OR (id_categorie1=$cat2 AND id_categorie2=$cat1))";
+				$query = "SELECT id_fichier,url,annee_prod,feinte.ccourt as cat1,categorie.ccourt as cat2,commentaire FROM reference,fichiers,categorie, categorie as feinte WHERE fichiers.id=reference.id_fichier AND categorie.id=id_categorie1 AND feinte.id=id_categorie2  AND ((id_categorie1='$cat2' AND id_categorie2='$cat1') OR (id_categorie1='$cat1' AND id_categorie2='$cat2'))";
 			} else {
-				$query = "SELECT * FROM reference,fichiers WHERE reference.id_fichier=fichiers.id AND (id_categorie1=$cat1 OR id_categorie2=$cat1)";
+				$query = "SELECT id_fichier,url,annee_prod,feinte.ccourt as cat1,categorie.ccourt as cat2,commentaire FROM reference,fichiers,categorie, categorie as feinte WHERE fichiers.id=reference.id_fichier AND categorie.id=id_categorie1 AND feinte.id=id_categorie2  AND (id_categorie1='$cat1' OR id_categorie2='$cat1')";
 			}
 			break;
 		default:
@@ -61,7 +61,7 @@ function display_list_entries($what,$offset)
 	{
 		$i++;
 
-		if( array_key_exists("id_fichier",$arr) )
+		if( array_key_exists("id_fichier",$arr) && $arr["id_fichier"]!="" )
 		{
 			$arr["id"] = $arr["id_fichier"];
 		}
@@ -73,28 +73,33 @@ function display_list_entries($what,$offset)
 		{
 				echo "\t<td>$id</td>\n";
 		}
+
 		
 		switch($what) {
 			case "fichiers":
 				echo "\t<td><input type='checkbox' name='ids-$id' value='$id'/></td>\n";
 				echo "\t<td>".$arr["anne_prod"]."</td>\n";
-				echo "\t<td>".$arr["url"]."</td>\n"; break;
-				//echo "\t<td>".$arr["comment"]."</td></tr>\n"; break;
+				echo "\t<td>".$arr["url"]."</td>\n";
+				break;
 			case "categorie":
 				echo "\t<td><input type='checkbox' name='ids-$id' value='$id'/></td>\n";
 				echo "\t<td>".$arr["ccourt"]."</td>\n";
-				echo "\t<td>".$arr["clong"]."</td>\n"; break;
+				echo "\t<td>".$arr["clong"]."</td>\n";
+				break;
 			case "types": 
-				echo "\t<td><input type='checkbox' name='ids-$id' value='$id'/>\n";
-				echo "\t<td>".$arr["type"]."</td>\n"; break;
+				echo "\t<td><input type='checkbox' name='ids-$id' value='$id'/></td>\n";
+				echo "\t<td>".$arr["type"]."</td>\n";
+				break;
 			case "affect":
-				echo "\t<td><input type='checkbox' name='ids-$id' value='$id'/>\n";
+				echo "\t<td><input type='checkbox' name='ids-$id' value='$id'/></td>\n";
 				echo "\t<td>".$arr["url"]."</td>\n";
 				break;
 			case "search":
 				$arr = vfs_handling( $arr );
 				$filename = $arr["url"];
-				echo "\t<td><img src='".getIcon($arr["disp"])."' alt='icon'/></td>\n";
+				echo "\t<td><img src='".$arr["icon"]."' alt='icon'/></td>\n";
+				echo "\t<td>".$arr["cat1"]."</td>\n";
+				echo "\t<td>".$arr["cat2"]."</td>\n";
 				echo "\t<td><a href='".$arr["url"]."'>".$arr["disp"]."</a></td>\n";
 				break;
 			case "defect":
@@ -127,11 +132,10 @@ function display_list_access($what,$offset)
 
   if( !preg_match("/\*/",$query) )
   {
-    $query = preg_replace("/SELECT.(\w+)(,\S+)?.FROM/","SELECT count(\\1) as count FROM", $query );
+    $query = preg_replace("/SELECT.(\w+).*.FROM/","SELECT count(\\1) as count FROM", $query );
     $query = preg_replace("/ ORDER BY (\S+)(.(\S+)*)?/",";",$query);
   } else {
-    $query = preg_replace("/SELECT.(\S+).FROM/","SELECT count(id) as count FROM
-", $query );
+    $query = preg_replace("/SELECT.(\S+).FROM/","SELECT count(id) as count FROM", $query );
   }
 
   $result = db_query( $link, $query );
@@ -248,18 +252,19 @@ function vfs_handling( $arr )
 {
 
 	global $repos_html;
-	$scheme = substr( $arr["url"], 0, strpos( $arr["url"], "/", strpos( $arr["url"],"/") ) -1 );
+	$scheme = substr( $arr["url"], 0, strpos( $arr["url"], ":") );
 
 	switch( $scheme )
 	{
 		case "file" :
 			$arr["url"] = preg_replace("/file:\/\//", $repos_html, $arr["url"]);
-			$arr["disp"] = basename($arr["url"]);
+			$arr["disp"] = basename( substr( $arr["url"], strpos( $arr["url"], "-",  strpos( $arr["url"], "-") + 1 ) + 1 ) );
+			$arr["icon"] = getIcon($arr["disp"])
 			break;
 
 		case "http" :
-			//$arr["disp"] = $arr["url"];
 			$arr["disp"] = $arr["commentaire"];
+			$arr["icon"] = "~freckle/_icon/website.png";
 			break;
 	}
 
