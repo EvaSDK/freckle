@@ -39,7 +39,7 @@ a:hover,a:visited:hover {
 	top: 0;
 	left: 0;
 	height: 80px;
-	background: url(../images/freckle.jpg) no-repeat;
+	background: url(../images/freckle-noel.png) no-repeat;
 }
 
 .head h1 {
@@ -150,13 +150,13 @@ li:hover > ul.pop {
 	font-size: 13px;
 	font-variant: small-caps;
 	letter-spacing: 0.25em;
-	background-color: #DDDDDD;
+	background: #DDDDDD url(../images/titre-page-noel.png) repeat-x;
 }
 
 .box {
 	margin: 40px 0px 15px 15px;
 	padding: 0px 10px 15px 10px;
-	background-color: #e5f6ff;
+	background: #e5f6ff url(../images/box-noel.png) repeat-x;
 	border: 1px solid #71ADEA;
 }
 
