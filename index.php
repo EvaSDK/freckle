@@ -13,25 +13,27 @@
 
 <html	xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr">
 <head>
- <title>FRECKLE</title>
- <link href="./style.css" type="text/css" media="screen" rel="stylesheet" />
- <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<title>FRECKLE</title>
+	<link href="./style.css" type="text/css" media="screen" rel="stylesheet" />
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
 </head>
 
 <body>
  
- <div class="head">
- <h1>Freckle</h1>
- <img src="./freckle.png" title="bannière" alt="logo freckle" />
- </div>
+	<div class="wrapper">
+ 
+		<div class="head">
+			<h1>Freckle</h1>
+			<img src="./freckle.jpg" title="bannière" alt="logo freckle" />
+		</div>
 
- <div class="menu">
-	<?php include("./inc/menu.inc.php"); ?>
- </div>
+		<div class="menu">
+		<?php include("./inc/menu.inc.php"); ?>
+		</div>
 
- <div class="content">
-
-	<?php
+	 <div class="content">
+	
+<?php
 
 	if( isset($_GET['action']) )
 		$action = $_GET['action'];
@@ -45,19 +47,21 @@
 		case "tools"	 : include("tools.php"); break;
 	}
 
-	?>
+?>
 
-	<div class="box" id="gene">
-	 Freckle - Mis à jour le 24/10/2004
+			<div class="box" id="gene">
+				<p>Freckle - Mis à jour le 24/10/2004</p>
+			</div>
+
+		</div>
+
+	 <hr />
+
+	 <div class="foot">
+		<?php include("./inc/foot.inc.php"); ?>
+	 </div>
+	 
 	</div>
-
- </div>
-
- <hr />
-
- <div class="foot">
-	<?php include("./inc/foot.inc.php"); ?>
- </div>
 
 </body>
 </html>
