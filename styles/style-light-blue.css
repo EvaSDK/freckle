@@ -233,7 +233,11 @@ a#current_page {
 	font-size: 12px;
 }
 
-.admin-datalist#affect, .admin-datalist#defect, .admin-datalist#fichiers, .admin-datalist#types, .admin-datalist#categorie {
+.admin-datalist#affect #affect,
+.admin-datalist#defect #defect,
+.admin-datalist#fichiers #fichiers,
+.admin-datalist#types #types,
+.admin-datalist#categorie #categorie {
 	color: red;
 }
 
@@ -252,7 +256,10 @@ a#current_page {
 	font-size: 12px;
 }
 
-.admin-accesslist a:hover,.admin-accesslist a:visited:hover,.admin-datalist a:visited:hover,.admin-datalist a:hover {
+.admin-accesslist a:hover,
+.admin-accesslist a:visited:hover,
+.admin-datalist a:visited:hover,
+.admin-datalist a:hover {
 	background-color: white;
 }
 
@@ -279,8 +286,17 @@ fieldset {
 	border: none;
 }
 
-input,select,textarea {
+input, select, textarea {
 	border: 1px solid gray;
+}
+
+input[type=button]:hover, input[type=submit]:hover {
+	background-color: #fffcd2;
+}
+
+textarea:hover, input[type=text]:hover {
+	border-color: black;
+	background-color: #fffcd2;
 }
 
 /* tableau */

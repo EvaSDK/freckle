@@ -272,7 +272,7 @@ function vfs_handling( $arr )
 
 		case "http" :
 			$arr["disp"] = $arr["commentaire"];
-			$arr["icon"] = "_icon/web.gif";
+			$arr["icon"] = "images/icones/web.gif";
 			break;
 	}
 
