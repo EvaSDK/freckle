@@ -1,0 +1,20 @@
+CHANGELOG
+--------
+
+[01-10-2004 eva@shinobu]
+ - Adaptation des requêtes pour le nouveau format de la table reference
+ - Ajout des 2 champs manquant jusqu'à présent dans l'affichage des documents (catégories)
+
+[01-08-2004 eva@haruka]
+
+ - Déplacement de fichiers du dossier _admin dans la racine du site
+ - Fonction d'ajout/modification/suppression d'élément ajouté
+ - process.php renvoie un message lors de la réussite de l'opération
+ - le menu a été nettoyé
+ - suppression des répertoires _img* qui ne servent plus à rien pour le moment
+ - suppression des fichiers inc/admin-* (obsolètes)
+ - ajout des fonctions de (dé)classement dans l'interface d'admin et des fonctions liées
+ - ajout du fichier POLICY contenant quelques règles concernant les fichiers
+ - retrait du lien 'autres sites' (inactif pour le moment)
+
+----

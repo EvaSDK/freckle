@@ -1,0 +1,15 @@
+USE freckle;
+INSERT INTO "categorie" ("id", "ccourt", "clong") VALUES (1, 'I1', 'Ingénieur première année');
+INSERT INTO "categorie" ("id", "ccourt", "clong") VALUES (2, 'I2', 'Ingénieur deuxième année');
+INSERT INTO "categorie" ("id", "ccourt", "clong") VALUES (3, 'I3', 'Ingénieur troisième année');
+INSERT INTO "categorie" ("id", "ccourt", "clong") VALUES (4, 'I4', 'Ingénieur quatrième année');
+INSERT INTO "categorie" ("id", "ccourt", "clong") VALUES (5, 'I5', 'Ingénieur cinquième année');
+INSERT INTO "categorie" ("id", "ccourt", "clong") VALUES (6, 'EL', 'Electronique');
+INSERT INTO "categorie" ("id", "ccourt", "clong") VALUES (7, 'IN', 'Informatique');
+INSERT INTO "categorie" ("id", "ccourt", "clong") VALUES (8, 'PH', 'Physique');
+INSERT INTO "categorie" ("id", "ccourt", "clong") VALUES (9, 'MA', 'Mathématiques');
+INSERT INTO "categorie" ("id", "ccourt", "clong") VALUES (10, 'EN', 'Anglais');
+INSERT INTO "categorie" ("id", "ccourt", "clong") VALUES (11, 'SE', 'Majeure Systèmes Embarqués');
+INSERT INTO "categorie" ("id", "ccourt", "clong") VALUES (12, 'ST', 'Majeure Télécommunications');
+INSERT INTO "categorie" ("id", "ccourt", "clong") VALUES (13, 'EM', 'Majeure Micro Electronique');
+INSERT INTO "categorie" ("id", "ccourt", "clong") VALUES (14, 'IF', 'Majeure Informatique');

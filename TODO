@@ -1,0 +1,35 @@
+TODO
+----
+
+@ = Fait
+* = Partiellement implémenté
+- = A faire
+
+Section ADMIN
+
+ @ Migration vers PostgreSQL
+ * Renommage massif des fichiers
+ @ Script pour créer la base de donnée initiale des fichiers et leurs affectations en fonction de leur nom
+ @ Pour la gestion des types/fichiers/catégorie, faire un système permettant de parcourir la liste complète des entrées et qui permet en même temps de modifier/ajouter/supprimer des entrées. Toutes les requêtes sont envoyés vers process.php qui fait le travail nécessaire.
+ * permettre à process.php de renvoyer un message via $_SESSION à management.php même en cas d'erreur
+ - (?) suppression des fichiers directement par l'interface web
+ @ fonction de génération d'un formulaire à 2 entrées gérant les catégories
+ - ajouter des vérifications sur les données envoyés à process.php pour éviter des oublis 
+ - (?) petit javascript pour compléter automatiquement les champs dans l'interface d'administration pour une gestion plus simple des fichiers
+
+
+Section COMMUNE
+
+ - (optionnel) ajouter un support multi-user (gestion des droits, toussa)
+ - (optionnel) gestion multilingue
+ - coloration une ligne sur deux pour les tableaux
+ - aide intégrée
+ * nombre de lignes max affichées changeable
+ - panneau d'options (en fonction des 3 fonctions précédentes)
+ - limiter les résultats affiché par une recherche de document et faire en sorte de pouvoir défiler les résultats
+
+
+Section USER
+
+ - refaire de vrai belles icônes en 24*24 pixels
+ - (?) sousmettre d'autres design pour le site

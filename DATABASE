@@ -1,0 +1,26 @@
+SCHEMA DES TABLES
+-----------------
+
+reference:
+	id_categorie1 (int4) | id de la catégorie numéro 1 du fichier
+	id_categorie2 (int4) | même chose pour la 2ème catégorie
+	id_fichier (int4)    | id du fichier
+	id_type (int4)       | id du type de document (cours, td,... )
+
+Les id des tables suivantes sont autoincrémentés et sont clés primaire.
+
+types:
+	id (int4)   | id du type
+	type (name) | chaine de caractères
+
+categorie:
+	id (int4)     | id de la catégorie
+	ccourt (name) | description courte de la catégorie (I1, I2, MA,... )
+	clong (name)  | description longue de la catégorie
+
+fichiers:
+	id (int4)                   | id du fichier
+	url (character varying)     | url du fichier
+	annee_prod (int4)           | année de production du document
+	comment (character varying) | commentaire
+	

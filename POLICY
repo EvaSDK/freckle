@@ -1,0 +1,28 @@
+NAMING POLICY
+-------------
+
+Les fichiers sont nommés de la manière suivante:
+
+ "unité"-"no1"."no2"-"nom du fichier"
+
+ "unité" est le sigle court du type SH, MA, ...
+ "no*": exemple 313, si le numéro est inconnu, utiliser la notation "année"xx (exemple 2xx)
+ "nom de fichier" est le nom du fichier tel que fourni par l'étudiant mais tout les espaces et les tirets doivent être remplacé par des underscores
+
+ exemple: IN/IN-202.302.311-cours_algo.pdf
+
+ Les fichiers de type rapport de TP, correction de TD, s'ils contiennent plus d'un TD/TP, sont notés de la manière suivante:
+  IN/IN-413-java-tp1234567.zip
+Ce zip contient les tp 1 à 7 de IN413-java
+
+
+
+FOLDER SORTING POLICY
+---------------------
+
+Les fichiers sont triés sur le système de fichiers de la manière suivant:
+
+/categorie/fichier
+
+Les catégories actuelles sont:
+ /IN /EL /EN /MA /PH /Majeure /divers
