@@ -62,7 +62,7 @@ a:hover,a:visited:hover {
 	margin: 0;
 	padding:0;
 	position: absolute;
-	top: 2px;
+	top: 0px;
 /*	right: 0;*/
 	left: 10px;
 }
