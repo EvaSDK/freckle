@@ -171,7 +171,7 @@ li:hover > ul.pop {
 
 .box {
 	margin: 40px 0px 15px 15px;
-	padding: 0 10px 0px 10px;
+	padding: 0px 10px 15px 10px;
 	background-color: #e5f6ff;
 	border: 1px solid #71ADEA;
 }
@@ -182,7 +182,7 @@ li:hover > ul.pop {
 
 .box#gene {
 	margin: 0 0 15px 15px;
-/*	padding: 0 10px 0px 10px;*/
+	padding: 0 10px 0px 10px;
 	background-color: white;
 	border: 1px solid #FF9900;
 }
@@ -281,7 +281,7 @@ ul.news li {
 }
 
 ul.news li:hover {
-	background-color: white;
+/*	background-color: white;*/
 }
 
 ul.news li span {
