@@ -1,4 +1,5 @@
 <?php
+	ini_set("arg_separator.output", "&amp;");
 	session_start();
 	require("./inc/definitions.inc.php");
 	require("./inc/backend_sql.php");

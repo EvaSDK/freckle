@@ -19,6 +19,11 @@ function display_categorie() {
 		}
 		$i = $i+1;
 	}
+
+	// rajouter un </tr> si le nombre d'elements est impaire
+	if ( $i == 1 )
+		echo "</tr>\n";
+	
 	db_close($link);
 	echo "\n</table>\n";
 }
