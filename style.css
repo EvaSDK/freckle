@@ -35,9 +35,9 @@ a:hover,a:visited:hover {
 	text-decoration: none;
 }
 
-abbr, acronym {
+/*abbr, acronym {
 	display: help;
-}
+}*/
 
 .head {
 	position: relative;	

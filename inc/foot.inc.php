@@ -1,6 +1,6 @@
   <!-- Validation -->
   <a href="http://validator.w3.org/check/referer">XHtml Valide</a> |
-  <a href="http://jigsaw.w3.org/css-validator/">CSS Valide</a> |
+  <a href="http://jigsaw.w3.org/css-validator/check/referer">CSS Valide</a> |
   <!-- Fin Validation -->
 
   <!-- Creative Commons License -->
