@@ -13,9 +13,6 @@
 
 /* renvoie la requête adéquate pour une des 2 fonctions suivantes
  * $what est l'action à effectuer
- * $offset le point de départ des résultats
- * $limit le max de résultats
- * $step le max de résultats en une requête
  */
 function get_query($what)
 {
@@ -109,7 +106,6 @@ function display_list_entries($what,$offset)
  *
  * $what = action à effectuer
  * $offset = décalage par rapport au premier résultat de la requête
- * $step = limite de résultats affichés à l'écran
  */
 function display_list_access($what,$offset)
 {
@@ -153,10 +149,12 @@ function display_list_access($what,$offset)
 }
 
 
-/* affiche le formulaire d'action pour le type de données désigné */
-function get_form($what) {
-
-/*	echo "<form method='post' action='process.php'>\n";*/
+/* affiche le formulaire d'action pour le type de données désigné
+ *
+ * $what = type de formulaire demandé
+ */
+function get_form($what)
+{
 	echo "\t<fieldset>\n";
 	
 	switch($what)
@@ -202,7 +200,37 @@ function get_form($what) {
 			break;
 	}
 	echo "\t</fieldset>\n";
-/*	echo "</form>\n";*/
+}
+
+function crawl_fs()
+{
+	global $repos;
+	$fs_list = array();
+
+	if( !($handle = opendir($repos)) )
+	{
+		$_SESSION['message'] = "impossible d'accéder à l'entrepôt de fichiers.";
+		return FALSE;
+	}
+
+	$dir_list = array();
+	$file_list = array();
+	rewinddir($handle);
+	
+	dive_fs( $repos, $file_list, $handle );
+	
+	return $file_list;
+}
+
+function dive_fs( $dir, &$files, $handle )
+{
+	while( ($entrie=readdir($handle))!==FALSE )
+	{
+		if( $entrie!="." and $entrie!=".." and is_dir($entrie) )
+			dive_fs( $dir.$entrie, $files, $handle );
+		if( $entrie!="." and $entrie!=".." and is_file($entrie) )
+			$files[] = $dir.$entrie;
+	}
 }
 
 ?>

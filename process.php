@@ -108,22 +108,32 @@
 			$ids[] = $value;
 	}
 
-	$cids = count( $ids );
+/*
+ * Exécution de la requête
+ */
 
-	if( ($what=="Ajouter" or $what=="Modifier") and $cids!=1 )
-	{
-		$_SESSION['message'] = "Impossible de faire des requêtes simultanées pour ajouter des éléments";
-		header("Location: ./management.php?what=$what");
-	}
-
+	/* connection à la base */
 	$dblink = db_connect();
-	for( $i=0; $i<$cids; $i++ )
+
+	if( $action=="Ajouter" )
 	{
-		db_query( $dblink, preg_replace("/.ID./",$ids[$i],$query) );
+		//$_SESSION['message'] = "Entrée ajoutée";
+		//header("Location: ./management.php?what=$what");
+		db_query( $dblink, $query );
+		
+	} else {
+		$cids = count( $ids );
+
+		for( $i=0; $i<$cids; $i++ )
+		{
+			db_query( $dblink, preg_replace("/.ID./",$ids[$i],$query) );
+		}
 	}
+
+	/* déconnexion de la base */
 	db_close($dblink);
 
-	if( $cids==0 )
+	if( $cids==0 and $action!="Ajouter" )
 	{
 		$_SESSION['message'] = "Rien à faire";
 	}
