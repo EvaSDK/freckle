@@ -82,11 +82,11 @@ function getIcon ( $file ) {
 			case "xls": $image = "_icon/calc.gif"; break;
 			case "sxw":
 			case "doc": $image = "_icon/writer.gif"; break;
-
-			/* portables */
+			case "txt": $image = "_icon/text.gif"; break;
 			case "pdf": $image = "_icon/pdf.gif"; break;
 
 			/* archives */
+			case "tgz":
 			case "rar": 
 			case "ace":
 			case "zip": $image = "_icon/archives.gif"; break;
