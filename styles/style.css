@@ -135,7 +135,7 @@ a:hover,a:visited:hover {
 }
 
 .menu a:hover {
-	background: url("./images/flashing_bg.gif") top left;
+	background: url("/freckle/images/flashing_bg.gif") top left;
 	background-repeat: repeat;
 }
 
@@ -168,7 +168,9 @@ a:hover,a:visited:hover {
 .box {
 	margin: 40px 15px 15px 15px;
 	padding: 0px 10px 15px 10px;
-	background-color: #e5f6ff;
+/*	background-color: #e5f6ff;*/
+	/*background: url("/freckle/images/flashing_cell_bg.gif") top center;*/
+	background-repeat: repeat-y;
 	border: 1px solid #71ADEA;
 }
 

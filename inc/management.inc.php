@@ -113,13 +113,46 @@ function display_list_entries($what,$offset)
  */
 function display_list_access($what,$offset)
 {
+  global $step;
+
+  $link  = db_connect();
+  $query = get_query($what);
+
+  if( !preg_match("/\*/",$query) )
+  {
+    $query = preg_replace("/SELECT.(\w+)(,\S+)?.FROM/","SELECT count(\\1) as co
+unt FROM", $query );
+    $query = preg_replace("/ ORDER BY (\S+)(.(\S+)*)?/",";",$query);
+  } else {
+    $query = preg_replace("/SELECT.(\S+).FROM/","SELECT count(id) as count FROM
+", $query );
+  }
+
+  $result = db_query( $link, $query );
+  $max = db_fetch_object( $result );
+
+  if( $what=="search" )
+    $plus = "&amp;cat1=".$_GET["cat1"]."&amp;cat2=".$_GET["cat2"];
+
+  echo "<div class='admin-accesslist'><span>Pages&nbsp;: </span>";
+  for($i=0; $i< $max->count; $i+=$step)
+  {
+    echo "<a href='".basename($PHP_SELF)."?what=$what&amp;current=$i".$plus."'>
+".(($i/$step)+1)/*."-".($i+$step)*/."</a> ";
+  }
+  echo "</div>";
+  db_close($link);
+}
+/*
+function display_list_access($what,$offset)
+{
 	global $step;
 	
 	$link  = db_connect();
 	$query = get_query($what);
-
-	if( !preg_match("/\*/",$query) )
-	{
+*/
+//if( !preg_match("/\*/",$query) )
+	/*{
 		$query = preg_replace("/SELECT.(\w+)(,\S+)?.FROM/","SELECT count(\\1) as count FROM", $query );
 		$query = preg_replace("/ ORDER BY (\S+)(.(\S+)*)?/",";",$query);
 	} else {
@@ -135,12 +168,11 @@ function display_list_access($what,$offset)
 	echo "<div class='admin-accesslist'>";
 	for($i=0; $i< $max->count; $i+=$step)
 	{
-		echo "<a href='".basename($PHP_SELF)."?what=$what&amp;current=$i".$plus."'>".($i+1)/*."-".($i+$step)*/."</a> ";
 	}
 	echo "</div>";
 	db_close($link);
 }
-
+*/
 
 
 /* affiche le formulaire d'action pour le type de données désigné */

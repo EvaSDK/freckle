@@ -31,6 +31,7 @@
 		} else {
 			echo "<h3>Résultats</h3>\n";
 		}
+		description_critere();
 		display_list_access( "search",$current);
 		display_list_entries( "search",$current );
 	?>

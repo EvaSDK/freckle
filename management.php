@@ -38,7 +38,7 @@
 	
 		<div class="head">
 			<h1>Freckle/Admin</h1>
-			<img src="./freckle.png" title="bannière" alt="logo freckle" />
+			<img src="./freckle.jpg" title="bannière" alt="logo freckle" />
 		</div>
 
 		<div class="menu">

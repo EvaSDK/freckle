@@ -88,4 +88,26 @@ function getIcon ( $file ) {
 	}
 }
 
+function description_critere()
+{
+	$link = db_connect();
+
+	echo "<h4>
+	
+	Recherche des documents en ";
+	if( isset( $_GET['cat1'] ) )
+	{
+		$result = db_query($link,"SELECT ccourt FROM categorie where id='".$_GET['cat1']."'");
+		echo db_fetch_object($result)->ccourt;
+	}
+	if( $_GET['cat2']!=0)
+	{
+		echo " et ";
+		$result = db_query($link,"SELECT ccourt FROM categorie where id='".$_GET['cat2']."'");
+		echo db_fetch_object($result)->ccourt;
+	}
+	echo ".</h4>\n";
+	db_close($link);
+}
+
 ?>
