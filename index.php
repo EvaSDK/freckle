@@ -67,7 +67,7 @@
    ?>
    </table>
    <p>
-	La description des unités est ci-après.
+	Voir la description des unités ci-dessous.
    </p>
   </div>
 
