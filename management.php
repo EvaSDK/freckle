@@ -73,10 +73,12 @@
 		{
 			echo "<p id='message'>$msg</p>\n";
 		}
-		
+
+		echo "<form action='process.php' method='POST'>\n";
 		display_list_entries($what,$current,15);
 		echo "</div>\n<div class='box'>\n<h3>Actions</h3>\n";
 		get_form($what); 
+		echo "</form>\n";
 	}
 	?> 
 	</div>

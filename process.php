@@ -88,24 +88,24 @@
 	$ids = array();
 	for( $i=0; $i<16; $i++)
 	{
-		if( isset($_POST['ids-'$i]) )
+		if( isset($_POST['ids-'.$i]) )
 			$ids[] = $i;
 	}
 
 	$cids = count( $ids );
 
 	if( $what=="Ajouter" and $cids!=1 )
+	{
 		$_SESSION['message'] = "Impossible de faire des requêtes simultanées pour ajouter des éléments";
 		header("Location: ./management.php?what=$what");
 	}
-	
+
+	$dblink = db_connect();
 	for( $i=0; $i<$cids; $i++ )
 	{
-		echo preg_replace("/#ID#/",$i,$query)."<br />";
+		db_query( $dblink, preg_replace("/.ID./",$ids[$i],$query) );
 	}
+	db_close($dblink);
 
-	$dblink = dbconn();
-/*	pg_query ($dblink, $query);*/
-	pg_close($dblink);
 	header("Location: ./management.php?what=$what");
 ?>

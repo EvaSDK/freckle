@@ -102,7 +102,7 @@ function display_list_access($what,$offset,$step)
 /* affiche le formulaire d'action pour le type de données désigné */
 function get_form($what) {
 
-	echo "<form method='post' action='process.php'>\n";
+/*	echo "<form method='post' action='process.php'>\n";*/
 	echo "\t<fieldset>\n";
 	
 	switch($what)
@@ -148,7 +148,7 @@ function get_form($what) {
 			break;
 	}
 	echo "\t</fieldset>\n";
-	echo "</form>\n";
+/*	echo "</form>\n";*/
 }
 
 ?>

@@ -1,7 +1,7 @@
 <?php
 
 /* Fonction de connection à la base pgsql */
-function dbconn() {
+function db_connect() {
 	$link = pg_connect("dbname=freckle user=reader password=bidon");
 	return $link;
 }

@@ -2,6 +2,17 @@
 
 $SQL = "pgSQL";
 
+function db_query( $link, $query )
+{
+	global $SQL;
+	switch ( $SQL )
+	{
+		case "mySQL": $result = mysql_query($query, $link); break;
+		case "pgSQL": $result =    pg_query($link, $query); break;
+	}
+	return $result;
+}
+
 function q_num_rows( $o1 )
 {
 	global $SQL;
