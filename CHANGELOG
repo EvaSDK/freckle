@@ -1,6 +1,10 @@
 CHANGELOG
 --------
 
+[24-10-2004 eva@kanako]
+ - Modification des pages principales et du menu pour alléger la maintenance du modèle html. La page index.php sert maintenant à inclure la page qu'on veut (tools/docs/accueil) directement.
+ - ajout des checkbox dans la section admin (en prévision de modifications pour sélections multiples).
+
 [01-10-2004 eva@shinobu]
  - Adaptation des requêtes pour le nouveau format de la table reference
  - Ajout des 2 champs manquant jusqu'à présent dans l'affichage des documents (catégories)

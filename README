@@ -1,0 +1,11 @@
+=== CODING STYLE
+
+Les indentations _*doivent*_ être faites avec des tabulations.
+Si vous utilisez vi(m)
+	set tabstop=valeur_que_vous_voulez
+pour les autres arrangez vous autrement.
+
+
+=== SCRIPTS
+
+Le script svn2www.sh est là pour simplifier la vie des testeurs/développeurs en faisant un export ou une copie des fichiers du type auquel on s'intéresse dans le répertoire de test

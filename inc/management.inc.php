@@ -50,20 +50,26 @@ function display_list_entries($what,$offset,$step)
     switch($what) {
       case fichiers:
         echo "<tr><td>$object->id</td>";
+				echo "<td><input type='checkbox' name='ids' value='".$object->id."'/>";
         echo "<td>$object->anne_prod</td><td>$object->url</td>\n"; break;
         echo "<td>$object->comment</td></tr>\n"; break;
       case categorie:
         echo "<tr><td>$object->id</td>";
+				echo "<td><input type='checkbox' name='ids' value='".$object->id."'/>";
         echo "<td>$object->ccourt</td>";
         echo "<td>$object->clong</td></tr>\n"; break;
       case types: 
         echo "<tr><td>$object->id</td>";
+				echo "<td><input type='checkbox' name='ids' value='".$object->id."'/>";
         echo "<td>$object->type</td></tr>\n"; break;
       case affect:
-        echo "<tr><td>$object->id</td><td>$object->url</td></tr>\n";
+        echo "<tr><td>$object->id</td>\n";
+				echo "<td><input type='checkbox' name='ids' value='".$object->id."'/>\n";
+				echo "<td>$object->url</td></tr>\n";
         break;
       case defect:
         echo "<tr><td>$object->id_fichier</td>";
+				echo "<td><input type='checkbox' name='ids' value='".$object->id_fichier."'/>";
 				echo "<td>$object->cat1</td>";
 				echo "<td>$object->cat2</td>";
 				echo "<td>$object->url</td></tr>\n";
