@@ -101,7 +101,7 @@ function display_list_entries($what,$offset)
 				echo "\t<td><img src='".$arr["icon"]."' alt='icon'/></td>\n";
 				echo "\t<td>".$arr["cat1"]."</td>\n";
 				echo "\t<td>".$arr["cat2"]."</td>\n";
-				echo "\t<td><a href='".$arr["url"]."'>".$arr["disp"]."</a></td>\n";
+				echo "\t<td><a href=\"".$arr["url"]."\">".$arr["disp"]."</a></td>\n";
 				break;
 			case "defect":
 				echo "\t<td><input type='checkbox' name='ids-$id' value='$id'/>\n";

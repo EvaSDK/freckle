@@ -47,6 +47,7 @@ function display_categorie_select()
 	echo "</select>";
 	$ptr = db_query($link, "SELECT * FROM categorie ORDER BY ccourt");
 	echo "<select name='cat2'>\n";
+	echo "<option value='0'>Second Critère</option>\n";
 	while($row = db_fetch_object($ptr)) {
 		echo "\t<option value='".$row->id."'";
 		if( $cat2==$row->id )
