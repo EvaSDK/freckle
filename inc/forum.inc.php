@@ -1,34 +1,4 @@
-<?
-
-function getCat($cat, $lcat) {
-	$strRes=NULL;
-	for ( $i=1 ; $i<=$lcat[0] ; $i++ ) {
-		$p=pow(2,$i);
-		if ( ($p & $cat) == $p ) {
-
-			if ($strRes==NULL) {
-				$strRes="$lcat[$i]";
-			}
-			else {
-				$strRes .=	" - $lcat[$i]";
-			}
-		}
-	}
-	return $strRes;
-}
-
-function getFrDate ( $ts ) {
-	// date in french, you may modify this section for your language
-	$day = array("Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi");
-	// month in french, you may modify this section for your language
-	$month = array("", "Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Decembre");
-	$tr[1] =	$day[date("w",$ts)] . " " . date("j" , $ts) . " " . $month[date ( "n" , $ts)] . " ". date("Y", $ts) ;
-
-	$tr[2] = " &agrave; " . date ("G" , $ts) . "h" . date( "i",$ts);
-
-	return $tr;
-
-}
+<?php
 
 /* renvoie l'icône correspondant à l'extension du fichier */
 function getIcon ( $file ) {

@@ -3,8 +3,9 @@
 <div class="box">
 	<h3>Trouver...</h3>
 	<p>Afficher les documents de la catégorie:</p>
-	<form action="index.php?action=docs" method='POST'>
+	<form action="index.php" method='GET'>
 	<fieldset>
+		<input type="hidden" name="action" value="docs" />
 		<?php display_categorie_select(); ?>
 		<input type="submit" value="Voir" />
 	</fieldset>
@@ -13,8 +14,8 @@
 
 <div class="box">
 	<?php
-		$cat1 = $_POST["cat1"];
-		$cat2 = $_POST["cat2"];
+		$cat1 = $_GET["cat1"];
+		$cat2 = $_GET["cat2"];
 		if( $cat1 == 0 )
 		{
 			echo "<h3>Nouveaux</h3>\n";
