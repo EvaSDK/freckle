@@ -8,7 +8,7 @@ TODO
 Section ADMIN
 
  @ Migration vers PostgreSQL
- - coder un backend SQL
+ * coder un backend SQL
  * Renommage massif des fichiers
  @ Script pour créer la base de donnée initiale des fichiers et leurs affectations en fonction de leur nom
  @ Pour la gestion des types/fichiers/catégorie, faire un système permettant de parcourir la liste complète des entrées et qui permet en même temps de modifier/ajouter/supprimer des entrées. Toutes les requêtes sont envoyés vers process.php qui fait le travail nécessaire.
@@ -17,6 +17,7 @@ Section ADMIN
  @ fonction de génération d'un formulaire à 2 entrées gérant les catégories
  - ajouter des vérifications sur les données envoyés à process.php pour éviter des oublis 
  - (?) petit javascript pour compléter automatiquement les champs dans l'interface d'administration pour une gestion plus simple des fichiers
+ - ajouter une interface de contrôle de la cohérence de la base de données vis à vis du système de fichiers (existance des fichiers présent dans la base de données)
 
 
 Section COMMUNE

@@ -4,6 +4,9 @@ CHANGELOG
 [24-10-2004 eva@kanako]
  - Modification des pages principales et du menu pour alléger la maintenance du modèle html. La page index.php sert maintenant à inclure la page qu'on veut (tools/docs/accueil) directement.
  - ajout des checkbox dans la section admin (en prévision de modifications pour sélections multiples).
+ - ajout du support de plusieurs requêtes lors de manipulation dans la partie administration
+ - correction du modèle html (titre de page passe de "FRECKLE - Accueil" à "FRECKLE")
+ - base de backend SQL (connection base, requête, nombre de résultats)
 
 [01-10-2004 eva@shinobu]
  - Adaptation des requêtes pour le nouveau format de la table reference
