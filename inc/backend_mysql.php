@@ -9,7 +9,6 @@
 function db_connect()
 {
 	global $hostname, $username, $password, $dbname;
-	//echo "$hostname, $username, $password, $dbname";
 	$link = mysql_connect($hostname, $username, $password);
 	//echo mysql_error() . "\n";
 	mysql_select_db($dbname, $link);
