@@ -47,7 +47,7 @@ function display_list_entries($what,$offset,$step)
 	$result = list_query($what,$offset,$step,TRUE);
 	echo "<table>\n";
 	$i = 0;
-	while ($object = pg_fetch_object($result))
+	while ($object = db_fetch_object($result))
 	{
 		$i++;
 		switch($what) {

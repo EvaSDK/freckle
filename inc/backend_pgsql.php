@@ -25,9 +25,14 @@ function db_close( $link )
 }
 
 /* renvoie le nombre de résultats */
-function db_num_rows( $ressource )
+function db_num_rows( $resource )
 {
-  return  pg_num_rows( $ressource );
+  return  pg_num_rows( $resource );
+}
+
+function db_fetch_object( $resource )
+{
+  return mysql_fetch_object( $resource );
 }
 
 ?>

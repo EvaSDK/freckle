@@ -28,10 +28,11 @@ function display_documents( $critere1, $critere2 )
 
 	$cat = pg_fetch_all($result);
 
-	if($critere1!="last") echo "<p>".db_num_rows($ptr)." résultats pour cette recherche</p>\n";
+	if($critere1!="last")
+		echo "<p>".db_num_rows($ptr)." résultats pour cette recherche</p>\n";
 	echo "<hr class='separateur'/>\n<table>\n";
 	
-	while($row = pg_fetch_object($ptr)) {
+	while($row = db_fetch_object($ptr)) {
 		$filename = str_replace("&", "&amp;", $row->url);
 		$filename = substr(strrchr($filename,"-"),1);
 		 
@@ -57,7 +58,7 @@ function display_categorie() {
 	$i=0;
 	
 	echo "<table>\n";
-	while( $row = pg_fetch_object($ptr) )
+	while( $row = db_fetch_object($ptr) )
 	{
 		if( $i==0 ) echo "<tr>\n";
 		echo " <td class='right'>[$row->ccourt]</td>\n";
@@ -81,14 +82,14 @@ function display_categorie_select()
 	$ptr = db_query($link,"SELECT * FROM categorie;");
 
 	echo "<select name='cat1'>\n";
-	while($row = pg_fetch_object($ptr)) {
+	while($row = db_fetch_object($ptr)) {
 		echo "	<option value='".$row->id."'>[$row->ccourt] $row->clong</option>\n";
 	}
 	echo "</select>";
 	$ptr = db_query($link, "SELECT * FROM categorie ORDER BY ccourt");
 	echo "<select name='cat2'>\n";
 	echo "	<option value='0'>2ème critère</option>\n";
-	while($row = pg_fetch_object($ptr)) {
+	while($row = db_fetch_object($ptr)) {
 		echo "	<option value='".$row->id."'>[$row->ccourt] $row->clong</option>\n";
 	}
 	echo "</select>\n";
@@ -101,7 +102,7 @@ function display_types_select()
 	$result = db_query($link, "SELECT * FROM types;");
 
 	echo "<select name='type'>\n";
-	while( $row = pg_fetch_object($result) )
+	while( $row = db_fetch_object($result) )
 	{
 		echo "\t<option value=".$row->id.">".$row->type."</option>\n";
 	}
