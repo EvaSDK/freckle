@@ -1,11 +1,11 @@
 <?php
 
 	/* backend SQL */
-	$SQL = "mySQL";
+	$SQL = "pgSQL";
 
 	/* paramètre de connection à la base de donnée */
 	$hostname = "localhost";
-	$username = "freckle";
+	$username = "reader";
 	$password = "bidon";
 	$dbname   = "freckle";
 

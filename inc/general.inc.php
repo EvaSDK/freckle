@@ -92,9 +92,9 @@ function description_critere()
 {
 	$link = db_connect();
 
-	echo "<h4>
+	if( isset( $_GET['cat1']) )
+		echo "<h4>Recherche des documents en ";
 	
-	Recherche des documents en ";
 	if( isset( $_GET['cat1'] ) )
 	{
 		$result = db_query($link,"SELECT ccourt FROM categorie where id='".$_GET['cat1']."'");
@@ -106,7 +106,10 @@ function description_critere()
 		$result = db_query($link,"SELECT ccourt FROM categorie where id='".$_GET['cat2']."'");
 		echo db_fetch_object($result)->ccourt;
 	}
-	echo ".</h4>\n";
+
+	if( isset( $_GET['cat1']) )
+		echo ".</h4>\n";
+		
 	db_close($link);
 }
 
