@@ -79,7 +79,9 @@
      }
    ?>
    </table>
-  </div>
+   <p>Aidez-nous à améliorer Freckle, vous avez une correction à apporter, un document est mal classé, une suggestion pour le site? <a href="mailto:freckle[at]esiee[point]fr">Envoyez-nous un mail</a></p>
+
+ </div>
 
   <div class="box" id="gene">
    Freckle - Mis à jour le 19/02/2004 - Généré en <?php echo round(microtime() - $start_time, 3); ?> secondes.
