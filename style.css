@@ -35,6 +35,10 @@ a:hover,a:visited:hover {
 	text-decoration: none;
 }
 
+abbr, acronym {
+	display: help;
+}
+
 .head {
 	position: relative;	
 	top: 0;
