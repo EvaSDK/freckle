@@ -11,10 +11,14 @@
  */
 
 
-/* renvoie la requête adéquate pour une des 2 fonctions suivantes */
-function list_query($what,$offset,$step,$limit)
+/* renvoie la requête adéquate pour une des 2 fonctions suivantes
+ * $what est l'action à effectuer
+ * $offset le point de départ des résultats
+ * $limit le max de résultats
+ * $step le max de résultats en une requête
+ */
+function get_query($what)
 {
-	$link = db_connect();
 	if ($what!="affect" and $what!="defect")
 	{
 		$query = "SELECT * FROM $what";
@@ -25,26 +29,23 @@ function list_query($what,$offset,$step,$limit)
 	{
 		$query = "SELECT id_fichier,url,annee_prod,feinte.ccourt,categorie.ccourt FROM reference,fichiers,categorie, categorie as feinte WHERE fichiers.id=reference.id_fichier AND categorie.id=id_categorie1 AND feinte.id=id_categorie2 ORDER BY id_fichier";
 	}
-
-	if ($limit==TRUE)
-	{
-		$query.=" LIMIT $step OFFSET $offset;";
-	} else
-	{
-		$query.=";";
-	}
-	
-	$result = db_query($link, $query);
-	db_close($link);
-	return $result;
+	return $query;
 }
 
 
-
-/* affiche les éléments de la requête */
-function display_list_entries($what,$offset,$step)
+/* affiche les éléments de la requête
+ *
+ * $what = action à effectuer
+ * $offset = décalage par rapport au premier résultat de la requête
+ * $step = limite de résultats affichés à l'écran
+ */
+function display_list_entries($what,$offset)
 {
-	$result = list_query($what,$offset,$step,TRUE);
+	$link = db_connect();
+	$query = get_query($what).sql_limit($offset);
+
+	$result = db_query($link, $query);
+
 	echo "<table>\n";
 	$i = 0;
 	while ($object = db_fetch_object($result))
@@ -81,21 +82,44 @@ function display_list_entries($what,$offset,$step)
 		}
 	}
 	echo "</table>\n";
+	db_close($link);
 }
 
 
 
-/* affiche une liste permettant d'accéder aux éléments de la requête */
-function display_list_access($what,$offset,$step)
+/* affiche une liste permettant d'accéder aux éléments de la requête
+ *
+ * $what = action à effectuer
+ * $offset = décalage par rapport au premier résultat de la requête
+ * $step = limite de résultats affichés à l'écran
+ */
+function display_list_access($what,$offset)
 {
-	echo "<div class='admin-accesslist'>";
-	$result = list_query($what,$offset,$step,FALSE);
+	global $step;
+	
+	$link  = db_connect();
+	$query = get_query($what);
 
-	for($i=0; $i< db_num_rows($result); $i+=$step)
+	if( !preg_match("/\*/",$query) )
+	{
+		$query = preg_replace("/SELECT.(\w+)(,\S+)?.FROM/","SELECT count(\\1) FROM", $query );
+		$query = preg_replace("/ ORDER BY (\S+)/",";",$query);
+	} else {
+		$query = preg_replace("/SELECT.(\S+).FROM/","SELECT count(id) FROM", $query );
+	}
+	echo $query;
+	
+
+	$result = db_query( $link, $query );
+	$max = db_fetch_object( $result );
+
+	echo "<div class='admin-accesslist'>";
+	for($i=0; $i< $max->count; $i+=$step)
 	{
 		echo "<a href='management.php?what=$what&amp;current=$i'>".($i+1)/*."-".($i+$step)*/."</a> ";
 	}
 	echo "</div>";
+	db_close($link);
 }
 
 

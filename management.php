@@ -66,7 +66,7 @@
 		echo "<a href='management.php?what=categorie'>Catégorie</a>";
 		echo "<a href='management.php?what=affect'>Classer</a>\n";
 		echo "<a href='management.php?what=defect'>Désaffecter</a></div>\n";
-		display_list_access($what,$current,15);
+		display_list_access($what,$current);
 		echo "\n</h4>\n";
 
 		$msg = $_SESSION['message'];
@@ -77,7 +77,7 @@
 		}
 
 		echo "<form action='process.php' method='POST'>\n";
-		display_list_entries($what,$current,15);
+		display_list_entries($what,$current);
 		echo "</div>\n<div class='box'>\n<h3>Actions</h3>\n";
 		get_form($what); 
 		echo "</form>\n";

@@ -13,4 +13,7 @@
 	$admin_pass = "coin";
 	$admin_user = "freckle_admin";
 
+	/* nombre de résultats par page */
+	$step = 15;
+
 ?>

@@ -35,4 +35,11 @@ function db_fetch_object( $resource )
   return pg_fetch_object( $resource );
 }
 
+/* génére la partie limitant le nombre de réstulats de la requête */
+function sql_limit($offset)
+{
+	global $step;
+	return " LIMIT $step OFFSET $offset;";
+}
+
 ?>
