@@ -10,11 +10,11 @@
  
 	$action = $_POST['action'];
 	$what = $_POST['what'];
-	$id = $_POST['id'];
-
+/*	$id = $_POST['id'];*/
+/*
 	if( !is_integer( $id ) )
 		header("Location: index.php"); 
-
+*/
 
 	if($action=='Ajouter')
 	{
@@ -23,15 +23,15 @@
 			case "types":
 				$_SESSION["message"] = "Nouveau type ajouté";
 				$query = "INSERT INTO types (type) VALUES ('".$_POST['type']."');";
-	break;
+				break;
 			case "fichiers":
 				$_SESSION["message"] = "Nouveau fichier ajouté";
 				$query = "INSERT INTO fichiers (url,annee_prod,commentaire) VALUES ('".$_POST['url']."','".$_POST['annee_prod']."','".$_POST['comment']."');";
-	break;
+				break;
 			case "categorie":
 				$_SESSION["message"] = "Nouvelle catégorie ajoutée";
 				$query = "INSERT INTO categorie (ccourt,clong) VALUES ('".$_POST['ccourt']."','".$_POST['clong']."');";
-	break;
+				break;
 		}
 	} else if ($action=="Supprimer")
 	{
@@ -40,15 +40,15 @@
 			case "types":
 				$_SESSION["message"] = "Type supprimé";
 				$query = "DELETE FROM types WHERE id=$id;";
-	break;
+				break;
 			case "fichiers":
 				$_SESSION["message"] = "Fichier supprimé";
 				$query = "DELETE FROM fichiers WHERE id=$id;";
-	break;
+				break;
 			case "categorie":
 				$_SESSION["message"] = "Catégorie supprimé";
 				$query = "DELETE FROM categorie WHERE id=$id;";
-	break;
+				break;
 		}
 	} else if ($action=="Modifier")
 	{
@@ -57,15 +57,15 @@
 			case "types":
 				$_SESSION["message"] = "Type modifié";
 				$query = "UPDATE types SET type='".$_POST['type']."' WHERE id=$id;";
-	break;
+				break;
 			case "fichiers":
 				$_SESSION["message"] = "Fichier modifié";
 				$query = "UPDATE fichiers SET url='".$_POST['url']."', annee_prod='".$_POST['annee_prod']."', commentaire='".$_POST['comment']."' WHERE id=$id;";
-	break;
+				break;
 			case "categorie":
 				$_SESSION["message"] = "Catégorie modifié";
 				$query = "UPDATE categorie SET ccourt='".$_POST['ccourt']."', clong='".$_POST['clong']."' WHERE id=$id;";
-	break;
+				break;
 		}
 	} else if ($action=="Classer")
 	{
