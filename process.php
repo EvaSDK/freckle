@@ -68,7 +68,7 @@
 				break;
 			case "fichiers":
 				$_SESSION["message"] = "Fichier modifié";
-				$query = "UPDATE fichiers SET url='".$_POST['url']."', annee_prod='".$_POST['annee_prod']."', commentaire='".$_POST['comment']."' WHERE id=''#ID#';";
+				$query = "UPDATE fichiers SET url=\"".$_POST['url']."\", annee_prod=\"".$_POST['annee_prod']."\", commentaire=\"".$_POST['comment']."\" WHERE id='#ID#';";
 				break;
 			case "categorie":
 				$_SESSION["message"] = "Catégorie modifié";
