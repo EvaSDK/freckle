@@ -18,8 +18,8 @@
 	<h3>Recommandations</h3>
 	<p>Afin d'uniformiser les types de fichiers disponibles sur ce site, nous recommendons l'utilsation du format <acronym title="Portable Document Format">PDF</acronym>. Cela permet de consulter Freckle et ses documents sur n'importe quelle platforme (y-compris les stations Unix HP-UX en 5004 et 5006). Afin de pouvoir mettre à jour les PDF facilement, nous vous demandons de les fournir avec leur sources (LaTeX, OpenOffice, MSOffice, ...). Nous vous conseillons d'utiliser LaTeX (un peu complexe au début mais résultat professionel) ou bien OpenOffice qui propose en standard un bouton "Export to PDF" dans sa barre de menu.</p>
 	
-	<p>Notes: les documents existants seront progressivement amenés vers ces formats. Pour les utilisateurs de système autres que windows, merci d'enregistrer les documents au format dos, ceci afin que même nos camarades utilisant cet OS puissent éditer les fichiers sources.</p>
-	
+	<p><strong>Notes&nbsp;:</strong> les documents existants seront progressivement amenés vers ces formats. Pour les utilisateurs de système autres que windows, merci d'enregistrer les documents au format dos, ceci afin que même nos camarades utilisant cet OS puissent éditer les fichiers sources.</p>
+	<p>Les fichiers que vous envoyez par mail seront renommés avant d'entrer dans la base de donnée, ceci afin de garder une cohérence au niveau du stockage des fichiers.</p>
 	<p>Pour ceux qui ne sauraient pas encore se servir de LaTeX et Cie. le Club*Nix organise des séances d'initiation (selon la demande) Pour plus d'informations envoyez un mail à <a href="mailto:clubnix[at]esiee[point]fr">clubnix [at] esiee [point] fr</a>.</p>
 </div>
 
