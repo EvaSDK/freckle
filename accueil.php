@@ -16,7 +16,7 @@ eckle[at]esiee[point]fr">freckle [at] esiee [point] fr</a>.
 
 <div class="box">
 	<h3>Nouveaux</h3>
-	<h4>Du plus ancien au plus récents</h4>
+	<h4>Du plus ancien au plus récent</h4>
 <?php
 	display_list_access( "search",0 );
 	display_list_entries( "search",0 );

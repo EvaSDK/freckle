@@ -9,6 +9,7 @@ if [[ -z $1 ]]; then
         echo "[svn script] cleaning ${WWW}"
         rm -rf ${WWW}
         svn export ${WCOPY} ${WWW}
+				cp ${WCOPY}/inc/definitions.inc.php ${WWW}/inc/definitions.inc.php
         echo "[svn script] working copy copied to ${WWW}"
 else
         echo "#!/bin/bash" > ._temp
