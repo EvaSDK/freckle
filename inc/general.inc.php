@@ -76,7 +76,7 @@ function display_documents( $long, $conn )
       $link = str_replace("&", "&amp;", $row->link);
       echo "<tr>\n";
       echo "  <td class='icon'><img src='" . getIcon($row->file) . "' alt='icon'/></td>\n";
-      echo "  <td><a href='../$link'>$filename</a></td>\n";
+      echo "  <td><a href='$link'>$filename</a></td>\n";
       echo "  <td class='right'>" . getCat($row->cat , $lcat) . "</td>\n</tr>\n";
     };
     /*if ($ptr==NULL) echo "<tr><td><p>Pas de Résultats dans cette catégorie</p></td></tr>\n";*/
