@@ -135,7 +135,8 @@ a:hover,a:visited:hover {
 }
 
 .menu a:hover {
-	background-color: white;
+	background: url("./images/flashing_bg.gif") top left;
+	background-repeat: repeat;
 }
 
 .menu ul li ul li h2 {
