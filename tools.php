@@ -34,7 +34,7 @@
 <body>
  
  <div class="head">
- <h1>Freckle in da mix</h1>
+ <h1>Freckle</h1>
  <img src="essai-freckle.png" title="bann" alt="logo" />
  </div>
 
@@ -48,8 +48,8 @@
    <li><a href="tools.php">Outils et recommandations</a></li>
   </ul></li>
   <li><h2>News</h2>
-  <ul>
-   <?php display_news( "short", $conn ); ?>
+  <ul><li>
+   <?php display_news( "short", $conn ); ?></li>
    <li><a href="display.php?what=news">En savoir plus</a></li>
   </ul></li>
   <li><h2>Statistiques</h2>

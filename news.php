@@ -32,7 +32,7 @@
 <body>
 
  <div class="head">
- <h1>Freckle in da mix</h1>
+ <h1>Freckle</h1>
  <img src="essai-freckle.png" title="bann" style="float: right; height: 74px; width: 150px; position: absolute; top: 0; right: 0;"/>
  </div>
 
@@ -50,8 +50,8 @@
   </ul></li>
 
   <li><h2>News</h2>
-  <ul>
-   <?php display_news( "short", $conn ); ?>
+  <ul><li>
+   <?php display_news( "short", $conn ); ?></li>
    <li><a href="news.php">En savoir plus</a></li>
   </ul></li>
 
