@@ -11,16 +11,9 @@ function display_documents( $critere1, $critere2 )
 	if( $critere1 == "last" ) {
 		$sql = "SELECT * FROM reference,fichiers WHERE fichiers.id=reference.id_fichier ORDER BY id DESC LIMIT 10;";
 	} else if ($critere2!=0) {
-		$sql = "SELECT * FROM reference,fichiers WHERE reference.id_fichier=fichiers.id
-						AND fichiers.id IN
-	 (SELECT id_fichier FROM reference WHERE id_categorie1=$critere1 or id_categorie2=$critere1)
-						AND fichiers.id IN
-	 (SELECT id_fichier FROM reference WHERE id_categorie1=$critere2 or id_categorie2=$critere2);";
+		$sql = "SELECT * FROM reference,fichiers WHERE reference.id_fichier=fichiers.id AND ((id_categorie1=$critere1 AND id_categorie2=$critere2) OR (id_categorie1=$critere2 AND id_categorie2=$critere1))";
 	} else {
-		$sql = "SELECT * FROM reference,fichiers WHERE
-						reference.id_fichier=fichiers.id
-						and fichiers.id IN
-	 (SELECT id_fichier FROM reference WHERE id_categorie1=$critere1 or id_categorie2=$critere1);";
+		$sql = "SELECT * FROM reference,fichiers WHERE reference.id_fichier=fichiers.id AND (id_categorie1=$critere1 OR id_categorie2=$critere1)";
 	}
 
 	$result = db_query($link,"SELECT ccourt FROM categorie;");

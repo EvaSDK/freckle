@@ -1,6 +1,13 @@
 CHANGELOG
 --------
 
+[27-10-2004 eva@su]
+ - correction/ajout dans le backend SQL
+ - correction de la gestion du classement des fichiers
+
+[27-10-2004 remi@pcremi]
+ - correction des requêtes SQL dans inc/management.inc.php
+ 
 [25-10-2004 eva@su]
  - avancement du backend SQL
  - création d'un fichier contenant les définitions de base de l'application

@@ -14,7 +14,7 @@
 		logout_admin();
 	}
 
-	if ( ($pass=="coin" and $user=="freckle_admin") or $_SESSION['admin']==TRUE) {
+	if ( ($pass==$pass_admin and $user==$user_admin) or $_SESSION['admin']==TRUE) {
 		$_SESSION['admin']=TRUE;
 	} else {
 		$_SESSION['admin']=FALSE;
