@@ -92,22 +92,24 @@ function description_critere()
 {
 	$link = db_connect();
 
-	if( isset( $_GET['cat1']) )
+	if( $_GET['cat1']!="" )
 		echo "<h4>Recherche des documents en ";
 	
 	if( isset( $_GET['cat1'] ) )
 	{
 		$result = db_query($link,"SELECT ccourt FROM categorie where id='".$_GET['cat1']."'");
-		echo db_fetch_object($result)->ccourt;
+		$res =  db_fetch_object($result);
+		echo $res->ccourt;
 	}
 	if( $_GET['cat2']!=0)
 	{
 		echo " et ";
 		$result = db_query($link,"SELECT ccourt FROM categorie where id='".$_GET['cat2']."'");
-		echo db_fetch_object($result)->ccourt;
+		$res = db_fetch_object($result);
+		echo $res->ccourt;
 	}
 
-	if( isset( $_GET['cat1']) )
+	if( $_GET['cat1']!="" )
 		echo ".</h4>\n";
 		
 	db_close($link);
