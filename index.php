@@ -35,7 +35,7 @@
  
  <div class="head">
  <h1>Freckle</h1>
- <img src="./logo_freckle.png" title="bann" alt="toto" />
+ <img src="./freckle.png" title="bann" alt="toto" />
  </div>
 
  <div class="menu">

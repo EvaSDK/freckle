@@ -77,7 +77,7 @@ function display_documents( $long, $conn )
       echo "<tr>\n";
       echo "  <td class='icon'><img src='" . getIcon($row->file) . "' alt='icon'/></td>\n";
       echo "  <td><a href='../$link'>$filename</a></td>\n";
-      echo "  <td style='text-align: right;'>" . getCat($row->cat , $lcat) . "</td>\n</tr>\n";
+      echo "  <td class='right'>" . getCat($row->cat , $lcat) . "</td>\n</tr>\n";
     };
     /*if ($ptr==NULL) echo "<tr><td><p>Pas de Résultats dans cette catégorie</p></td></tr>\n";*/
   }
@@ -117,8 +117,8 @@ function display_categorie() {
   while( $row = mysql_fetch_object($ptr) )
   {
     if( $i==0 ) echo "<tr>\n";
-    echo "<td style='text-align: right;'>[$row->code]</td>";
-    echo "<td><a href='documents.php?see=4&amp;categorie=" . pow(2,$row->id) . "'>$row->nom</a></td>";
+    echo " <td class='right'>[$row->code]</td>\n";
+    echo " <td><a href='documents.php?see=4&amp;categorie=" . pow(2,$row->id) . "'>$row->nom</a></td>\n";
     if( $i==1 ) {
 	  echo "</tr>\n";
 	  $i=-1;

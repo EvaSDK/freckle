@@ -57,7 +57,7 @@ a:hover,a:visited:hover {
 
 .head img {
 /*	float: right;*/
-	height: 72px;
+/*	height: 72px;*/
 /*	width: 150px;*/
 	margin: 0;
 	padding:0;
@@ -284,3 +284,6 @@ ul.news li span {
 	color: darkred;
 }
 
+.right {
+	text-align: right;
+}
