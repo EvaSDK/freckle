@@ -23,7 +23,7 @@
 
 <html  xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr">
 <head>
- <title>FRECKLE - Actualité</title>
+ <title>FRECKLE</title>
  <link href="./style.css" type="text/css" media="screen" rel="stylesheet" />
  <!-- script from www.alistapart.com -->
  <!-- <script type="text/javascript" src="styleswitcher.js"></script> -->
