@@ -27,7 +27,7 @@
 <html	xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr">
 <head>
  <title>FRECKLE</title>
- <link href="./style.css" type="text/css" media="screen" rel="stylesheet" />
+ <link href="./styles/style.css" type="text/css" media="screen" rel="stylesheet" />
 
  <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
 </head>
