@@ -1,19 +1,5 @@
 <?
 
-function getCatCode() {
-	$res = mysql_query( "select count(*) as cc from cat");
-	$lcat[0]=0;
-	$row = mysql_fetch_object($res);
-	if ($row) $lcat[0]=$row->cc;
-	$res = mysql_query( "select * from cat");
-	while ($row = mysql_fetch_object($res) ) {
-		$lcat[$row->id]=$row->code;
-	}
-	return $lcat;	
-}
-
-
-
 function getCat($cat, $lcat) {
 	$strRes=NULL;
 	for ( $i=1 ; $i<=$lcat[0] ; $i++ ) {
@@ -21,31 +7,15 @@ function getCat($cat, $lcat) {
 		if ( ($p & $cat) == $p ) {
 
 			if ($strRes==NULL) {
-
-//				$strRes="<a href=\"documents.php?see=4&categorie=$p\">$lcat[$i]</a>";
-
 				$strRes="$lcat[$i]";
-
 			}
-
 			else {
-
-//				$strRes .=	" - <a href=\"index.php?location=file&focus=yes&focus1=$p\">$lcat[$i]</a>";
-
 				$strRes .=	" - $lcat[$i]";
-
-
 			}
-
 		}
-
 	}
-
 	return $strRes;
-
 }
-
-
 
 function getFrDate ( $ts ) {
 	// date in french, you may modify this section for your language
@@ -58,38 +28,6 @@ function getFrDate ( $ts ) {
 
 	return $tr;
 
-}
-
-
-
-function toSQL($str){
-	return mysql_escape_string($str);
-}
-
-
-
-function getUId() {
-	mysql_query( "UPDATE gc SET id=id+1");
-	$res = mysql_query( "SELECT id FROM gc");
-	$row = mysql_fetch_object($res);
-	return $row->id;
-}
-
-
-
-function faireMenu ($loc) {
-	$liste = array (1 => 'doc' , 'plan' , 'file' , 'actu' , 'site' ,'news');
-	for ($i=1 ; $i <= 6 ; $i++) {
-		if ($loc==$liste[$i]) {
-			$str = $str . "<TD height=15 nowrap class=\"bleufonce\">" . getTitle($loc) . "</td>";
-		}
-		else {
-			$str= $str . "<TD height=15 nowrap class=\"grisclair\"><A class=bleuclair href=\"index.php?location=$liste[$i]\">"
-				. getTitle($liste[$i]) . "</A></TD>";
-
-		}
-	}
-	return $str;		
 }
 
 /* renvoie l'icône correspondant à l'extension du fichier */
@@ -119,37 +57,6 @@ function getIcon ( $file ) {
 		}
 		return($image);
 	}
-}
-
-
-
-function CheckVars($var, $size) {
-	$length = strlen($var);
-	if ($length > $size)
-		for ( ; $length >= $size; $length--)
-		$var[$length] = "";
-}
-
-
-function GetVars($varname) {
-	if ($_SERVER[$varname] != "") {
-	 $retval = $_SERVER[$varname];
-	}
-	elseif ($_COOKIE[$varname] != ""){
-		$retval = $_COOKIE[$varname];
-	}
-	elseif ($_POST[$varname] != ""){
-		$retval = $_POST[$varname];
-}
-	elseif ($_GET[$varname] != "" ){
-		$retval = $_GET[$varname];
-	}
-	elseif ($_ENV[$varname] != ""){
-		$retval = $_ENV[$varname];
-	}
-	else
-		$retval = NULL;
-	return trim($retval) ;
 }
 
 ?>
