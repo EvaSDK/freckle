@@ -180,6 +180,11 @@ p#message {
 	padding: 2px;
 }
 
+a#current_page {
+	color:red;
+}
+
+
 .box h3 {
 	position: relative;
 	display: inline;
@@ -280,11 +285,11 @@ table {
 	padding: 0;
 	table-layout: auto;
 }
-
+/*
 tr:hover {
 	background-color: white;
 }
-
+*/
 td img {
 	height: 16px;
 	width: 16px;

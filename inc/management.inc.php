@@ -133,14 +133,20 @@ function display_list_access($what,$offset)
   if( $what=="search" )
     $plus = "&amp;cat1=".$_GET["cat1"]."&amp;cat2=".$_GET["cat2"];
 
-  echo "<div class='admin-accesslist'><span>Pages&nbsp;: </span>";
+  echo "<div class='admin-accesslist'><span>Pages&nbsp;: </span>\n";
 
 	if( $max->count==0 )
 	{
 		echo "0 résultats pour cette requête";
 	} else {
 	  for($i=0; $i< $max->count; $i+=$step)
-	    echo "<a href='".basename($PHP_SELF)."?what=$what&amp;current=$i".$plus."'>".(($i/$step)+1)."</a> ";
+		{
+	    echo "<a href='".basename($PHP_SELF)."?what=$what&amp;current=$i".$plus."'";
+			$current = $_GET['current'];
+			if( ($current!="" and $i==$current) or ($current=="" and $i==0) )
+				echo " id='current_page'";
+			echo ">".(($i/$step)+1)."</a>\n";
+		}
 	}
   echo "</div>";
   db_close($link);
