@@ -8,9 +8,8 @@
 eckle[at]esiee[point]fr">freckle [at] esiee [point] fr</a>.
 	</p>
 	<ul>
-		<li><a href="index.php?action=docs">Accéder aux documents</a></li>
-		<li><a href="index.php?action=tools">Outils et recommandations</a></li>
-<!--		<li><a href="display.php?what=site">Les autres sites de l'ESIEE</a></li> -->
+		<li><a href="index.php?what=docs">Accéder aux documents</a></li>
+		<li><a href="index.php?what=tools">Outils et recommandations</a></li>
 	</ul>
 </div>
 
