@@ -101,10 +101,11 @@
 	//echo "<p>$query</p>";
 
 	$ids = array();
-	for( $i=0; $i<16; $i++)
+
+	foreach( $_POST as $key=>$value )
 	{
-		if( isset($_POST['ids-'.$i]) )
-			$ids[] = $i;
+		if( strpos($key,"ids-")!==FALSE )
+			$ids[] = $value;
 	}
 
 	$cids = count( $ids );

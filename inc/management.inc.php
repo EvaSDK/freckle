@@ -20,7 +20,7 @@ function list_query($what,$offset,$step,$limit)
 		$query = "SELECT * FROM $what";
 	} else if ($what=="affect")
 	{
-		$query = "SELECT * FROM fichiers WHERE id NOT IN (SELECT id_fichier FROM reference) ";
+		$query = "SELECT * FROM fichiers LEFT JOIN reference ON id=id_fichier WHERE id_fichier IS NULL ";
 	} else if ($what=="defect")
 	{
 		$query = "SELECT id_fichier,url,annee_prod,feinte.ccourt,categorie.ccourt FROM reference,fichiers,categorie, categorie as feinte WHERE fichiers.id=reference.id_fichier AND categorie.id=id_categorie1 AND feinte.id=id_categorie2 ORDER BY id_fichier";
