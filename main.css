@@ -1,0 +1,117 @@
+A {
+	COLOR: #1054C5;
+	FONT-FAMILY: Verdana, Helvetica;
+	TEXT-DECORATION: none;
+}
+A:hover {
+	COLOR: #cc0000;
+	TEXT-DECORATION: none;
+}
+P {
+	FONT-SIZE: 12px;
+	FONT-FAMILY: Verdana,Helvetica;
+}
+TD {
+	FONT-SIZE: 12px;
+	FONT-FAMILY: Verdana,Helvetica;
+}
+.blackasgrey {
+FONT-SIZE: 10px; COLOR: #000000}
+.bleufonce {
+	color: #0028FA;
+	font-size: 11px;
+	font-weight: bold;
+	background-color: #71ADEA;
+}
+.grisclair {
+	font-size: 11px;
+	font-weight: bold;
+	background-color: #EFEFEF;
+}
+.bleuclair {
+	color: #0E46DC;
+	font-size: 11px;
+	font-weight: bold;
+}
+.violetclair {
+	border-right-width: 1px;
+	border-left-width: 1px;
+	border-right-style: solid;
+	border-left-style: solid;
+	border-right-color: #9b72cf;
+	border-left-color: #9b72cf;
+	background-color: #f1f1fd;
+}
+.blancpetit {
+	font-size: 10px;
+	color: #FFFFFF;
+	font-weight: bold;
+	background-color: #9b72cf;
+}
+.wsmall {
+	font-size: 70%;
+}
+.fondvioletclair {
+	background-color: #f1f1fd;
+	border-right-width: 1px;
+	border-right-style: solid;
+	border-right-color: #9966CC;
+}
+.datered {
+	color: #FF0000;
+}
+.standard {
+	color: #000000;
+	font-family: "Times New Roman", Times, serif;
+	font-size: 10px;
+	font-style: normal;
+	font-weight: normal;
+	background-color: #FFFFFF;
+
+
+}
+.violetclair2coteetbas {
+	border-right-width: 1px;
+	border-left-width: 1px;
+	border-right-style: solid;
+	border-left-style: solid;
+	border-right-color: #9b72cf;
+	border-left-color: #9b72cf;
+	background-color: #f1f1fd;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: #9b72cf;
+
+}
+.grisEtBords {
+	background-color: #e5e5e5;
+	border: 1px solid #8080FF;
+}
+.bleuEtBord {
+	background-color: #e5f6ff;
+	border: 1px solid #71ADEA;
+	font-size: 11px;
+
+
+}
+.bordOrange {
+	border: 1px solid #FF9900;
+}
+.petitBouton {
+	font-size: 9px;
+	font-weight: bold;
+	width: 19px;
+	height: 14px;
+	float: left;
+	clear: left;
+
+}
+.blancEtBord {
+	border: 1px solid #71ADEA;
+}
+.fondBleuClair {
+	background-color: #e5f6ff;
+}
+.fondBleuFonce {
+	background-color: #71ADEA;
+}

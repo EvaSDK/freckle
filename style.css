@@ -1,0 +1,267 @@
+
+/* Base */
+
+body {
+	font-family: verdana, arial, serif;
+	font-size: 13px;
+	padding: 0;
+	margin: 0;
+	background: white;
+/*	background: #EEEFFF;*/
+}
+
+hr {
+	clear: both;
+	visibility: hidden;
+	margin: 0;
+	padding: 0;
+}
+
+div,p,object {
+	margin: 0;
+	padding: 0;
+}
+
+a,a:visited {
+	font-weight: bold;
+	color: #7733AA;
+	background-color: transparent;
+	text-decoration: none;
+}
+
+a:hover,a:visited:hover {
+	color: black;
+	background-color: transparent;
+	text-decoration: none;
+}
+
+.head {
+	position: relative;	
+	top: 0;
+	left: 0;
+	height: 56px;
+	background: white;
+	padding: 16px 0px 16px 0px;
+/*	border-bottom: 1px solid #000000;*/
+}
+
+.head h1 {
+	font-size: 24px;
+	font-weight: bold;
+	letter-spacing: 0.1em;
+	margin: 0;
+	padding: 0px 0 0px 10px;
+}
+
+.head img {
+	float: right;
+	height: 74px;
+	width: 150px;
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+
+.content {
+	min-height: 275px;	
+	margin-right: 150px;
+/*	border-right: 1px solid black;*/
+/*	border-bottom: 1px solid black;*/
+	background-color: white;
+}
+
+.foot {
+/*	clear: both;*/
+	position: relative;
+	bottom: 0;
+	border-top: 2px solid #000000;
+	background: #EEEFFF;
+	padding: 10px;
+	margin: 0;
+	font-size: 10px;
+	text-align: center;
+}
+
+
+
+/* menu */
+
+.menu {
+	position: float;
+	float: right;
+	width: 150px;
+	right: 0;
+	background-color: #EEEFFF;
+	font-size: 12px;
+	text-align: left;
+	padding: 0;
+	border-top: 1px solid black;
+	border-left: 1px solid black;
+	border-bottom: 1px solid black;
+}
+
+.menu ul {
+	padding: 0;
+	margin: 0;
+	list-style-type: none;
+}
+
+li > ul.pop {
+/*	display: none;
+	overflow: hidden;
+	visibility: collapse;*/
+}
+
+li:hover > ul.pop {
+/*	display: block;
+	visibility: visible;*/
+}
+
+.menu li {
+	font-weight: bold;
+	color: #777777;
+	padding: 3px;
+	margin : 0;
+	background-color: #EEEFFF;
+	font-size: 11px;
+	z-index: 100;
+	list-style-type: none;
+/*	border-right: 1px solid #000000;*/
+}
+
+.menu a {
+	padding: 2px;
+}
+
+.menu a:hover {
+}
+
+.menu h2 {
+	color: #222444;
+	padding: 4px;
+	margin: 0;
+	font-size: 13px;
+	background-color: #CCCDDD;
+/*	border-right: 1px solid #000000;*/
+}
+
+
+/* contenu */
+
+.titre-page {
+	text-align: right;
+	padding: 4px 66px 4px 0;
+	margin: 0 5px 0 5px;
+	font-weight: bold;
+	font-size: 13px;
+	font-variant: small-caps;
+	letter-spacing: 0.25em;
+	background-color: #DDDDDD;
+}
+
+.box {
+	margin: 40px 15px 15px 15px;
+	padding: 0 10px 0px 10px;
+	background-color: #e5f6ff;
+	border: 1px solid #71ADEA;
+}
+
+.box * {
+	font-size: 13px;
+}
+
+.box#gene {
+	margin: 0 15px 15px 15px;
+/*	padding: 0 10px 0px 10px;*/
+	background-color: white;
+	border: 1px solid #FF9900;
+}
+
+.box h3 {
+	position: relative;
+	display: inline;
+/*	float: left;*/
+	margin: 15px 2px 5px 2px;
+	padding: 0 0 0 0;
+	font-weight: bold;
+	font-size: 16px;
+	top: -25px;
+	padding-bottom: 4px;
+/*	border-bottom: 1px solid grey;*/
+}
+
+.box-date {
+	display: inline;
+	position: relative;
+/*	top: -1.5em;*/
+	font-size: 10px;
+	font-style: italic;
+	float: right;
+	letter-spacing: 0.6em;
+}
+
+.box p {
+	position: relative;
+	padding: 2px 5px 7px 5px;
+	margin: 0;
+	text-align: justify;
+	text-indent: 2em;
+}
+
+.box .box-guy {
+	text-indent:0;
+}
+
+.box object {
+	position: relative;
+	padding: 2px 5px 7px 5px;
+	margin: 0;
+	text-align: left;
+}
+
+object ul {
+	padding: 0 0 0 30px;
+	margin: 5px 0 5px 0;
+}
+
+object li {
+	padding:0;
+	margin: 0;
+	display: list-item;
+	list-style-type: square;
+}
+
+h4 {
+	margin:0;
+	padding: 10px 2px 2px 2px;
+}
+
+h4 span {
+	color: red;
+}
+
+h4 img {
+	float: left;
+	height: 17px;
+	width: 23px;
+	background-color: #e5f6ff;
+	border: 1px solid #71ADEA;
+	margin-right: 2px;
+}
+
+dd {
+	margin: 2px;
+	padding: 2px;
+}
+
+td img {
+	height: 16px;
+	width: 16px;
+	border-widht: 0px;
+	margin-right: 4px;
+}
+
+table {
+/*	width: 90%;*/
+	table-layout: auto;
+}
