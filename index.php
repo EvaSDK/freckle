@@ -25,7 +25,7 @@
  
 		<div class="head">
 			<h1>Freckle</h1>
-			<img src="./freckle.jpg" title="bannière" alt="logo freckle" />
+			<img src="./images/freckle.jpg" title="bannière" alt="logo freckle" />
 		</div>
 
 		<div class="menu">

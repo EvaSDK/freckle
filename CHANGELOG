@@ -1,6 +1,12 @@
 CHANGELOG
 --------
 
+[17-12-2004 eva@clubnix]
+ - modifications majeures dans tout les sens (passage dans le truc)
+ - surlignage des onglets dans l'affichage pages par pages
+ - récupération des nouvelles icônes et les autres à la poubelle
+ - encore quelques petits bugs et ce sera une belle v2
+
 [27-10-2004 eva@su]
  - correction/ajout dans le backend SQL
  - correction de la gestion du classement des fichiers

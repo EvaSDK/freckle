@@ -1,5 +1,6 @@
 <?php
 
+
 /* affiche le tableau des categories */
 function display_categorie() {
 	$link = db_connect();
@@ -69,36 +70,28 @@ function getIcon ( $file ) {
 			/* images */
 			case "gif":
 			case "bmp":
-			case "jpg": $image = "_icon/image.gif"; break;
+			case "jpg": $image = "images/icones/image.gif"; break;
 
 			/* web */
 			case "htm":
-			case "html": $image = "_icon/web.gif"; break;
+			case "html": $image = "images/icones/web.gif"; break;
 
 			/* documents */
-			//case "swd":
-			case "ppt": $image = "_icon/impress.gif"; break;
-			//case ":
-			case "xls": $image = "_icon/calc.gif"; break;
+			case "ppt": $image = "images/icones/impress.gif"; break;
+			case "xls": $image = "images/icones/calc.gif"; break;
 			case "sxw":
-			case "doc": $image = "_icon/writer.gif"; break;
-			case "txt": $image = "_icon/text.gif"; break;
-			case "pdf": $image = "_icon/pdf.gif"; break;
+			case "doc": $image = "images/icones/writer.gif"; break;
+			case "pdf": $image = "images/icones/pdf.gif"; break;
+			case "txt": $image = "images/icones/text.gif"; break;
 
 			/* archives */
 			case "tgz":
 			case "rar": 
 			case "ace":
-			case "zip": $image = "_icon/archives.gif"; break;
-
-			/* trucs à la con */
-/*			case "mp3": $image = "_icon/i_mp3.gif"; break;
-			case "exe": $image = "_icon/i_pgm.gif"; break;
-			case "txt": $image = "_icon/i_txt.gif"; break;
-			case "wav": $image = "_icon/i_wav.gif"; break;*/
+			case "zip": $image = "images/icones/archives.gif"; break;
 
 			/* autres */
-			default: $image = "_icon/unknown.gif";
+			default: $image = "images/icones/unknown.gif";
 		}
 		return($image);
 	}
