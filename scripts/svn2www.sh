@@ -1,7 +1,7 @@
 #!/bin/bash
 
 WCOPY="/home/eva/devel/freckle_hydre/branches/eva_develsummer/"
-WWW="/home/eva/web/freckle/"
+WWW="/home/eva/public_html/freckle"
 #WWW="/mnt/usb/www/"
 #WCOPY="/mnt/usb/wcopy"
 

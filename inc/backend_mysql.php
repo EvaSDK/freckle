@@ -8,7 +8,7 @@
 /* connection à la base de données */
 function db_connect()
 {
-	$link = mysql_connect("localhost","reader","bidon");
+	$link = mysql_connect("localhost","freckle","bidon");
 	mysql_select_db("freckle",$link);
 	return $link;
 }
@@ -33,7 +33,14 @@ function db_num_rows( $resource )
 
 function db_fetch_object( $resource )
 {
-	return pg_fetch_object( $resource );
+	return mysql_fetch_object( $resource );
 }
+
+/* génére la partie limitant le nombre de réstulats de la requête */
+function sql_limit($offset)
+{
+  global $step;
+  return " LIMIT $offset,$step;";
+} 
 
 ?>

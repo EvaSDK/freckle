@@ -120,10 +120,10 @@ function display_list_access($what,$offset)
 
 	if( !preg_match("/\*/",$query) )
 	{
-		$query = preg_replace("/SELECT.(\w+)(,\S+)?.FROM/","SELECT count(\\1) FROM", $query );
+		$query = preg_replace("/SELECT.(\w+)(,\S+)?.FROM/","SELECT count(\\1) as count FROM", $query );
 		$query = preg_replace("/ ORDER BY (\S+)(.(\S+)*)?/",";",$query);
 	} else {
-		$query = preg_replace("/SELECT.(\S+).FROM/","SELECT count(id) FROM", $query );
+		$query = preg_replace("/SELECT.(\S+).FROM/","SELECT count(id) as count FROM", $query );
 	}
 
 	$result = db_query( $link, $query );
