@@ -49,11 +49,6 @@
 	}
 
 ?>
-
-			<div class="box" id="gene">
-				<p>Freckle - Mis à jour le 24/10/2004</p>
-			</div>
-
 		</div>
 
 	 <hr />

@@ -19,7 +19,7 @@ function display_categorie() {
 		$i = $i+1;
 	}
 	db_close($link);
-	echo "</tr>\n</table>\n";
+	echo "\n</table>\n";
 }
 
 

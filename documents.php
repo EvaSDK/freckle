@@ -3,7 +3,7 @@
 <div class="box">
 	<h3>Trouver...</h3>
 	<p>Afficher les documents de la catégorie:</p>
-	<form action="index.php" method='GET'>
+	<form action="index.php" method='get'>
 	<fieldset>
 		<input type="hidden" name="what" value="search" />
 		<input type="hidden" name="current" value="0" />

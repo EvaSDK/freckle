@@ -87,7 +87,7 @@ function display_list_entries($what,$offset)
 			case "search":
 				echo "<tr><td>$object->id_fichier</td>";
 				$filename = $object->url;
-				echo "<td><img src='".getIcon($filename)."' /></td>\n";
+				echo "<td><img src='".getIcon($filename)."' alt='icon'/></td>\n";
 				echo "<td><a href='files/$filename'>".basename($filename)."</a></td></tr>\n";
 				break;
 			case "defect":
