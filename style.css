@@ -151,6 +151,7 @@ li:hover > ul.pop {
 }
 
 .menu h2 {
+	position: relative;
 	color: #222444;
 	padding: 4px;
 	margin: 0;
