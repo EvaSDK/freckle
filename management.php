@@ -1,18 +1,20 @@
 <?php
 	session_start();
-	include("./inc/auth.inc.php");
-	include("./inc/general.inc.php");
-	include("./inc/management.inc.php");
-	include("./inc/backend_sql.php");
+	require("./inc/definitions.inc.php");
+	require("./inc/backend_sql.php");
 	
-	$password = $_POST['password'];
-	$username = $_POST['username'];
+	require("./inc/auth.inc.php");
+	require("./inc/general.inc.php");
+	require("./inc/management.inc.php");
+	
+	$pass = $_POST['password'];
+	$user = $_POST['username'];
  
 	if ($_GET['logout']==TRUE) {
 		logout_admin();
 	}
 
-	if ( ($password=="coin" and $username=="freckle_admin") or $_SESSION['admin']==TRUE) {
+	if ( ($pass=="coin" and $user=="freckle_admin") or $_SESSION['admin']==TRUE) {
 		$_SESSION['admin']=TRUE;
 	} else {
 		$_SESSION['admin']=FALSE;

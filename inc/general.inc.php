@@ -23,12 +23,12 @@ function display_documents( $critere1, $critere2 )
 	 (SELECT id_fichier FROM reference WHERE id_categorie1=$critere1 or id_categorie2=$critere1);";
 	}
 
-	$result = pg_query($link,"SELECT ccourt FROM categorie;");
-	$ptr = pg_query($link,$sql);
+	$result = db_query($link,"SELECT ccourt FROM categorie;");
+	$ptr = db_query($link,$sql);
 
 	$cat = pg_fetch_all($result);
 
-	if($critere1!="last") echo "<p>".pg_num_rows($ptr)." résultats pour cette recherche</p>\n";
+	if($critere1!="last") echo "<p>".db_num_rows($ptr)." résultats pour cette recherche</p>\n";
 	echo "<hr class='separateur'/>\n<table>\n";
 	
 	while($row = pg_fetch_object($ptr)) {
@@ -46,14 +46,14 @@ function display_documents( $critere1, $critere2 )
 		echo "\t<td><a href='$lien' style='font-family: monospace; font-weight:normal;'>".$filename."</a></td>\n";
 		echo "\t<td class='right'>".getCat($row->cat , $lcat)."</td>\n</tr>\n";
 	}
-	pg_close($link);
+	db_close($link);
 	echo "</table>\n<hr class='separateur'/>";
 }
 
 /* affiche le tableau des categories */
 function display_categorie() {
 	$link = db_connect();
-	$ptr = pg_query($link,"SELECT * FROM categorie ORDER BY id;");
+	$ptr = db_query($link,"SELECT * FROM categorie ORDER BY id;");
 	$i=0;
 	
 	echo "<table>\n";
@@ -68,7 +68,7 @@ function display_categorie() {
 		}
 		$i = $i+1;
 	}
-	pg_close($link);
+	db_close($link);
 	echo "</tr>\n</table>\n";
 }
 
@@ -78,27 +78,27 @@ function display_categorie() {
 function display_categorie_select()
 {
 	$link = db_connect();
-	$ptr = pg_query($link,"SELECT * FROM categorie;");
+	$ptr = db_query($link,"SELECT * FROM categorie;");
 
 	echo "<select name='cat1'>\n";
 	while($row = pg_fetch_object($ptr)) {
 		echo "	<option value='".$row->id."'>[$row->ccourt] $row->clong</option>\n";
 	}
 	echo "</select>";
-	$ptr = pg_query("SELECT * FROM categorie ORDER BY ccourt");
+	$ptr = db_query($link, "SELECT * FROM categorie ORDER BY ccourt");
 	echo "<select name='cat2'>\n";
 	echo "	<option value='0'>2ème critère</option>\n";
 	while($row = pg_fetch_object($ptr)) {
 		echo "	<option value='".$row->id."'>[$row->ccourt] $row->clong</option>\n";
 	}
 	echo "</select>\n";
-	pg_close($link);
+	db_close($link);
 }
 
 function display_types_select()
 {
 	$link = db_connect();
-	$result = pg_query($link, "SELECT * FROM types;");
+	$result = db_query($link, "SELECT * FROM types;");
 
 	echo "<select name='type'>\n";
 	while( $row = pg_fetch_object($result) )
@@ -106,6 +106,7 @@ function display_types_select()
 		echo "\t<option value=".$row->id.">".$row->type."</option>\n";
 	}
 	echo "</select>\n";
-	pg_close($link);
+	db_close($link);
 }
+
 ?>

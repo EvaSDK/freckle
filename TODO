@@ -29,6 +29,7 @@ Section COMMUNE
  * nombre de lignes max affichées changeable
  - panneau d'options (en fonction des 3 fonctions précédentes)
  - limiter les résultats affiché par une recherche de document et faire en sorte de pouvoir défiler les résultats
+ - système de notation des fichiers pour dégager à terme ceux de mauvaises qualités qui font doublons
 
 
 Section USER

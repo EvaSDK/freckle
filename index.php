@@ -1,8 +1,11 @@
 <?php
 	session_start();
-	include("inc/auth.inc.php");
-	include("inc/general.inc.php");
-	include("inc/forum.inc.php");
+	require("./inc/definitions.inc.php");
+	require("./inc/backend_sql.php");
+	
+	require("./inc/auth.inc.php");
+	require("./inc/general.inc.php");
+	require("./inc/forum.inc.php");
 
 	echo "<?xml version='1.0' encoding='ISO-8859-1'?>\n";
 ?>

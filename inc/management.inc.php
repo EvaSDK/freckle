@@ -34,8 +34,8 @@ function list_query($what,$offset,$step,$limit)
 		$query.=";";
 	}
 	
-	$result = pg_query($link, $query);
-	pg_close($link);
+	$result = db_query($link, $query);
+	db_close($link);
 	return $result;
 }
 
@@ -90,7 +90,7 @@ function display_list_access($what,$offset,$step)
 	echo "<div class='admin-accesslist'>";
 	$result = list_query($what,$offset,$step,FALSE);
 
-	for($i=0; $i< q_num_rows($result); $i+=$step)
+	for($i=0; $i< db_num_rows($result); $i+=$step)
 	{
 		echo "<a href='management.php?what=$what&amp;current=$i'>".($i+1)/*."-".($i+$step)*/."</a> ";
 	}

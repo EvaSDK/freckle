@@ -1,6 +1,10 @@
 CHANGELOG
 --------
 
+[25-10-2004 eva@su]
+ - avancement du backend SQL
+ - création d'un fichier contenant les définitions de base de l'application
+
 [24-10-2004 eva@kanako]
  - Modification des pages principales et du menu pour alléger la maintenance du modèle html. La page index.php sert maintenant à inclure la page qu'on veut (tools/docs/accueil) directement.
  - ajout des checkbox dans la section admin (en prévision de modifications pour sélections multiples).
@@ -13,7 +17,6 @@ CHANGELOG
  - Ajout des 2 champs manquant jusqu'à présent dans l'affichage des documents (catégories)
 
 [01-08-2004 eva@haruka]
-
  - Déplacement de fichiers du dossier _admin dans la racine du site
  - Fonction d'ajout/modification/suppression d'élément ajouté
  - process.php renvoie un message lors de la réussite de l'opération

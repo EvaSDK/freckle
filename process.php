@@ -1,8 +1,9 @@
 <?
 	session_start();
+	require("./inc/definitions.php");
+	require("./inc/backend_sql.php");
 	include("./inc/auth.inc.php");
 	include("./inc/general.inc.php");
-	include("./inc/backend_sql.php");
 
 	if($_SESSION['admin']==FALSE) {
 		header("Location: index.php"); 

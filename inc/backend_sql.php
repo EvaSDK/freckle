@@ -1,39 +1,15 @@
 <?php
 
-$SQL = "pgSQL";
+/*
+ * Sélectionne le backend SQL
+ */
 
-function db_query( $link, $query )
+global $SQL;
+
+switch( $SQL )
 {
-	global $SQL;
-	switch ( $SQL )
-	{
-		case "mySQL": $result = mysql_query($query, $link); break;
-		case "pgSQL": $result =    pg_query($link, $query); break;
-	}
-	return $result;
+	case "mySQL": require("./inc/backend_mysql.php"); break;
+	case "pgSQL": require("./inc/backend_pgsql.php"); break;
 }
-
-function db_close( $link )
-{
-	global $SQL;
-	switch ( $SQL )
-	{
-		case "mySQL": $result = mysql_close($link); break;
-		case "pgSQL": $result =    pg_close($link); break;
-	}
-	return $result;
-}
-
-function q_num_rows( $o1 )
-{
-	global $SQL;
-	switch ( $SQL )
-	{
-		case "mySQL": $result = mysql_num_rows($o1); break;
-		case "pgSQL": $result =    pg_num_rows($o1); break;
-	}
-	return $result;
-}
-
 
 ?>

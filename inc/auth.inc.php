@@ -1,12 +1,5 @@
 <?php
 
-/* Fonction de connection à la base pgsql */
-function db_connect() {
-	$link = pg_connect("dbname=freckle user=reader password=bidon");
-	return $link;
-}
-
-
 /* Formulaire d'autentification */
 function login_admin () {
 	echo "<form method='post' action='management.php'>\n <dl>\n";
@@ -22,4 +15,5 @@ function logout_admin() {
 	$_SESSION = array();
 	session_destroy();
 }
+
 ?>
