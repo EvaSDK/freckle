@@ -5,7 +5,7 @@
 
   <!-- Creative Commons License -->
   <!-- <a rel="license" href="http://creativecommons.org/licenses/by-sa/1.0/"><img alt="Creative Commons License" border="0" src="http://creativecommons.org/images/public/somerights.gif" /></a><br /> -->
-   Copyright &copy;Club*nix 2004, sous licence <a rel="license" href="http://creativecommons.org/licenses/by-sa/1.0/">Creative Commons License</a>.
+   Copyright &copy;<a href="http://www.esiee.fr/~clubnix/">Club*Nix</a> 2004, sous licence <a rel="license" href="http://creativecommons.org/licenses/by-sa/1.0/">Creative Commons License</a>.
   <!-- /Creative Commons License -->
 
 
