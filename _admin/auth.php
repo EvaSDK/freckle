@@ -30,7 +30,7 @@
  
  <div class="head">
  <h1>Freckle in da mix</h1>
- <img src="../essai-freckle.png" alt="logo" />
+ <img src="../logo_freckle.png" alt="logo" />
  </div>
 
  <div class="menu">
