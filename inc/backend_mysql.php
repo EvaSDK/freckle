@@ -8,6 +8,7 @@
 /* connection à la base de données */
 function db_connect()
 {
+	global $hostname, $username, $password, $dbname;
 	$link = mysql_connect($hostname, $username, $password);
 	mysql_select_db($dbname, $link);
 	return $link;
