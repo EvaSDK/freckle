@@ -31,15 +31,27 @@ function display_categorie_select()
 	$link = db_connect();
 	$ptr = db_query($link,"SELECT * FROM categorie;");
 
+	/* on récupère les valeurs de la recherche */
+	if ( isset($_GET['cat1']) )
+		$cat1 = $_GET['cat1'];
+	if ( isset($_GET['cat1']) )
+		$cat2 = $_GET['cat2'];
+
 	echo "<select name='cat1'>\n";
 	while($row = db_fetch_object($ptr)) {
-		echo "\t<option value='".$row->id."'>[$row->ccourt] $row->clong</option>\n";
+		echo "\t<option value='".$row->id."'";
+		if( $cat1==$row->id )
+			echo " selected='selected'";
+		echo ">[$row->ccourt] $row->clong</option>\n";
 	}
 	echo "</select>";
 	$ptr = db_query($link, "SELECT * FROM categorie ORDER BY ccourt");
 	echo "<select name='cat2'>\n";
 	while($row = db_fetch_object($ptr)) {
-		echo "\t<option value='".$row->id."'>[$row->ccourt] $row->clong</option>\n";
+		echo "\t<option value='".$row->id."'";
+		if( $cat2==$row->id )
+			echo " selected='selected'";
+		echo ">[$row->ccourt] $row->clong</option>\n";
 	}
 	echo "</select>\n";
 	db_close($link);
