@@ -3,8 +3,8 @@
 <div class="box">
 	<h3>Qu'est ce que Freckle</h3>
 	<p>
-	<strong>Freckle</strong>, pour ceux qui ne le sauraient pas encore, est un site rassemblant tous
- les documents fournis par les élèves, les administratifs et les enseignants de l'ESIEE. Vous êtes <em>fortement encouragé</em> à contribuer en envoyant un mail avec vos documents à <a href="mailto:fr
+	<strong>Freckle</strong> est un site rassemblant des documents de toute sorte 
+fournis par les élèves, les administratifs et les enseignants de l'ESIEE. Vous êtes <em>fortement encouragés</em> à contribuer en envoyant un e-mail avec vos documents à <a href="mailto:fr
 eckle[at]esiee[point]fr">freckle [at] esiee [point] fr</a>.
 	</p>
 	<ul>
