@@ -25,7 +25,7 @@
 <head>
  <title>FRECKLE - Accueil</title>
  <link href="./style.css" type="text/css" media="screen" rel="stylesheet" />
- <!-- script from www.alistapart.com -->
+ <!-- script from www.alistapart.com bouh -->
  <!-- <script type="text/javascript" src="styleswitcher.js"></script> -->
 
  <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
