@@ -8,7 +8,12 @@
 	require("./inc/general.inc.php");
 	include("./inc/management.inc.php");
 
-	echo "<?xml version='1.0' encoding='ISO-8859-1'?>\n";
+    if ( !isset($_SERVER["HTTP_ACCEPT"]) ||
+        stristr($_SERVER["HTTP_ACCEPT"], "application/xhtml+xml") )
+    {
+	    header("Content-type: application/xhtml+xml");
+    	echo '<?xml version="1.0" encoding="iso-8859-1"?>' . "\n";
+	}
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 

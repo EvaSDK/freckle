@@ -11,8 +11,8 @@ function display_categorie() {
 	while( $row = db_fetch_object($ptr) )
 	{
 		if( $i==0 ) echo "<tr>\n";
-		echo " <td class='right'>[$row->ccourt]</td>\n";
-		echo " <td><a href='index.php?what=search&amp;cat1=".$row->id."&amp;cat2='>$row->clong</a></td>\n";
+		echo "\t<td class='right'>[$row->ccourt]</td>\n";
+		echo "\t<td><a href='index.php?what=search&amp;cat1=".$row->id."&amp;cat2='>$row->clong</a></td>\n";
 		if( $i==1 ) {
 			echo "</tr>\n";
 			$i=-1;
@@ -22,10 +22,10 @@ function display_categorie() {
 
 	// rajouter un </tr> si le nombre d'elements est impaire
 	if ( $i == 1 )
-		echo "</tr>\n";
+		echo "\t<td colspan='2'>&nbsp;</td>\n</tr>\n";
 	
 	db_close($link);
-	echo "\n</table>\n";
+	echo "</table>\n";
 }
 
 
