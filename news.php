@@ -33,7 +33,7 @@
 
  <div class="head">
  <h1>Freckle</h1>
- <img src="essai-freckle.png" title="bann" style="float: right; height: 74px; width: 150px; position: absolute; top: 0; right: 0;"/>
+ <img src="logo-freckle.png" title="bann" alt="logo" />
  </div>
 
  <div class="content">

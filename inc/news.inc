@@ -17,14 +17,16 @@ function display_news( $long, $conn )
     $sql="SELECT * FROM news ORDER BY Date DESC";
   }
 
-  echo "<ul>\n";
+  echo "<ul class='news'>\n";
   if($p = @mysql_query($sql,$conn))
   {
     while($r = @mysql_fetch_array($p))
     {
-      echo "<li><span style='color:red;'>[$r[Date]]</span> $r[Comment]</li>\n  ";
+      echo " <li><span>[$r[Date]]</span> $r[Comment]</li>\n  ";
     }
   }
+
+  if ( $long == "short" ) echo " <li><a href='display.php?what=news'>En savoir plus</a></li>\n";
   echo "</ul>\n";
 }
 

@@ -78,7 +78,7 @@
 <!--
   <div class="box">
    <h3>Actualités</h3>
-   <?php display_actu( "short", $conn ); ?>
+   <?php /* display_actu( "short", $conn ); */ ?>
    <h4>
     <img src="_img_actu/next.gif" alt="next"/>
     Anciennes Nouvelles:

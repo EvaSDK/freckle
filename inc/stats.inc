@@ -1,5 +1,6 @@
 <?php
 
+/* Affiche le nombre de visiteurs */
 function visiteurs() {
   if ($countup==1) mysql_query( "UPDATE visit SET clicks=clicks+1");
 
@@ -13,6 +14,7 @@ function visiteurs() {
   }
 }
 
+/* Affiche le nombre de pages vues == pages affiches */
 function viewed_pages() {
   $sql="UPDATE hit SET clicks=clicks+1";
   mysql_query($sql);
@@ -26,6 +28,7 @@ function viewed_pages() {
   }
 }
 
+/* Compte le nombre de fichiers dans la base */
 function registred_documents() {
   $res = @mysql_query("SELECT count(*) as cc from file");
   $row = @mysql_fetch_object($res);
@@ -36,6 +39,7 @@ function registred_documents() {
   }
 }
 
+/* nombre de sites enregistres dans la base */
 function registred_sites() {
   $res = @mysql_query("SELECT count(*) as cc from site");
   $row = @mysql_fetch_object($res);

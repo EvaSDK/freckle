@@ -271,3 +271,16 @@ table {
 /*	width: 90%;*/
 	table-layout: auto;
 }
+
+ul.news li {
+/*	list-style-type: square;*/
+}
+
+ul.news li:hover {
+	background-color: white;
+}
+
+ul.news li span {
+	color: darkred;
+}
+

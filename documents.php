@@ -36,7 +36,7 @@
 
  <div class="head">
  <h1>Freckle</h1>
- <img src="essai-freckle.png" title="bann" alt="logo" />
+ <img src="logo_freckle.png" title="bann" alt="logo" />
  </div>
 
  <div class="menu">
@@ -96,7 +96,6 @@
  <hr />
 
  <div class="foot" >
-
   <?php include("foot.inc.php"); ?>
  </div>
 
