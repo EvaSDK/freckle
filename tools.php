@@ -91,7 +91,7 @@
     Pour ceux qui ne sauraient pas encore se servir de LaTeX et Cie. le
     Club*Nix organise des séances d'initiation (selon la demande)
     Pour plus d'informations envoyez un mail à 
-    <a href="mailto://clubnix[at]esiee[point]fr">clubnix [at] esiee [point] fr</a>.
+    <a href="mailto:clubnix[at]esiee[point]fr">clubnix [at] esiee [point] fr</a>.
    </p>
    </div>
 
