@@ -17,9 +17,10 @@ eckle[at]esiee[point]fr">freckle [at] esiee [point] fr</a>.
 <div class="box">
 	<h3>Nouveaux</h3>
 	<h4>Les 10 documents les plus récents</h4>
-	<table>
-		<?php display_documents( "last", 0 ); ?>
-	</table>
+<?php
+	display_list_access( "search",0 );
+	display_list_entries( "search",0 );
+?>
 	<p>Voir la description des unités ci-dessous.</p>
 </div>
 

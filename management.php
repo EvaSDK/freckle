@@ -14,7 +14,7 @@
 		logout_admin();
 	}
 
-	if ( ($pass==$pass_admin and $user==$user_admin) or $_SESSION['admin']==TRUE) {
+	if ( ($pass==$admin_pass and $user==$admin_user) or $_SESSION['admin']==TRUE) {
 		$_SESSION['admin']=TRUE;
 	} else {
 		$_SESSION['admin']=FALSE;

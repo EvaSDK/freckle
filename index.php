@@ -5,7 +5,7 @@
 	
 	require("./inc/auth.inc.php");
 	require("./inc/general.inc.php");
-	require("./inc/forum.inc.php");
+	include("./inc/management.inc.php");
 
 	echo "<?xml version='1.0' encoding='ISO-8859-1'?>\n";
 ?>
@@ -35,15 +35,15 @@
 	
 <?php
 
-	if( isset($_GET['action']) )
-		$action = $_GET['action'];
+	if( isset($_GET['what']) )
+		$what = $_GET['what'];
 	else
-		$action = "accueil";
+		$what = "accueil";
 
-	switch( $action )
+	switch( $what )
 	{
 		case "accueil" : include("accueil.php"); break;
-		case "docs"		: include("documents.php"); break;
+		case "search"  : include("documents.php"); break;
 		case "tools"	 : include("tools.php"); break;
 	}
 
