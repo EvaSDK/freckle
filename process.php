@@ -39,15 +39,15 @@
 		{
 			case "types":
 				$_SESSION["message"] = "Type supprimé";
-				$query = "DELETE FROM types WHERE id=$id;";
+				$query = "DELETE FROM types WHERE id='#ID#';";
 				break;
 			case "fichiers":
 				$_SESSION["message"] = "Fichier supprimé";
-				$query = "DELETE FROM fichiers WHERE id=$id;";
+				$query = "DELETE FROM fichiers WHERE id='#ID#';";
 				break;
 			case "categorie":
 				$_SESSION["message"] = "Catégorie supprimé";
-				$query = "DELETE FROM categorie WHERE id=$id;";
+				$query = "DELETE FROM categorie WHERE id='#ID#';";
 				break;
 		}
 	} else if ($action=="Modifier")
@@ -56,37 +56,56 @@
 		{
 			case "types":
 				$_SESSION["message"] = "Type modifié";
-				$query = "UPDATE types SET type='".$_POST['type']."' WHERE id=$id;";
+				$query = "UPDATE types SET type='".$_POST['type']."' WHERE id='#ID#';";
 				break;
 			case "fichiers":
 				$_SESSION["message"] = "Fichier modifié";
-				$query = "UPDATE fichiers SET url='".$_POST['url']."', annee_prod='".$_POST['annee_prod']."', commentaire='".$_POST['comment']."' WHERE id=$id;";
+				$query = "UPDATE fichiers SET url='".$_POST['url']."', annee_prod='".$_POST['annee_prod']."', commentaire='".$_POST['comment']."' WHERE id=''#ID#';";
 				break;
 			case "categorie":
 				$_SESSION["message"] = "Catégorie modifié";
-				$query = "UPDATE categorie SET ccourt='".$_POST['ccourt']."', clong='".$_POST['clong']."' WHERE id=$id;";
+				$query = "UPDATE categorie SET ccourt='".$_POST['ccourt']."', clong='".$_POST['clong']."' WHERE id='#ID#';";
 				break;
 		}
 	} else if ($action=="Classer")
 	{
 		 $_SESSION['message'] = "Fichier $id classé";
-		 $query = "INSERT INTO reference (id_categorie,id_fichier,id_type) VALUES ('".$_POST['cat1']."','$id','".$_POST['type']."');";
+		 $query = "INSERT INTO reference (id_categorie,id_fichier,id_type) VALUES ('".$_POST['cat1']."','#ID#','".$_POST['type']."');";
 		 
 		 if ($_POST['cat2']!='')
 		 {
-			 $query .= "INSERT INTO reference (id_categorie,id_fichier,id_type) VALUES ('".$_POST['cat1']."','$id','".$_POST['type']."');";
+			 $query .= "INSERT INTO reference (id_categorie,id_fichier,id_type) VALUES ('".$_POST['cat1']."','#ID#','".$_POST['type']."');";
 		 }
 	} else if ($action=="Désaffecter")
 	{
 		$_SESSION['message'] = "Fichier $id déclassé";
-		$query = "DELETE FROM reference WHERE id_fichier='".$id."';";
+		$query = "DELETE FROM reference WHERE id_fichier='#ID#';";
 	}
 
 	//echo "$action,\n";
 	//echo "<p>$query</p>";
 
+	$ids = array();
+	for( $i=0; $i<16; $i++)
+	{
+		if( isset($_POST['ids-'$i]) )
+			$ids[] = $i;
+	}
+
+	$cids = count( $ids );
+
+	if( $what=="Ajouter" and $cids!=1 )
+		$_SESSION['message'] = "Impossible de faire des requêtes simultanées pour ajouter des éléments";
+		header("Location: ./management.php?what=$what");
+	}
+	
+	for( $i=0; $i<$cids; $i++ )
+	{
+		echo preg_replace("/#ID#/",$i,$query)."<br />";
+	}
+
 	$dblink = dbconn();
-	pg_query ($dblink, $query);
+/*	pg_query ($dblink, $query);*/
 	pg_close($dblink);
 	header("Location: ./management.php?what=$what");
 ?>
