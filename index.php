@@ -52,7 +52,7 @@
     <strong>Freckle</strong>, pour ceux qui ne le sauraient pas encore, est un site rassemblant tous les documents fournis par les élèves, les administratifs et les enseignants de l'ESIEE. Vous êtes <em>fortement encouragé</em> à contribuer en envoyant un mail avec vos documents à <a href="mailto:freckle[at]esiee[point]fr">freckle [at] esiee [point] fr</a>.
    </p>
    <ul>
-    <li><a href="documents.php">Accéder au documents</a></li>
+    <li><a href="documents.php">Accéder aux documents</a></li>
     <li><a href="tools.php">Outils et recommandations</a></li>
     <li><a href="display.php?what=site">Les autres sites de l'ESIEE</a></li>
    </ul>
