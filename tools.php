@@ -4,8 +4,8 @@
 
   @include("_admin/param.php");
   include("forums/include.php");
-  include("./inc/stats.inc");
-  include("./inc/news.inc");
+  include("./inc/stats.inc.php");
+  include("./inc/general.inc.php");
 
   $countup=0;
   if ( $_COOKIE["freckle-esiee"] != "1" )
@@ -35,11 +35,11 @@
  
  <div class="head">
  <h1>Freckle</h1>
- <img src="./logo_freckle.png" title="bann" alt="logo" />
+ <img src="./freckle.png" title="bannière" alt="logo freckle" />
  </div>
 
  <div class="menu">
-  <?php include("menu.inc.php"); ?>
+  <?php include("./inc/menu.inc.php"); ?>
  </div>
 
  <div class="content">
@@ -55,7 +55,7 @@
    <ul>
     <li>
      <a href="http://www.adobe.com/products/acrobat/readstep2.html">Acrobat Reader</a>
-     <p>Permet de visualiser le document PDF et existe sur une grande variété d'OS</p>
+     <p>Permet de visualiser le document <acronym title="Portable Document Format">PDF</acronym> et existe sur une grande variété d'OS</p>
     </li>
     <li>
      <a href="http://piartt.free.fr/">Winzip et WinRAR</a>
@@ -91,7 +91,7 @@
     Pour ceux qui ne sauraient pas encore se servir de LaTeX et Cie. le
     Club*Nix organise des séances d'initiation (selon la demande)
     Pour plus d'informations envoyez un mail à 
-    <a href="mailto://clubnix@esiee.fr">clubnix@esiee.fr</a>.
+    <a href="mailto://clubnix[at]esiee[point]fr">clubnix [at] esiee [point] fr</a>.
    </p>
    </div>
 
@@ -104,7 +104,7 @@
  <hr />
 
  <div class="foot">
-  <?php include("foot.inc.php"); ?>
+  <?php include("./inc/foot.inc.php"); ?>
  </div>
 
 </body>

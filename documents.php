@@ -4,8 +4,8 @@
 
   @include("_admin/param.php");
   include("forums/include.php");
-  include("./inc/stats.inc");
-  include("./inc/news.inc");
+  include("./inc/stats.inc.php");
+  include("./inc/general.inc.php");
 
   $countup=0;
   
@@ -36,11 +36,11 @@
 
  <div class="head">
  <h1>Freckle</h1>
- <img src="logo_freckle.png" title="bann" alt="logo" />
+ <img src="freckle.png" title="bannière" alt="logo freckle" />
  </div>
 
  <div class="menu">
-  <?php include("menu.inc.php"); ?>
+  <?php include("./inc/menu.inc.php"); ?>
  </div>
 
  <div class="content">
@@ -62,12 +62,6 @@
      ?>
     <input type="submit" name="Submit2" value="Voir" />
    </fieldset>
-<!--
-	  <a href=\"index.php?location=file&focus=yes&focus1="
-         . pow(2,$row->id) . "\">
-       echo "<td class=\"$class\"><a href=\"index.php?location=file&focus=yes&focus1="
-         . pow(2,$row->id) . "\">$row->nom</a></td></tr>";
--->
   </form>
  </div>
 
@@ -96,7 +90,7 @@
  <hr />
 
  <div class="foot" >
-  <?php include("foot.inc.php"); ?>
+  <?php include("./inc/foot.inc.php"); ?>
  </div>
 
 </body>

@@ -4,8 +4,8 @@
 
   @include("_admin/param.php");
   include("forums/include.php");
-  include("./inc/stats.inc");
-  include("./inc/news.inc");
+  include("./inc/stats.inc.php");
+  include("./inc/general.inc.php");
 
   $countup=0;
   if ( $_COOKIE["freckle-esiee"] != "1" )
@@ -35,11 +35,11 @@
  
  <div class="head">
  <h1>Freckle</h1>
- <img src="./freckle.png" title="bann" alt="toto" />
+ <img src="./freckle.png" title="bannière" alt="logo freckle" />
  </div>
 
  <div class="menu">
-  <?php include("menu.inc.php"); ?>
+  <?php include("./inc/menu.inc.php"); ?>
  </div>
 
  <div class="content">
@@ -49,7 +49,7 @@
   <div class="box">
    <h3>Qu'est ce que Freckle</h3>
    <p>
-    <strong>Freckle</strong>, pour ceux qui ne le sauraient pas encore, est un site rassemblant tous les documents fournis par les élèves, les administratifs et les enseignants de l'ESIEE. Vous êtes <em>fortement encouragé</em> à contribuer en envoyant un mail avec vos documents à <strong>freckle [at] esiee [point] fr</strong>.
+    <strong>Freckle</strong>, pour ceux qui ne le sauraient pas encore, est un site rassemblant tous les documents fournis par les élèves, les administratifs et les enseignants de l'ESIEE. Vous êtes <em>fortement encouragé</em> à contribuer en envoyant un mail avec vos documents à <a href="mailto://freckle[at]esiee[point]fr">freckle [at] esiee [point] fr</a>.
    </p>
    <ul>
     <li><a href="documents.php">Accéder au documents</a></li>
@@ -75,22 +75,6 @@
    <h3>Listes des catégories</h3>
    <?php display_categorie(); ?>
   </div>
-<!--
-  <div class="box">
-   <h3>Actualités</h3>
-   <?php /* display_actu( "short", $conn ); */ ?>
-   <h4>
-    <img src="_img_actu/next.gif" alt="next"/>
-    Anciennes Nouvelles:
-   </h4>
-   <p>
-    <dl>
-     <dd><a href="./display.php?what=actu">Pour accéder aux anciennes nouvelles</a></dd>
-	 <dd>Pour faire passer un message ou annoncer un événement: <a href="mailto:freckle[@]esiee[.]fr">freckle[@]esiee[.]fr</a></dd>
-    </dl>
-   </p>
-  </div>
--->
 
   <div class="box" id="gene">
    Freckle - Mis à jour le 19/02/2004 - Généré en <?php echo round(microtime() - $start_time, 3); ?> secondes.
@@ -101,7 +85,7 @@
  <hr />
 
  <div class="foot">
-  <?php include("foot.inc.php"); ?>
+  <?php include("./inc/foot.inc.php"); ?>
  </div>
 
 </body>

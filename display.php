@@ -4,8 +4,8 @@
 
   @include("_admin/param.php");
   include("forums/include.php");
-  include("./inc/stats.inc");
-  include("./inc/news.inc");
+  include("./inc/stats.inc.php");
+  include("./inc/general.inc.php");
 
   $countup=0;
   if ( $_COOKIE["freckle-esiee"] != "1" )
@@ -35,11 +35,11 @@
 
  <div class="head">
  <h1>Freckle</h1>
- <img src="./logo_freckle.png" title="bann" alt="toto" />
+ <img src="./freckle.png" title="bannière" alt="logo freckle" />
  </div>
 
  <div class="menu">
-  <?php include("menu.inc.php"); ?>
+  <?php include("./inc/menu.inc.php"); ?>
  </div>
 
  <div class="content">
@@ -67,7 +67,7 @@
  <hr />
 
  <div class="foot">
-  <?php include("foot.inc.php"); ?>
+  <?php include("./inc/foot.inc.php"); ?>
  </div>
 
 </body>

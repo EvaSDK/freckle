@@ -1,8 +1,8 @@
 <?php
   include("param.php");
   include("../forums/include.php");
-  include("../inc/stats.inc");
-  include("../inc/news.inc");
+  include("../inc/stats.inc.php");
+  include("../inc/general.inc.php");
 
   $conn = mysql_pconnect($dns,$usr,$pwd);
   mysql_select_db ( $db , $conn );
@@ -24,17 +24,17 @@
  
  <div class="head">
  <h1>Freckle in da mix</h1>
- <img src="../essai-freckle.png" title="bann" alt="logo" />
+ <img src="../freckle.png" title="bannière" alt="logo freckle" />
  </div>
 
  <div class="menu">
   <ul>
   <li><h2>Général</h2>
   <ul>
-   <li><a href="index.php">Accueil</a></li>
-   <li><a href="documents.php">Documents</a></li>
-   <li><a href="display.php?what=site">Autres sites ESIEE</a></li>
-   <li><a href="tools.php">Outils et recommandations</a></li>
+   <li><a href="../index.php">Accueil</a></li>
+   <li><a href="../documents.php">Documents</a></li>
+   <li><a href="../display.php?what=site">Autres sites ESIEE</a></li>
+   <li><a href="../tools.php">Outils et recommandations</a></li>
   </ul></li>
   <li><h2>Statistiques</h2>
   <ul class="pop">
@@ -45,7 +45,7 @@
   </ul></li>
   <li><h2>Webmaster</h2>
   <ul>
-   <li><a href="../index2.php">Retour au site</a></li>
+   <li><a href="../index.php">Retour au site</a></li>
    <li><a href="./auth.php?what=logout">Logout</a></li>
   </ul></li>
   </ul>
@@ -88,40 +88,8 @@
 
  <hr />
 
-  <div class="foot">
-  <!-- Validation -->
-  <a href="http://validator.w3.org/check/referer">Valid XHtml</a> |
-  <a href="http://jigsaw.w3.org/css-validator/">Valid CSS</a> |
-  <!-- Fin Validation -->
-
-  <!-- Creative Commons License -->
-   <!-- <a href="http://creativecommons.org/licenses/by-nc-sa/1.0/">
-    <img alt="Creative Commons License" border="0" src="http://creativecommons.org/images/public/somerights.gif" />
-   </a> -->
-   This work is licensed under a <a href="http://creativecommons.org/licenses/by-nc-sa/1.0/">Creative Commons License</a>
-  <!-- /Creative Commons License -->
-
-  <!--
-   <rdf:RDF xmlns="http://web.resource.org/cc/"
-            xmlns:dc="http://purl.org/dc/elements/1.1/"
-            xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-    <Work rdf:about="">
-     <dc:type rdf:resource="http://purl.org/dc/dcmitype/Interactive" />
-     <license rdf:resource="http://creativecommons.org/licenses/by-nc-sa/1.0/" />
-    </Work>
-
-    <License rdf:about="http://creativecommons.org/licenses/by-nc-sa/1.0/">
-     <permits rdf:resource="http://web.resource.org/cc/Reproduction" />
-     <permits rdf:resource="http://web.resource.org/cc/Distribution" />
-     <requires rdf:resource="http://web.resource.org/cc/Notice" />
-     <requires rdf:resource="http://web.resource.org/cc/Attribution" />
-     <prohibits rdf:resource="http://web.resource.org/cc/CommercialUse" />
-     <permits rdf:resource="http://web.resource.org/cc/DerivativeWorks" />
-     <requires rdf:resource="http://web.resource.org/cc/ShareAlike" />
-    </License>
-   </rdf:RDF>
-  -->
-  and copyrighted by EvaSDK &copy;2004
+ <div class="foot">
+  <?php include("../inc/foot.inc.php"); ?>
  </div>
 
 </body>
