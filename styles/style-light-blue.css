@@ -34,24 +34,16 @@ a:hover,a:visited:hover {
 	text-decoration: none;
 }
 
-.wrapper {
-	margin: 10px 20px 10px 20px;
-	-moz-border-radius: 10px 10px 10px 10px;
-	background-color: #DDDDDD;
-}
-
 .head {
 	position: relative;	
 	top: 0;
 	left: 0;
 	height: 80px;
-	background-color: transparent;
+	background-color: white;
 }
 
 .head h1 {
-	font-family: "Utopia", serif;
-	text-align: center;
-	visibility: visible;
+	visibility: hidden;
 	font-size: 24px;
 	font-weight: bold;
 	letter-spacing: 0.1em;
@@ -66,20 +58,19 @@ a:hover,a:visited:hover {
 	position: absolute;
 	top: 0px;
 	left: 10px;
-	visibility: hidden;
 }
 
 .content {
 	min-height: 275px;	
-/*margin-right: 165px;*/
-	background-color: transparent;
+	margin-right: 165px;
+	background-color: white;
 }
 
 .foot {
 	position: relative;
 	bottom: 0;
 	border-top: 2px solid #000000;
-	background: transparent;
+	background: #EEEFFF;
 	padding: 10px;
 	margin: 0;
 	font-size: 10px;
@@ -91,81 +82,78 @@ a:hover,a:visited:hover {
 /* menu */
 
 .menu {
-/*	float: right;
-	width: 150px;*/
-	background-color: black;
+	float: right;
+	width: 150px;
+	background-color: #EEEFFF;
 	font-size: 12px;
 	text-align: left;
 	padding: 0;
 	margin:0;
-	/*border-top: 1px solid black;
+	border-top: 1px solid black;
 	border-left: 1px solid black;
-	border-bottom: 1px solid black;*/
+	border-bottom: 1px solid black;
 }
 
-.menu ul, .menu ul li ul {
-	padding: 3px;
+.menu ul {
+	padding: 0;
 	margin: 0;
 	list-style-type: none;
 }
 
-.menu ul li, .menu ul li ul li {
+li > ul.pop {
+/*	display: none;
+	overflow: hidden;
+	visibility: collapse;*/
+}
+
+li:hover > ul.pop {
+/*	display: block;
+	visibility: visible;*/
+}
+
+.menu li {
 	font-weight: bold;
 	color: #777777;
-	padding: 0px;
+	padding: 3px;
 	margin : 0;
+	background-color: #EEEFFF;
 	font-size: 11px;
 	z-index: 100;
-	display: inline;
 	list-style-type: none;
-}
-
-.menu ul li ul {
-	float: left;
-}
-
-.menu ul li ul li * {
-	background-color: #EEEFFF;
-	padding: 3px;
 }
 
 .menu a {
-	margin: 0;
 	padding: 2px;
 }
 
 .menu a:hover {
-	background-color: white;
 }
 
-.menu ul li ul li h2 {
+.menu h2 {
+	position: relative;
 	color: #222444;
 	padding: 4px;
 	margin: 0;
 	font-size: 13px;
 	background-color: #CCCDDD;
-/*	display:inline;*/
 }
 
 
 /* contenu */
 
 .titre-page {
-	clear: both;
 	text-align: right;
 	padding: 4px 66px 4px 0;
-	margin: 2em 5px 0 5px;
+	margin: 0 0 0 5px;
 	font-weight: bold;
 	font-size: 13px;
 	font-variant: small-caps;
 	letter-spacing: 0.25em;
-	color: white;
-	-moz-border-radius: 10px 10px 10px 10px;
-	background-color: black;
+	background-color: #DDDDDD;
 }
 
 .box {
-	margin: 40px 15px 15px 15px;
+	margin: 40px 0px 15px 15px;
 	padding: 0px 10px 15px 10px;
 	background-color: #e5f6ff;
 	border: 1px solid #71ADEA;
@@ -176,7 +164,7 @@ a:hover,a:visited:hover {
 }
 
 .box#gene {
-	margin: 0 15px 15px 15px;
+	margin: 0 0 15px 15px;
 	padding: 0 10px 0px 10px;
 	background-color: white;
 	border: 1px solid #FF9900;
@@ -201,6 +189,15 @@ p#message {
 	font-size: 16px;
 	top: -25px;
 	padding-bottom: 4px;
+}
+
+.box-date {
+	display: inline;
+	position: relative;
+	font-size: 10px;
+	font-style: italic;
+	float: right;
+	letter-spacing: 0.6em;
 }
 
 .box p {
@@ -283,11 +280,11 @@ table {
 	padding: 0;
 	table-layout: auto;
 }
-/*
+
 tr:hover {
 	background-color: white;
 }
-*/
+
 td img {
 	height: 16px;
 	width: 16px;

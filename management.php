@@ -26,28 +26,30 @@
 
 <html	xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr">
 <head>
- <title>FRECKLE</title>
- <link href="./styles/style.css" type="text/css" media="screen" rel="stylesheet" />
-
- <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<title>FRECKLE/Admin</title>
+	<link href="./styles/style-light-blue.css" type="text/css" media="screen" rel="stylesheet" title="light blue"/>
+	<link href="./styles/style.css" type="text/css" media="screen" rel="alternate stylesheet" title="test"/>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
 </head>
 
 <body>
- 
- <div class="head">
- <h1>Freckle/Admin</h1>
- <img src="./freckle.png" title="bannière" alt="logo freckle" />
- </div>
 
- <div class="menu">
-	<?php include("./inc/menu.inc.php"); ?>
- </div>
+	<div class='wrapper'>
+	
+		<div class="head">
+			<h1>Freckle/Admin</h1>
+			<img src="./freckle.png" title="bannière" alt="logo freckle" />
+		</div>
 
- <div class="content">
-	<h2 class="titre-page">Administration</h2>
+		<div class="menu">
+			<?php include("./inc/menu.inc.php"); ?>
+		</div>
 
-	<div class="box">
-	<?php
+		<div class="content">
+			<h2 class="titre-page">Administration</h2>
+
+			<div class="box">
+<?php
 	if ($_SESSION['admin']==FALSE)
 	{
 		login_admin();
@@ -82,16 +84,18 @@
 		get_form($what); 
 		echo "</form>\n";
 	}
-	?> 
+?> 
+			</div>
+		</div>
+
+		<hr />
+
+		<div class="foot">
+			<?php include("./inc/foot.inc.php"); ?>
+		</div>
+
 	</div>
- </div>
-
- <hr />
-
- <div class="foot">
-	<?php include("./inc/foot.inc.php"); ?>
- </div>
-
+	
 </body>
 </html>
 
