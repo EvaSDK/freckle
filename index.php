@@ -20,9 +20,13 @@
 <html	xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr">
 <head>
 	<title>FRECKLE</title>
-	<link href="./styles/style-light-blue.css" type="text/css" media="screen" rel="alternate stylesheet" title="light blue"/>
-	<link href="./styles/style.css" type="text/css" media="screen" rel="alternate stylesheet" title="test"/>
-	<link href="./styles/style-noel.css" type="text/css" media="screen" rel="stylesheet" title="Noël"/>
+	<link href="./styles/style-light-blue.css" type="text/css" media="screen" rel="stylesheet" title="light blue"/>
+		<link href="./styles/style-noel.css" type="text/css" media="screen" rel="alternate stylesheet" title="Noël" />	
+	
+<!-- Trop moche
+	<link href="./styles/style.css" type="text/css" media="screen" rel="alternate stylesheet" title="test" />
+-->
+
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
 </head>
 
