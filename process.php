@@ -22,6 +22,9 @@
 	{
 		$cat2 = $cat1;
 		$cat1 = $_POST['cat2'];
+	} else if ( $cat1==$cat2 )
+	{
+		$cat2 = 0;
 	}
 	
 	if($action=='Ajouter')

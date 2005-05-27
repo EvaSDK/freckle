@@ -1,8 +1,22 @@
 <?php
 
+/* Freckle v2.0
+ * Distributed under the terms of the General Public Licence (GPL)
+ * Copyright 2004 Gilles Dartiguelongue
+ *
+ * File Name: general.inc.php
+ * Developper: Gilles Dartiguelongue
+ * Date: 2004-08-01
+ *
+ *  fonctions d'utilisation générale
+ */
 
-/* affiche le tableau des categories */
-function display_categorie() {
+
+/**
+ * Affiche le tableau des categories
+ */
+function display_categorie()
+{
 	$link = db_connect();
 	$ptr = db_query($link,"SELECT * FROM categorie ORDER BY id;");
 	$i=0;
@@ -13,14 +27,15 @@ function display_categorie() {
 		if( $i==0 ) echo "<tr>\n";
 		echo "\t<td class='right'>[$row->ccourt]</td>\n";
 		echo "\t<td><a href='index.php?what=search&amp;cat1=".$row->id."&amp;cat2='>$row->clong</a></td>\n";
-		if( $i==1 ) {
+		if( $i==1 )
+		{
 			echo "</tr>\n";
 			$i=-1;
 		}
 		$i = $i+1;
 	}
 
-	// rajouter un </tr> si le nombre d'elements est impaire
+	/* rajouter un </tr> si le nombre d'elements est impaire */
 	if ( $i == 1 )
 		echo "\t<td colspan='2'>&nbsp;</td>\n</tr>\n";
 	
@@ -29,8 +44,9 @@ function display_categorie() {
 }
 
 
-
-/* affiche 2 boites de séléction de catégorie */
+/**
+ * Affiche 2 boites de séléction de catégorie
+ */
 function display_categorie_select()
 {
 	$link = db_connect();
@@ -39,9 +55,11 @@ function display_categorie_select()
 	/* on récupère les valeurs de la recherche */
 	if ( isset($_GET['cat1']) )
 		$cat1 = $_GET['cat1'];
-	if ( isset($_GET['cat1']) )
+		
+	if ( isset($_GET['cat2']) )
 		$cat2 = $_GET['cat2'];
 
+	/* premier <select> */
 	echo "<select name='cat1'>\n";
 	while($row = db_fetch_object($ptr)) {
 		echo "\t<option value='".$row->id."'";
@@ -50,7 +68,10 @@ function display_categorie_select()
 		echo ">[$row->ccourt] $row->clong</option>\n";
 	}
 	echo "</select>";
+	
 	$ptr = db_query($link, "SELECT * FROM categorie ORDER BY ccourt");
+
+	/* deuxième <select> */
 	echo "<select name='cat2'>\n";
 	echo "<option value='0'>Second Critère</option>\n";
 	while($row = db_fetch_object($ptr)) {
@@ -63,6 +84,10 @@ function display_categorie_select()
 	db_close($link);
 }
 
+
+/**
+ * Affiche le type sélectionné
+ */
 function display_types_select()
 {
 	$link = db_connect();
@@ -77,11 +102,16 @@ function display_types_select()
 	db_close($link);
 }
 
-/* renvoie l'icône correspondant à l'extension du fichier */
-function getIcon ( $file ) {
+
+/**
+ * renvoie l'icône correspondant à l'extension du fichier
+ */
+function getIcon ( $file )
+{
 	$pt = strrpos($file, ".");
 
-	if ($pt != FALSE) {
+	if ($pt != FALSE)
+	{
 		$file_ext = substr($file, $pt + 1, strlen($file) - $pt - 1);
 		switch ($file_ext)
 		{
@@ -115,6 +145,10 @@ function getIcon ( $file ) {
 	}
 }
 
+
+/**
+ * Affiche un rappel de la requête sélectionnée
+ */
 function description_critere()
 {
 	$link = db_connect();
@@ -124,13 +158,13 @@ function description_critere()
 	if( $cat1!="" )
 		echo "<h4>Recherche des documents en ";
 	
-	if( $cat1!="" )
+	if( isset($cat1) )
 	{
 		$result = db_query($link,"SELECT ccourt FROM categorie where id='$cat1'");
 		$res =  db_fetch_object($result);
 		echo $res->ccourt;
 	}
-	if( $cat2!="" and $cat2!=0 )
+	if( isset($cat2) )
 	{
 		echo " et ";
 		$result = db_query($link,"SELECT ccourt FROM categorie where id='$cat2'");
@@ -138,7 +172,7 @@ function description_critere()
 		echo $res->ccourt;
 	}
 
-	if( $cat1!="" )
+	if( isset($cat1!) )
 		echo ".</h4>\n";
 		
 	db_close($link);

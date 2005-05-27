@@ -1,4 +1,5 @@
 <?php
+
 /* Freckle v2.0
  * Distributed under the terms of the General Public Licence (GPL)
  * Copyright 2004 Gilles Dartiguelongue
@@ -11,7 +12,8 @@
  */
 
 
-/* renvoie la requête adéquate pour une des 2 fonctions suivantes
+/**
+ * Renvoie la requête adéquate pour une des 2 fonctions suivantes
  *
  * $what = action à effectuer
  */
@@ -29,11 +31,14 @@ function get_query($what)
 			$cat1 = $_GET['cat1'];
 			$cat2 = $_GET['cat2'];
 
-			if( $cat1=="" and $cat2=="" ) {
+			if( !isset($cat1) and !isset($cat2) )
+			{
 				$query = "SELECT id_fichier,url,annee_prod,feinte.ccourt as cat1,categorie.ccourt as cat2,commentaire FROM reference,fichiers,categorie, categorie as feinte WHERE fichiers.id=reference.id_fichier AND categorie.id=id_categorie1 AND feinte.id=id_categorie2 ORDER BY id_fichier DESC";	
-			} else if ($cat2!=0) {
+			} else if( isset($cat2) and $cat1!=$cat2 )
+			{
 				$query = "SELECT id_fichier,url,annee_prod,feinte.ccourt as cat1,categorie.ccourt as cat2,commentaire FROM reference,fichiers,categorie, categorie as feinte WHERE fichiers.id=reference.id_fichier AND categorie.id=id_categorie1 AND feinte.id=id_categorie2  AND ((id_categorie1='$cat2' AND id_categorie2='$cat1') OR (id_categorie1='$cat1' AND id_categorie2='$cat2'))";
-			} else {
+			} else
+			{
 				$query = "SELECT id_fichier,url,annee_prod,feinte.ccourt as cat1,categorie.ccourt as cat2,commentaire FROM reference,fichiers,categorie, categorie as feinte WHERE fichiers.id=reference.id_fichier AND categorie.id=id_categorie1 AND feinte.id=id_categorie2  AND (id_categorie1='$cat1' OR id_categorie2='$cat1')";
 			}
 			break;
@@ -44,7 +49,8 @@ function get_query($what)
 }
 
 
-/* affiche les éléments de la requête
+/**
+ * Affiche les éléments de la requête
  *
  * $what = action à effectuer
  * $offset = décalage par rapport au premier résultat de la requête
@@ -53,7 +59,6 @@ function display_list_entries($what,$offset)
 {
 	$link = db_connect();
 	$query = get_query($what).sql_limit($offset);
-
 	$result = db_query($link, $query);
 
 	echo "<table>\n";

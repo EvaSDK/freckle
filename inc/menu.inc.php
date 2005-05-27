@@ -7,7 +7,7 @@
  *
  */
 
-	echo "\n<ul>\n";
+	echo "\t<ul>\n";
 	echo "\t<li><ul>\n";
 	echo "\t\t<li><h2>Général</h2></li>\n";
 	echo "\t\t<li><a href='index.php?what=accueil'>Accueil</a></li>\n";
@@ -28,6 +28,6 @@
 	echo "\t\t<li><a href='http://www.esiee.fr'>Hébergement</a></li>\n";
 	echo "\t\t<li><a href='http://piartt.free.fr'>Mainteneur Précédent</a></li>\n";
 	echo "\t</ul></li>\n";
-	echo "</ul>\n";
+	echo "\t</ul>\n";
 
- ?>
+?>
