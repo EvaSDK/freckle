@@ -31,10 +31,10 @@ function get_query($what)
 			$cat1 = $_GET['cat1'];
 			$cat2 = $_GET['cat2'];
 
-			if( !isset($cat1) and !isset($cat2) )
+			if( $cat1=='' and $cat2=='' )
 			{
 				$query = "SELECT id_fichier,url,annee_prod,feinte.ccourt as cat1,categorie.ccourt as cat2,commentaire FROM reference,fichiers,categorie, categorie as feinte WHERE fichiers.id=reference.id_fichier AND categorie.id=id_categorie1 AND feinte.id=id_categorie2 ORDER BY id_fichier DESC";	
-			} else if( isset($cat2) and $cat1!=$cat2 )
+			} else if( $cat2!="" and $cat1!=$cat2 )
 			{
 				$query = "SELECT id_fichier,url,annee_prod,feinte.ccourt as cat1,categorie.ccourt as cat2,commentaire FROM reference,fichiers,categorie, categorie as feinte WHERE fichiers.id=reference.id_fichier AND categorie.id=id_categorie1 AND feinte.id=id_categorie2  AND ((id_categorie1='$cat2' AND id_categorie2='$cat1') OR (id_categorie1='$cat1' AND id_categorie2='$cat2'))";
 			} else

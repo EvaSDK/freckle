@@ -158,13 +158,13 @@ function description_critere()
 	if( $cat1!="" )
 		echo "<h4>Recherche des documents en ";
 	
-	if( isset($cat1) )
+	if( $cat1!="" )
 	{
 		$result = db_query($link,"SELECT ccourt FROM categorie where id='$cat1'");
 		$res =  db_fetch_object($result);
 		echo $res->ccourt;
 	}
-	if( isset($cat2) )
+	if( $cat2!="" )
 	{
 		echo " et ";
 		$result = db_query($link,"SELECT ccourt FROM categorie where id='$cat2'");
@@ -172,7 +172,7 @@ function description_critere()
 		echo $res->ccourt;
 	}
 
-	if( isset($cat1!) )
+	if( !isset($cat1) )
 		echo ".</h4>\n";
 		
 	db_close($link);
