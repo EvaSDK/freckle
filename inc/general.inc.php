@@ -172,7 +172,7 @@ function description_critere()
 		echo $res->ccourt;
 	}
 
-	if( !isset($cat1) )
+	if( $cat1!="" )
 		echo ".</h4>\n";
 		
 	db_close($link);
