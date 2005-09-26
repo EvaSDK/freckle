@@ -1,19 +1,14 @@
 <?php
-
-/* Freckle v2.0
- * Distributed under the terms of the General Public Licence (GPL)
- * Copyright 2004 Gilles Dartiguelongue
+/**
+ * fonctions d'utilisation générale
  *
- * File Name: general.inc.php
- * Developper: Gilles Dartiguelongue
- * Date: 2004-08-01
- *
- *  fonctions d'utilisation générale
+ * @package freckle
+ * @version v2.0
  */
 
 
 /**
- * Affiche le tableau des categories
+ * Affiche les catégories dans un tableau
  */
 function display_categorie()
 {
@@ -45,7 +40,7 @@ function display_categorie()
 
 
 /**
- * Affiche 2 boites de séléction de catégorie
+ * Affiche 2 boites de sélection de catégorie
  */
 function display_categorie_select()
 {
@@ -105,6 +100,7 @@ function display_types_select()
 
 /**
  * renvoie l'icône correspondant à l'extension du fichier
+ * @param $file est le nom du fichier dans on veut l'extension
  */
 function getIcon ( $file )
 {
@@ -151,31 +147,37 @@ function getIcon ( $file )
  */
 function description_critere()
 {
-	$link = db_connect();
-	$cat1 = $_GET['cat1'];
-	$cat2 = $_GET['cat2'];
+	global $db;
+	
+	if( isset($_GET['cat1']) )
+		$cat1 = $_GET['cat1'];
+	else
+		$cat1='';
+		
+	if( isset($_GET['cat2']) )
+		$cat2 = $_GET['cat2'];
+	else
+		$cat2='';
 
-	if( $cat1!="" )
+	if( $cat1!='' )
 		echo "<h4>Recherche des documents en ";
 	
-	if( $cat1!="" )
+	if( $cat1!='' )
 	{
-		$result = db_query($link,"SELECT ccourt FROM categorie where id='$cat1'");
-		$res =  db_fetch_object($result);
+		$res = getAll("SELECT ccourt FROM categorie where id='$cat1'");
+		echo "<pre>".print_r($res)."</pre>";
 		echo $res->ccourt;
 	}
-	if( $cat2!="" )
+	if( $cat2!='' )
 	{
 		echo " et ";
-		$result = db_query($link,"SELECT ccourt FROM categorie where id='$cat2'");
-		$res = db_fetch_object($result);
+		$res = getAll($link,"SELECT ccourt FROM categorie where id='$cat2'");
+		echo "<pre>".print_r($res)."</pre>";
 		echo $res->ccourt;
 	}
 
-	if( $cat1!="" )
+	if( $cat1!='' )
 		echo ".</h4>\n";
-		
-	db_close($link);
 }
 
 ?>

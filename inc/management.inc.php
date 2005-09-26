@@ -1,21 +1,16 @@
 <?php
-
-/* Freckle v2.0
- * Distributed under the terms of the General Public Licence (GPL)
- * Copyright 2004 Gilles Dartiguelongue
- *
- * File Name: management.inc.php 
- * Developper: Gilles Dartiguelongue
- * Date: 2004-08-01
- *
+/**
  *	fonctions de gestion des listes d'administrations
+ *
+ * @package freckle
+ * @version 2.0
  */
 
 
 /**
  * Renvoie la requête adéquate pour une des 2 fonctions suivantes
- *
- * $what = action à effectuer
+ * @param string $what action à effectuer
+ * @return string requête SQL correspondant à $what
  */
 function get_query($what)
 {
@@ -28,12 +23,12 @@ function get_query($what)
 			$query = "SELECT id_fichier,url,annee_prod,feinte.ccourt as cat1,categorie.ccourt as cat2,commentaire FROM reference,fichiers,categorie, categorie as feinte WHERE fichiers.id=reference.id_fichier AND categorie.id=id_categorie1 AND feinte.id=id_categorie2 ORDER BY id_fichier";
 			break;
 		case "search":
-			$cat1 = $_GET['cat1'];
-			$cat2 = $_GET['cat2'];
+		   if( isset($_GET['cat1']) ) $cat1 = $_GET['cat1']; else $cat1='';
+		   if( isset($_GET['cat2']) ) $cat2 = $_GET['cat2']; else $cat2='';
 
 			if( $cat1=='' and $cat2=='' )
 			{
-				$query = "SELECT id_fichier,url,annee_prod,feinte.ccourt as cat1,categorie.ccourt as cat2,commentaire FROM reference,fichiers,categorie, categorie as feinte WHERE fichiers.id=reference.id_fichier AND categorie.id=id_categorie1 AND feinte.id=id_categorie2 ORDER BY id_fichier DESC";	
+				$query = "SELECT id_fichier,url,annee_prod,commentaire FROM reference,fichiers,categorie WHERE fichiers.id=reference.id_fichier AND categorie.id=id_categorie ORDER BY id_fichier DESC";	
 			} else if( $cat2!="" and $cat1!=$cat2 )
 			{
 				$query = "SELECT id_fichier,url,annee_prod,feinte.ccourt as cat1,categorie.ccourt as cat2,commentaire FROM reference,fichiers,categorie, categorie as feinte WHERE fichiers.id=reference.id_fichier AND categorie.id=id_categorie1 AND feinte.id=id_categorie2  AND ((id_categorie1='$cat2' AND id_categorie2='$cat1') OR (id_categorie1='$cat1' AND id_categorie2='$cat2'))";
@@ -51,22 +46,22 @@ function get_query($what)
 
 /**
  * Affiche les éléments de la requête
- *
- * $what = action à effectuer
- * $offset = décalage par rapport au premier résultat de la requête
+ * @param string action à effectuer
+ * @param int décalage par rapport au premier résultat de la requête
  */
 function display_list_entries($what,$offset)
 {
-	$link = db_connect();
+	global $db;
 	$query = get_query($what).sql_limit($offset);
-	$result = db_query($link, $query);
+	$result = $db->getAll($query);
+
+	echo "<pre>\n";
+	print_r( $result );
+	echo "</pre>";
 
 	echo "<table>\n";
-	$i = 0;
-	while ($arr = db_fetch_array($result))
+	foreach( $result as $k=>$v )
 	{
-		$i++;
-
 		if( array_key_exists("id_fichier",$arr) && $arr["id_fichier"]!="" )
 		{
 			$arr["id"] = $arr["id_fichier"];
@@ -77,7 +72,7 @@ function display_list_entries($what,$offset)
 
 		if( $_SESSION["admin"]==TRUE )
 		{
-				echo "\t<td>$id</td>\n";
+			echo "\t<td>$id</td>\n";
 		}
 
 		
@@ -104,8 +99,8 @@ function display_list_entries($what,$offset)
 				$arr = vfs_handling( $arr );
 				$filename = $arr["url"];
 				echo "\t<td><img src='".$arr["icon"]."' alt='icon'/></td>\n";
-				echo "\t<td>".$arr["cat1"]."</td>\n";
-				echo "\t<td>".$arr["cat2"]."</td>\n";
+/*				echo "\t<td>".$arr["cat1"]."</td>\n";
+				echo "\t<td>".$arr["cat2"]."</td>\n";*/
 				echo "\t<td><a href=\"".$arr["url"]."\">".$arr["disp"]."</a></td>\n";
 				break;
 			case "defect":
@@ -119,60 +114,66 @@ function display_list_entries($what,$offset)
 		echo "</tr>\n";
 	}
 	echo "</table>\n";
-	db_close($link);
 }
 
 
 
-/* affiche une liste permettant d'accéder aux éléments de la requête
- *
- * $what = action à effectuer
- * $offset = décalage par rapport au premier résultat de la requête
+/**
+ * affiche une liste permettant d'accéder aux éléments de la requête
+ * @param string action à effectuer
+ * @param int décalage par rapport au premier résultat de la requête
  */
 function display_list_access($what,$offset)
 {
-  global $step;
+	global $step, $db, $PHP_SELF;
 
-  $link  = db_connect();
-  $query = get_query($what);
+	$query = get_query($what);
 
-  if( !preg_match("/\*/",$query) )
-  {
-    $query = preg_replace("/SELECT.(\w+).*.FROM/","SELECT count(\\1) as count FROM", $query );
-    $query = preg_replace("/ ORDER BY (\S+)(.(\S+)*)?/",";",$query);
-  } else {
-    $query = preg_replace("/SELECT.(\S+).FROM/","SELECT count(id) as count FROM", $query );
-  }
+	echo $query;
 
-  $result = db_query( $link, $query );
-  $max = db_fetch_object( $result );
+	if( !preg_match("/\*/",$query) )
+	{
+		$query = preg_replace("/SELECT.(\w+).*.FROM/","SELECT count(\\1) as count FROM", $query );
+		$query = preg_replace("/ ORDER BY (\S+)(.(\S+)*)?/",";",$query);
+	} else {
+		$query = preg_replace("/SELECT.(\S+).FROM/","SELECT count(id) as count FROM", $query );
+	}
 
-  if( $what=="search" )
-    $plus = "&amp;cat1=".$_GET["cat1"]."&amp;cat2=".$_GET["cat2"];
+/*  $result = db_query( $link, $query );*/
+	$result =& $db->getRow( $query );
+	$max = $result[0];
+	
+  echo "<pre>$max</pre>\n";
+/*  $max = db_fetch_object( $result );*/
+
+	if( isset($_GET['cat1']) ) $cat1 = $_GET['cat1']; else $cat1='';
+	if( isset($_GET['cat2']) ) $cat2 = $_GET['cat2']; else $cat2='';
+
+	if( $what=="search" )
+		$plus = "&amp;cat1=".$cat1."&amp;cat2=".$cat2;
 
   echo "<div class='admin-accesslist'><span>Pages&nbsp;: </span>\n";
 
-	if( $max->count==0 )
+	if( $max==0 )
 	{
 		echo "0 résultats pour cette requête";
 	} else {
-	  for($i=0; $i< $max->count; $i+=$step)
+	  for($i=0; $i< $max; $i+=$step)
 		{
 	    echo "<a href='".basename($PHP_SELF)."?what=$what&amp;current=$i".$plus."'";
-			$current = $_GET['current'];
+			$current = isset($_GET['current'])?$_GET['current']:'';
 			if( ($current!="" and $i==$current) or ($current=="" and $i==0) )
 				echo " id='current_page'";
 			echo ">".(($i/$step)+1)."</a>\n";
 		}
 	}
   echo "</div>";
-  db_close($link);
 }
 
 
-/* affiche le formulaire d'action pour le type de données désigné
- *
- * $what = type de formulaire demandé
+/**
+ * affiche le formulaire d'action pour le type de données désigné
+ * @param string type de formulaire demandé
  */
 function get_form($what)
 {
@@ -224,42 +225,10 @@ function get_form($what)
 }
 
 
-/* fonction inutile pour le moment */
-function crawl_fs()
-{
-	global $repos;
-	$fs_list = array();
-
-	if( !($handle = opendir($repos)) )
-	{
-		$_SESSION['message'] = "impossible d'accéder à l'entrepôt de fichiers.";
-		return FALSE;
-	}
-
-	$dir_list = array();
-	$file_list = array();
-	rewinddir($handle);
-	
-	dive_fs( $repos, $file_list, $handle );
-	
-	return $file_list;
-}
-
-function dive_fs( $dir, &$files, $handle )
-{
-	while( ($entrie=readdir($handle))!==FALSE )
-	{
-		if( $entrie!="." and $entrie!=".." and is_dir($entrie) )
-			dive_fs( $dir.$entrie, $files, $handle );
-		if( $entrie!="." and $entrie!=".." and is_file($entrie) )
-			$files[] = $dir.$entrie;
-	}
-}
-
-
-/* Gestion du mini-vfs
- *
- * $arr = lien à analyser
+/**
+ * Gestion du mini-vfs
+ * @param string url à analyser
+ * @return string une url utilisable dans un lien html
  */
 function vfs_handling( $arr )
 {

@@ -1,20 +1,33 @@
 <?php
+/**
+ * Page principale
+ *
+ * @package freckle
+ * @version 2.0
+ */
+
 	ini_set("arg_separator.output", "&amp;");
 	ini_set("url_rewriter.tags", "0");
-	session_start();
-	require("./inc/definitions.inc.php");
-	require("./inc/backend_sql.php");
 	
-	require("./inc/auth.inc.php");
-	require("./inc/general.inc.php");
-	include("./inc/management.inc.php");
-
-    if ( !isset($_SERVER["HTTP_ACCEPT"]) ||
-        stristr($_SERVER["HTTP_ACCEPT"], "application/xhtml+xml") )
-    {
-	    header("Content-type: application/xhtml+xml");
-    	echo '<?xml version="1.0" encoding="iso-8859-1"?>' . "\n";
+	session_start();
+	require_once("./config/config.php");
+	
+	require_once("./inc/definitions.inc.php");
+	require_once("./inc/backend_sql.php");
+	
+	require_once("./inc/auth.inc.php");
+	require_once("./inc/general.inc.php");
+	require_once("./inc/management.inc.php");
+/*
+	if ( !isset($_SERVER["HTTP_ACCEPT"]) ||
+		stristr($_SERVER["HTTP_ACCEPT"], "application/xhtml+xml") )
+	{
+		header("Content-type: application/xhtml+xml");
+		echo '<?xml version="1.0" encoding="iso-8859-1"?>' . "\n";
 	}
+*/
+	if( !isset($_SESSION['admin']) )
+		$_SESSION['admin'] = false;
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
