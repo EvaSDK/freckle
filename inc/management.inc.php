@@ -23,8 +23,8 @@ function get_query($what)
 			$query = "SELECT id_fichier,url,annee_prod,feinte.ccourt as cat1,categorie.ccourt as cat2,commentaire FROM reference,fichiers,categorie, categorie as feinte WHERE fichiers.id=reference.id_fichier AND categorie.id=id_categorie1 AND feinte.id=id_categorie2 ORDER BY id_fichier";
 			break;
 		case "search":
-		   if( isset($_GET['cat1']) ) $cat1 = $_GET['cat1']; else $cat1='';
-		   if( isset($_GET['cat2']) ) $cat2 = $_GET['cat2']; else $cat2='';
+			$cat1 = isset($_GET['cat1']) ? $_GET['cat1'] : '';
+			$cat2 = isset($_GET['cat2']) ? $_GET['cat2'] : '';
 
 			if( $cat1=='' and $cat2=='' )
 			{
@@ -53,20 +53,16 @@ function display_list_entries($what,$offset)
 {
 	global $db;
 	$query = get_query($what).sql_limit($offset);
-	$result = $db->getAll($query);
-
+	$result = $db->getAll($query,DB_FETCHMODE_ASSOC);
+/*
 	echo "<pre>\n";
 	print_r( $result );
 	echo "</pre>";
-
+*/
 	echo "<table>\n";
 	foreach( $result as $k=>$v )
 	{
-		if( array_key_exists("id_fichier",$arr) && $arr["id_fichier"]!="" )
-		{
-			$arr["id"] = $arr["id_fichier"];
-		}
-		$id = $arr["id"];
+		$id = isset($v["id_fichier"]) ? $v["id_fichier"] : $v["id"];
 		
 		echo "<tr>\n";
 
@@ -74,40 +70,39 @@ function display_list_entries($what,$offset)
 		{
 			echo "\t<td>$id</td>\n";
 		}
-
 		
 		switch($what) {
 			case "fichiers":
 				echo "\t<td><input type='checkbox' name='ids-$id' value='$id'/></td>\n";
-				echo "\t<td>".$arr["anne_prod"]."</td>\n";
-				echo "\t<td>".$arr["url"]."</td>\n";
+				echo "\t<td>".$v["annee_prod"]."</td>\n";
+				echo "\t<td>".$v["url"]."</td>\n";
 				break;
 			case "categorie":
 				echo "\t<td><input type='checkbox' name='ids-$id' value='$id'/></td>\n";
-				echo "\t<td>".$arr["ccourt"]."</td>\n";
-				echo "\t<td>".$arr["clong"]."</td>\n";
+				echo "\t<td>".$v["ccourt"]."</td>\n";
+				echo "\t<td>".$v["clong"]."</td>\n";
 				break;
 			case "types": 
 				echo "\t<td><input type='checkbox' name='ids-$id' value='$id'/></td>\n";
-				echo "\t<td>".$arr["type"]."</td>\n";
+				echo "\t<td>".$v["type"]."</td>\n";
 				break;
 			case "affect":
 				echo "\t<td><input type='checkbox' name='ids-$id' value='$id'/></td>\n";
-				echo "\t<td>".$arr["url"]."</td>\n";
+				echo "\t<td>".$v["url"]."</td>\n";
 				break;
 			case "search":
-				$arr = vfs_handling( $arr );
-				$filename = $arr["url"];
+				$arr = vfs_handling( $v["url"] );
+				$filename = basename( $v["url"] );
 				echo "\t<td><img src='".$arr["icon"]."' alt='icon'/></td>\n";
 /*				echo "\t<td>".$arr["cat1"]."</td>\n";
 				echo "\t<td>".$arr["cat2"]."</td>\n";*/
-				echo "\t<td><a href=\"".$arr["url"]."\">".$arr["disp"]."</a></td>\n";
+				echo "\t<td><a href=\"".$arr."\" title='".$v["commentaire"]."'>".$filename."</a></td>\n";
 				break;
 			case "defect":
 				echo "\t<td><input type='checkbox' name='ids-$id' value='$id'/>\n";
-				echo "\t<td>".$arr["cat1"]."</td>\n";
-				echo "\t<td>".$arr["cat2"]."</td>\n";
-				echo "\t<td>".$arr["url"]."</td>\n";
+/*				echo "\t<td>".$arr["cat1"]."</td>\n";
+				echo "\t<td>".$arr["cat2"]."</td>\n";*/
+				echo "\t<td>".$v["url"]."</td>\n";
 				break;
 		}
 
@@ -146,11 +141,13 @@ function display_list_access($what,$offset)
   echo "<pre>$max</pre>\n";
 /*  $max = db_fetch_object( $result );*/
 
-	if( isset($_GET['cat1']) ) $cat1 = $_GET['cat1']; else $cat1='';
-	if( isset($_GET['cat2']) ) $cat2 = $_GET['cat2']; else $cat2='';
+	$cat1 = isset($_GET['cat1']) ? $_GET['cat1'] : '';
+	$cat2 = isset($_GET['cat2']) ? $_GET['cat2'] : '';
 
 	if( $what=="search" )
 		$plus = "&amp;cat1=".$cat1."&amp;cat2=".$cat2;
+	else
+		$plus = '';
 
   echo "<div class='admin-accesslist'><span>Pages&nbsp;: </span>\n";
 
@@ -161,7 +158,7 @@ function display_list_access($what,$offset)
 	  for($i=0; $i< $max; $i+=$step)
 		{
 	    echo "<a href='".basename($PHP_SELF)."?what=$what&amp;current=$i".$plus."'";
-			$current = isset($_GET['current'])?$_GET['current']:'';
+			$current = isset($_GET['current']) ? $_GET['current'] : '';
 			if( ($current!="" and $i==$current) or ($current=="" and $i==0) )
 				echo " id='current_page'";
 			echo ">".(($i/$step)+1)."</a>\n";
@@ -232,7 +229,6 @@ function get_form($what)
  */
 function vfs_handling( $arr )
 {
-
 	global $repos_html;
 	$scheme = substr( $arr["url"], 0, strpos( $arr["url"], ":") );
 

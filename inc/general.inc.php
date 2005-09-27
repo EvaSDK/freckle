@@ -44,39 +44,38 @@ function display_categorie()
  */
 function display_categorie_select()
 {
-	$link = db_connect();
-	$ptr = db_query($link,"SELECT * FROM categorie;");
+	global $db;
+	
+	$result = $db->getAll("SELECT * FROM categorie;",DB_FETCHMODE_ASSOC);
 
 	/* on récupère les valeurs de la recherche */
-	if ( isset($_GET['cat1']) )
-		$cat1 = $_GET['cat1'];
-		
-	if ( isset($_GET['cat2']) )
-		$cat2 = $_GET['cat2'];
+	$cat1 = isset($_GET['cat1']) ? $_GET['cat1'] : '';
+	$cat2 = isset($_GET['cat2']) ? $_GET['cat2'] : '';
 
 	/* premier <select> */
 	echo "<select name='cat1'>\n";
-	while($row = db_fetch_object($ptr)) {
-		echo "\t<option value='".$row->id."'";
-		if( $cat1==$row->id )
+	foreach( $result as $k=>$v )
+	{
+		echo "\t<option value='".$v['id']."'";
+		if( $cat1==$v['id'] )
 			echo " selected='selected'";
-		echo ">[$row->ccourt] $row->clong</option>\n";
+		echo ">[".$v['ccourt']."] ".$v['clong']."</option>\n";
 	}
 	echo "</select>";
 	
-	$ptr = db_query($link, "SELECT * FROM categorie ORDER BY ccourt");
+	$result = $db->getAll("SELECT * FROM categorie ORDER BY ccourt",DB_FETCHMODE_ASSOC);
 
 	/* deuxième <select> */
 	echo "<select name='cat2'>\n";
 	echo "<option value='0'>Second Critère</option>\n";
-	while($row = db_fetch_object($ptr)) {
-		echo "\t<option value='".$row->id."'";
-		if( $cat2==$row->id )
+	foreach( $result as $k=>$v )
+	{
+		echo "\t<option value='".$v['id']."'";
+		if( $cat2==$v['id'] )
 			echo " selected='selected'";
-		echo ">[$row->ccourt] $row->clong</option>\n";
+		echo ">[".$v['ccourt']."] ".$v['clong']."</option>\n";
 	}
 	echo "</select>\n";
-	db_close($link);
 }
 
 
