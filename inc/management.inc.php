@@ -20,7 +20,8 @@ function get_query($what)
 			$query = "SELECT id,url,annee_prod,commentaire FROM fichiers LEFT JOIN reference ON id=id_fichier WHERE id_fichier IS NULL ";
 			break;
 		case "defect":
-			$query = "SELECT id_fichier,url,annee_prod,feinte.ccourt as cat1,categorie.ccourt as cat2,commentaire FROM reference,fichiers,categorie, categorie as feinte WHERE fichiers.id=reference.id_fichier AND categorie.id=id_categorie1 AND feinte.id=id_categorie2 ORDER BY id_fichier";
+#			$query = "SELECT id_fichier,url,annee_prod,feinte.ccourt as cat1,categorie.ccourt as cat2,commentaire FROM reference,fichiers,categorie, categorie as feinte WHERE fichiers.id=reference.id_fichier AND categorie.id=id_categorie1 AND feinte.id=id_categorie2 ORDER BY id_fichier";
+			$query = " SELECT id_fichier,url,annee_prod,commentaire FROM fichiers LEFT JOIN reference ON id=id_fichier WHERE id_fichier IS NOT NULL";
 			break;
 		case "search":
 			$cat1 = isset($_GET['cat1']) ? $_GET['cat1'] : '';
@@ -93,7 +94,7 @@ function display_list_entries($what,$offset)
 			case "search":
 				$arr = vfs_handling( $v["url"] );
 				$filename = basename( $v["url"] );
-				echo "\t<td><img src='".$arr["icon"]."' alt='icon'/></td>\n";
+				echo "\t<td><img src='".getIcon($v["url"])."' alt='icon'/></td>\n";
 /*				echo "\t<td>".$arr["cat1"]."</td>\n";
 				echo "\t<td>".$arr["cat2"]."</td>\n";*/
 				echo "\t<td><a href=\"".$arr."\" title='".$v["commentaire"]."'>".$filename."</a></td>\n";

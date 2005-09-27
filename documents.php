@@ -16,15 +16,12 @@
 <div class="box">
 	<?php
 		
-		$cat1 = $_GET["cat1"];
-		$cat2 = $_GET["cat2"];
+		$cat1 = isset($_GET["cat1"]) ? $_GET["cat1"] : '';
+		$cat2 = isset($_GET["cat2"]) ? $_GET["cat2"] : '';
 		
-		if( !isset($_GET['current']) )
-			$current = 0;
-		else
-			$current = $_GET['current'];
+		$current = isset($_GET['current']) ? $_GET['current'] : 0;
 		 
-		if( $cat1 == 0 )
+		if( $cat1==0 )
 		{
 			echo "<h3>Nouveaux</h3>\n";
 			echo "<h4>Du plus récent au plus ancien</h4>\n";
@@ -35,6 +32,6 @@
 		display_list_access( "search", $current );
 		display_list_entries( "search", $current );
 	?>
-	<p>Aidez-nous à améliorer Freckle, vous avez une correction à apporter, un document est mal classé, une suggestion pour le site? <a href="mailto:freckle[at]esiee[point]fr">Envoyez-nous un mail</a></p>
+	<p>Aidez-nous à améliorer Freckle, vous avez une correction à apporter, un document est mal classé, une suggestion pour le site? <a href="mailto:freckle[at]esiee[point]fr" title='Addresse mail pour joindre les mainteneurs de Freckle'>Envoyez-nous un mail</a></p>
 
 </div>

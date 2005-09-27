@@ -12,16 +12,16 @@
  */
 function display_categorie()
 {
-	$link = db_connect();
-	$ptr = db_query($link,"SELECT * FROM categorie ORDER BY id;");
+	global $db;
+	$result = $db->getAll("SELECT * FROM categorie ORDER BY id",DB_FETCHMODE_ASSOC);
 	$i=0;
 	
 	echo "<table>\n";
-	while( $row = db_fetch_object($ptr) )
+	foreach( $result as $key=>$value )
 	{
 		if( $i==0 ) echo "<tr>\n";
-		echo "\t<td class='right'>[$row->ccourt]</td>\n";
-		echo "\t<td><a href='index.php?what=search&amp;cat1=".$row->id."&amp;cat2='>$row->clong</a></td>\n";
+		echo "\t<td class='right'>[".$value['ccourt']."]</td>\n";
+		echo "\t<td><a href='index.php?what=search&amp;cat1=".$value['id']."&amp;cat2=' title=\"Categorie: ".$value['clong']."\">".$value['clong']."</a></td>\n";
 		if( $i==1 )
 		{
 			echo "</tr>\n";
@@ -34,7 +34,6 @@ function display_categorie()
 	if ( $i == 1 )
 		echo "\t<td colspan='2'>&nbsp;</td>\n</tr>\n";
 	
-	db_close($link);
 	echo "</table>\n";
 }
 
@@ -80,26 +79,26 @@ function display_categorie_select()
 
 
 /**
- * Affiche le type sélectionné
+ * Affiche un <select> pour les types
  */
 function display_types_select()
 {
-	$link = db_connect();
-	$result = db_query($link, "SELECT * FROM types;");
+	global $db;
+	$result = $db->getAll($link, "SELECT * FROM types", DB_FETCHMODE_ASSOC);
 
 	echo "<select name='type'>\n";
-	while( $row = db_fetch_object($result) )
+	foreach( $result as $key=>$value )
 	{
-		echo "\t<option value=".$row->id.">".$row->type."</option>\n";
+		echo "\t<option value=".$value['id'].">".$value['type']."</option>\n";
 	}
 	echo "</select>\n";
-	db_close($link);
 }
 
 
 /**
  * renvoie l'icône correspondant à l'extension du fichier
- * @param $file est le nom du fichier dans on veut l'extension
+ * @param string est le nom du fichier dans on veut l'extension
+ * @return string url vers l'icône correspondant au type de fichier
  */
 function getIcon ( $file )
 {
@@ -111,6 +110,7 @@ function getIcon ( $file )
 		switch ($file_ext)
 		{
 			/* images */
+			case "avi":
 			case "gif":
 			case "bmp":
 			case "jpg": $image = "images/icones/image.gif"; break;
@@ -136,7 +136,7 @@ function getIcon ( $file )
 			/* autres */
 			default: $image = "images/icones/unknown.gif";
 		}
-		return($image);
+		return $image;
 	}
 }
 
@@ -148,31 +148,22 @@ function description_critere()
 {
 	global $db;
 	
-	if( isset($_GET['cat1']) )
-		$cat1 = $_GET['cat1'];
-	else
-		$cat1='';
-		
-	if( isset($_GET['cat2']) )
-		$cat2 = $_GET['cat2'];
-	else
-		$cat2='';
+	$cat1 = isset($_GET['cat1']) ? $_GET['cat1'] : '';
+	$cat2 = isset($_GET['cat2']) ? $_GET['cat2'] : '';
 
 	if( $cat1!='' )
 		echo "<h4>Recherche des documents en ";
 	
 	if( $cat1!='' )
 	{
-		$res = getAll("SELECT ccourt FROM categorie where id='$cat1'");
-		echo "<pre>".print_r($res)."</pre>";
-		echo $res->ccourt;
+		$res = $db->getAll("SELECT ccourt FROM categorie where id='$cat1'",DB_FETCHMODE_ASSOC);
+		echo $res[0]['ccourt'];
 	}
-	if( $cat2!='' )
+	if( $cat2!='' and $cat2!=0 )
 	{
 		echo " et ";
-		$res = getAll($link,"SELECT ccourt FROM categorie where id='$cat2'");
-		echo "<pre>".print_r($res)."</pre>";
-		echo $res->ccourt;
+		$res = $db->getAll("SELECT ccourt FROM categorie where id='$cat2'",DB_FETCHMODE_ASSOC);
+		echo $res[0]['ccourt'];
 	}
 
 	if( $cat1!='' )
