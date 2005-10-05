@@ -52,14 +52,10 @@ function get_query($what)
  */
 function display_list_entries($what,$offset)
 {
-	global $db;
-	$query = get_query($what).sql_limit($offset);
+	global $db, $step;
+	$query = $db->modifyLimitQuery( get_query($what), $offset, $step );
 	$result = $db->getAll($query,DB_FETCHMODE_ASSOC);
-/*
-	echo "<pre>\n";
-	print_r( $result );
-	echo "</pre>";
-*/
+	
 	echo "<table>\n";
 	foreach( $result as $k=>$v )
 	{
@@ -68,9 +64,7 @@ function display_list_entries($what,$offset)
 		echo "<tr>\n";
 
 		if( $_SESSION["admin"]==TRUE )
-		{
 			echo "\t<td>$id</td>\n";
-		}
 		
 		switch($what) {
 			case "fichiers":

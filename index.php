@@ -13,7 +13,6 @@
 	require_once("./config/config.php");
 	
 	require_once("./inc/definitions.inc.php");
-	require_once("./inc/backend_sql.php");
 	
 	require_once("./inc/auth.inc.php");
 	require_once("./inc/general.inc.php");
