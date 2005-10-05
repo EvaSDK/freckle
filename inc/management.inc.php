@@ -52,7 +52,7 @@ function get_query($what)
  */
 function display_list_entries($what,$offset)
 {
-	global $db, $step;
+	global $db, $step, $format;
 	$query = $db->modifyLimitQuery( get_query($what), $offset, $step );
 	$result = $db->getAll($query,DB_FETCHMODE_ASSOC);
 	
@@ -89,14 +89,18 @@ function display_list_entries($what,$offset)
 				$arr = vfs_handling( $v["url"] );
 				$filename = basename( $v["url"] );
 				echo "\t<td><img src='".getIcon($v["url"])."' alt='icon'/></td>\n";
-/*				echo "\t<td>".$arr["cat1"]."</td>\n";
-				echo "\t<td>".$arr["cat2"]."</td>\n";*/
-				echo "\t<td><a href=\"".$arr."\" title='".$v["commentaire"]."'>".$filename."</a></td>\n";
+				$result = array();
+				preg_match( $format, $filename, $result );
+				echo "\t<td>".$result[1]."</td>\n";
+				echo "\t<td>".$result[2]."</td>\n";
+				echo "\t<td><a href=\"".$arr."\" title='".$v["commentaire"]."'>".$result[3]."</a></td>\n";
 				break;
 			case "defect":
 				echo "\t<td><input type='checkbox' name='ids-$id' value='$id'/>\n";
-/*				echo "\t<td>".$arr["cat1"]."</td>\n";
-				echo "\t<td>".$arr["cat2"]."</td>\n";*/
+				$result = array();
+				preg_match( $format, $v["url"], $result );
+				echo "\t<td>".$result[1]."</td>\n";
+				echo "\t<td>".$result[2]."</td>\n";
 				echo "\t<td>".$v["url"]."</td>\n";
 				break;
 		}
