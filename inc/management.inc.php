@@ -28,7 +28,7 @@ function get_query($what)
 
 			if( $cat1=='' and $cat2=='' )
 			{
-				$query = "SELECT id_fichier,url,annee_prod,commentaire FROM reference,fichiers,categorie WHERE fichiers.id=reference.id_fichier AND categorie.id=id_categorie ORDER BY id_fichier DESC";	
+				$query = "SELECT distinct(id_fichier),url,annee_prod,commentaire FROM reference,fichiers,categorie WHERE fichiers.id=reference.id_fichier AND categorie.id=id_categorie ORDER BY id_fichier DESC";	
 			} else if( $cat2!=0 and $cat1!=$cat2 )
 			{
 				$query = "SELECT count(id_fichier) as occur,url, id_fichier, id_categorie, commentaire
@@ -41,7 +41,7 @@ function get_query($what)
 				GROUP BY id_fichier";
 			} else
 			{
-				$query = "SELECT id_fichier,url,annee_prod,commentaire FROM reference,fichiers,categorie WHERE fichiers.id=reference.id_fichier AND categorie.id=id_categorie AND id_categorie='$cat1'";
+				$query = "SELECT distinct(id_fichier),url,annee_prod,commentaire FROM reference,fichiers,categorie WHERE fichiers.id=reference.id_fichier AND categorie.id=id_categorie AND id_categorie='$cat1'";
 			}
 			break;
 		default:
