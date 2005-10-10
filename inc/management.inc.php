@@ -20,8 +20,7 @@ function get_query($what)
 			$query = "SELECT id,url,annee_prod,commentaire FROM fichiers LEFT JOIN reference ON id=id_fichier WHERE id_fichier IS NULL ";
 			break;
 		case "defect":
-#			$query = "SELECT id_fichier,url,annee_prod,feinte.ccourt as cat1,categorie.ccourt as cat2,commentaire FROM reference,fichiers,categorie, categorie as feinte WHERE fichiers.id=reference.id_fichier AND categorie.id=id_categorie1 AND feinte.id=id_categorie2 ORDER BY id_fichier";
-			$query = " SELECT id_fichier,url,annee_prod,commentaire FROM fichiers LEFT JOIN reference ON id=id_fichier WHERE id_fichier IS NOT NULL";
+			$query = " SELECT distinct(id_fichier),url,annee_prod,commentaire FROM fichiers LEFT JOIN reference ON id=id_fichier WHERE id_fichier IS NOT NULL";
 			break;
 		case "search":
 			$cat1 = isset($_GET['cat1']) ? $_GET['cat1'] : '';
@@ -30,12 +29,19 @@ function get_query($what)
 			if( $cat1=='' and $cat2=='' )
 			{
 				$query = "SELECT id_fichier,url,annee_prod,commentaire FROM reference,fichiers,categorie WHERE fichiers.id=reference.id_fichier AND categorie.id=id_categorie ORDER BY id_fichier DESC";	
-			} else if( $cat2!="" and $cat1!=$cat2 )
+			} else if( $cat2!=0 and $cat1!=$cat2 )
 			{
-				$query = "SELECT id_fichier,url,annee_prod,feinte.ccourt as cat1,categorie.ccourt as cat2,commentaire FROM reference,fichiers,categorie, categorie as feinte WHERE fichiers.id=reference.id_fichier AND categorie.id=id_categorie1 AND feinte.id=id_categorie2  AND ((id_categorie1='$cat2' AND id_categorie2='$cat1') OR (id_categorie1='$cat1' AND id_categorie2='$cat2'))";
+				$query = "SELECT count(id_fichier) as occur,url, id_fichier, id_categorie, commentaire
+				FROM fichiers, reference, categorie
+				WHERE (
+					id_categorie = '$cat1'
+					OR id_categorie = '$cat2'
+					)
+				AND id_fichier = fichiers.id AND id_categorie = categorie.id
+				GROUP BY id_fichier";
 			} else
 			{
-				$query = "SELECT id_fichier,url,annee_prod,feinte.ccourt as cat1,categorie.ccourt as cat2,commentaire FROM reference,fichiers,categorie, categorie as feinte WHERE fichiers.id=reference.id_fichier AND categorie.id=id_categorie1 AND feinte.id=id_categorie2  AND (id_categorie1='$cat1' OR id_categorie2='$cat1')";
+				$query = "SELECT id_fichier,url,annee_prod,commentaire FROM reference,fichiers,categorie WHERE fichiers.id=reference.id_fichier AND categorie.id=id_categorie AND id_categorie='$cat1'";
 			}
 			break;
 		default:
@@ -52,11 +58,25 @@ function get_query($what)
  */
 function display_list_entries($what,$offset)
 {
-	global $db, $step, $format;
+	global $db, $step, $format, $_DEBUG;
 	$query = $db->modifyLimitQuery( get_query($what), $offset, $step );
 	$result = $db->getAll($query,DB_FETCHMODE_ASSOC);
+
+	if( $_DEBUG )
+		echo "--".$result[0]["occur"]."--\n";
+
+	if( $what=="search" && isset($result[0]["occur"]) )
+		$result = array_filter( $result, "elag" );
 	
 	echo "<table>\n";
+
+	if( $_DEBUG )
+	{
+		echo "<pre>";
+		print_r( $result );
+		echo "</pre>";
+	}
+	
 	foreach( $result as $k=>$v )
 	{
 		$id = isset($v["id_fichier"]) ? $v["id_fichier"] : $v["id"];
@@ -108,8 +128,14 @@ function display_list_entries($what,$offset)
 		echo "</tr>\n";
 	}
 	echo "</table>\n";
+	echo "<hr class='separateur'/>";
 }
 
+
+function elag( $var )
+{
+	return ( ($var["occur"]+0)==2 );
+}
 
 
 /**
@@ -123,8 +149,6 @@ function display_list_access($what,$offset)
 
 	$query = get_query($what);
 
-	echo $query;
-
 	if( !preg_match("/\*/",$query) )
 	{
 		$query = preg_replace("/SELECT.(\w+).*.FROM/","SELECT count(\\1) as count FROM", $query );
@@ -133,12 +157,8 @@ function display_list_access($what,$offset)
 		$query = preg_replace("/SELECT.(\S+).FROM/","SELECT count(id) as count FROM", $query );
 	}
 
-/*  $result = db_query( $link, $query );*/
 	$result =& $db->getRow( $query );
 	$max = $result[0];
-	
-  echo "<pre>$max</pre>\n";
-/*  $max = db_fetch_object( $result );*/
 
 	$cat1 = isset($_GET['cat1']) ? $_GET['cat1'] : '';
 	$cat2 = isset($_GET['cat2']) ? $_GET['cat2'] : '';
@@ -154,6 +174,8 @@ function display_list_access($what,$offset)
 	{
 		echo "0 résultats pour cette requête";
 	} else {
+
+		/* affiche la liste des pages */
 	  for($i=0; $i< $max; $i+=$step)
 		{
 	    echo "<a href='".basename($PHP_SELF)."?what=$what&amp;current=$i".$plus."'";

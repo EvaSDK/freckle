@@ -13,7 +13,8 @@
 function display_categorie()
 {
 	global $db;
-	$result = $db->getAll("SELECT * FROM categorie ORDER BY id",DB_FETCHMODE_ASSOC);
+	/*$result = $db->getAll("SELECT * FROM categorie ORDER BY id",DB_FETCHMODE_ASSOC);*/
+	$result = $db->getAll("SELECT id,count(id_fichier) as docs, ccourt,clong FROM categorie,reference WHERE id=id_categorie GROUP BY id", DB_FETCHMODE_ASSOC);
 	$i=0;
 	
 	echo "<table>\n";
@@ -21,7 +22,7 @@ function display_categorie()
 	{
 		if( $i==0 ) echo "<tr>\n";
 		echo "\t<td class='right'>[".$value['ccourt']."]</td>\n";
-		echo "\t<td><a href='index.php?what=search&amp;cat1=".$value['id']."&amp;cat2=' title=\"Categorie: ".$value['clong']."\">".$value['clong']."</a></td>\n";
+		echo "\t<td><a href='index.php?what=search&amp;cat1=".$value['id']."&amp;cat2=' title=\"Catégorie: ".$value['clong']." contient ".$value["docs"]." documents.\">".$value['clong']." (".$value["docs"].")</a></td>\n";
 		if( $i==1 )
 		{
 			echo "</tr>\n";
@@ -84,7 +85,7 @@ function display_categorie_select()
 function display_types_select()
 {
 	global $db;
-	$result = $db->getAll($link, "SELECT * FROM types", DB_FETCHMODE_ASSOC);
+	$result = $db->getAll("SELECT * FROM types", DB_FETCHMODE_ASSOC);
 
 	echo "<select name='type'>\n";
 	foreach( $result as $key=>$value )

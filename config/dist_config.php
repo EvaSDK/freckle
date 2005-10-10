@@ -32,10 +32,10 @@ require_once 'DB.php';
  */
 $temp_rep = "/tmp";
 
-/**
- * Nom du fichier de log.
- */
+/** Nom du fichier de log. */
 $fichier_log = "{$temp_rep}/animix.log";
 
-
+/** Activation du mode DEBUG 
+ * utile uniquement à des fins de développement */
+$_DEBUG = TRUE;
 

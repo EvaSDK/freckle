@@ -1,7 +1,7 @@
 <?php
 	session_start();
+	require("./config/config.php");
 	require("./inc/definitions.inc.php");
-	require("./inc/backend_sql.php");
 
 	include("./inc/auth.inc.php");
 	include("./inc/general.inc.php");
@@ -9,7 +9,6 @@
 	if($_SESSION['admin']==FALSE) {
 		header("Location: index.php"); 
 	}
-	
  
 	$action = $_POST['action'];
 	$what = $_POST['what'];
@@ -26,6 +25,23 @@
 	{
 		$cat2 = 0;
 	}
+
+
+
+	/** début du traitement des données */
+/*
+	switch( $action )
+	{
+		case "Ajouter"     : $arr = processAjout(); break;
+		case "Supprimer"   : $arr = processSuppr(); break;
+		case "Classer"     : $arr = processClass(); break;
+		case "Modifier"    : $arr = processModif(); break;
+		case "Désaffecter" : $arr = processDesaf(); break;
+	}
+
+	le résultat arr doit être un array ( message, query );
+*/
+
 	
 	if($action=='Ajouter')
 	{
@@ -131,8 +147,6 @@
 		}
 	}
 
-	/* déconnexion de la base */
-	db_close($dblink);
 
 	if( $cids==0 and $action!="Ajouter" )
 	{

@@ -1,7 +1,6 @@
 <?php
 	session_start();
 	require("./inc/definitions.inc.php");
-	require("./inc/backend_sql.php");
 	
 	require("./inc/auth.inc.php");
 	require("./inc/general.inc.php");
