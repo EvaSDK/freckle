@@ -63,6 +63,7 @@
 		echo "<h3>Vue des données</h3>\n";
 		echo "<h4>\n";
 		echo "\t<div class='admin-datalist' id='".$_GET['what']."'>\n";
+		echo "\t<a id='types'     href='management.php?what=upload'>Upload</a>\n";
 		echo "\t<a id='types'     href='management.php?what=types'>Types</a>\n";
 		echo "\t<a id='fichiers'  href='management.php?what=fichiers'>Fichiers</a>\n";
 		echo "\t<a id='categorie' href='management.php?what=categorie'>Catégorie</a>\n";
@@ -79,11 +80,30 @@
 			echo "<p id='message'>$msg</p>\n";
 		}
 
-		echo "<form action='process.php' method='POST'>\n";
-		display_list_entries($what,$current);
-		echo "</div>\n<div class='box'>\n<h3>Actions</h3>\n";
-		get_form($what); 
-		echo "</form>\n";
+		if( $what=="upload" )
+		{
+?>
+		<!-- The data encoding type, enctype, MUST be specified as below -->
+		<form enctype="multipart/form-data" action="process.php" method="POST">
+
+		<!-- MAX_FILE_SIZE must precede the file input field (ne pas dépasser 3Mo grand max) -->
+		<input type="hidden" name="MAX_FILE_SIZE" value="3000000" />
+		<!-- Name of input element determines name in $_FILES array -->
+
+		<label for='cmt'>Commentaire du document&nbsp;: </label>
+		<input type='text' id='cmt' name='cmt' value='' /><br /><br />
+		<label for='userfile'>Envoyer ce fichier&nbsp;: </label><br />
+		<input id='userfile' name="userfile" type="file" />
+		<input type="submit" name='action' value="Envoyer" />
+		</form>
+<?php
+		} else {
+			echo "<form action='process.php' method='POST'>\n";
+			display_list_entries($what,$current);
+			echo "</div>\n<div class='box'>\n<h3>Actions</h3>\n";
+			get_form($what); 
+			echo "</form>\n";
+		}
 	}
 ?> 
 			</div>

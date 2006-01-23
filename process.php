@@ -26,6 +26,26 @@
 	{
 		$cat2 = 0;
 	}
+
+	if($action=='Envoyer')
+	{
+		$uploaddir = $repos_abs;
+		$uploadrel = $repos_html;
+		$uploadfile = $uploaddir . basename($_FILES['userfile']['name']);
+				 
+		if (move_uploaded_file($_FILES['userfile']['tmp_name'], $uploadfile))
+		{
+			$_SESSION['message'] = "Photo enregistrée avec succès !";
+		} else {
+			$_SESSION['message'] = "Possible file upload attack!\n";
+		}
+
+		$result = array();
+		preg_match("/([A-Z]+)-([0-9]+)\.?)-(\w+?).\w+/", $_POST['file'], &$result );
+
+		$print_r( $result );
+
+	}
 	
 	if($action=='Ajouter')
 	{
