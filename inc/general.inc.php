@@ -14,9 +14,14 @@ function display_categorie()
 {
 	global $db;
 	/*$result = $db->getAll("SELECT * FROM categorie ORDER BY id",DB_FETCHMODE_ASSOC);*/
-	$result = $db->getAll("SELECT id,count(id_fichier) as docs, ccourt,clong FROM categorie,reference WHERE id=id_categorie GROUP BY id", DB_FETCHMODE_ASSOC);
+	$result = $db->getAll("SELECT id,count(id_fichier) as docs, ccourt,clong FROM categorie,reference WHERE id=id_categorie GROUP BY id,ccourt,clong", DB_FETCHMODE_ASSOC);
 	$i=0;
-	
+
+/*
+	echo "<pre>";
+	print_r( $result );
+	echo "</pre>";
+*/
 	echo "<table>\n";
 	foreach( $result as $key=>$value )
 	{
