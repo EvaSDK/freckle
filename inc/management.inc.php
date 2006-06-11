@@ -59,6 +59,8 @@ function get_query($what)
 function display_list_entries($what,$offset)
 {
 	global $db, $step, $format, $_DEBUG;
+	
+	if($what=="upload") return;
 	$query = $db->modifyLimitQuery( get_query($what), $offset, $step );
 	$result = $db->getAll($query,DB_FETCHMODE_ASSOC);
 
@@ -147,6 +149,8 @@ function display_list_access($what,$offset)
 {
 	global $step, $db, $PHP_SELF;
 
+	if($what=="upload") return;
+
 	$query = get_query($what);
 
 	if( !preg_match("/\*/",$query) )
@@ -199,6 +203,9 @@ function get_form($what)
 	
 	switch($what)
 	{
+		case "upload":
+			echo "\t\t<input type='file' name='action' value='' />\n";
+			break;
 		case "types":
 		case "fichiers":
 		case "categorie":
@@ -237,6 +244,13 @@ function get_form($what)
 			display_categorie_select(); 
 			break;
 		case "defect":
+			break;
+		case "upload":
+			echo "\t\t<input type='text' name='annee_prod' size='4' value='2004' /><br />\n";
+			echo "\t\t<textarea name='comment' cols='35' row='4'>commentaires</textarea>\n";
+			display_types_select();
+			echo "<br />\n";
+			display_categorie_select(); 
 			break;
 	}
 	echo "\t</fieldset>\n";

@@ -15,6 +15,7 @@ function adminMenu( $what, $current )
 	echo "<h4>\n";
 	echo "\t<div class='admin-datalist' id='".$what."'>\n";
 	?>
+	<a id='upload'   href='management.php?what=upload'   title="Téléchager des fichiers">Télécharger</a>
 	<a id='types'     href='management.php?what=types'     title="Gérer les types de documents">Types</a>
 	<a id='fichiers'  href='management.php?what=fichiers'  title="Gérer les fichiers">Fichiers</a>
 	<a id='categorie' href='management.php?what=categorie' title="Gérer les catégories de documents">Catégorie</a>
