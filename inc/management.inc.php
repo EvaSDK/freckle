@@ -112,6 +112,7 @@ function display_list_entries($what,$offset)
 				$filename = basename( $v["url"] );
 				echo "\t<td><img src='".getIcon($v["url"])."' alt='icon'/></td>\n";
 				$result = array();
+				//echo $filename;
 				preg_match( $format, $filename, $result );
 				echo "\t<td>".$result[1]."</td>\n";
 				echo "\t<td>".$result[2]."</td>\n";

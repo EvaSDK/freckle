@@ -5,7 +5,8 @@
 	require("./inc/auth.inc.php");
 	require("./inc/general.inc.php");
 	require("./inc/management.inc.php");
-
+	require_once("./pear/Compat.php");
+	require_once("./pear/Compat/Function/array_change_key_case.php");
 
 	require_once("./inc/administration.php");
 	require_once("./config/config.php");

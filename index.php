@@ -17,6 +17,9 @@
 	require_once("./inc/auth.inc.php");
 	require_once("./inc/general.inc.php");
 	require_once("./inc/management.inc.php");
+	require_once("./pear/Compat.php");
+	require_once("./pear/Compat/Function/array_change_key_case.php");
+			
 /*
 	if ( !isset($_SERVER["HTTP_ACCEPT"]) ||
 		stristr($_SERVER["HTTP_ACCEPT"], "application/xhtml+xml") )
