@@ -204,7 +204,8 @@ function get_form($what)
 	switch($what)
 	{
 		case "upload":
-			echo "\t\t<input type='file' name='action' value='' />\n";
+			echo "\t\t<input type='file' name='file' value='' />\n";
+			echo "<input type='submit' name='action' value='Télécharger' />\n";
 			break;
 		case "types":
 		case "fichiers":
@@ -239,18 +240,19 @@ function get_form($what)
 			echo "\t\t<input type='text' name='ccourt' size='5' value='courte' />\n";
 			break;
 		case "affect":
-			display_types_select();
-			echo "<br />\n";
 			display_categorie_select(); 
+			echo "<br />\n";
+			display_types_select();
 			break;
 		case "defect":
 			break;
 		case "upload":
-			echo "\t\t<input type='text' name='annee_prod' size='4' value='2004' /><br />\n";
-			echo "\t\t<textarea name='comment' cols='35' row='4'>commentaires</textarea>\n";
 			display_types_select();
 			echo "<br />\n";
 			display_categorie_select(); 
+			echo "<br />\n";
+			echo "\t\t<input type='text' name='annee_prod' size='4' value='2004' /><br />\n";
+			echo "\t\t<textarea name='comment' cols='35' row='4'>commentaires</textarea>\n";
 			break;
 	}
 	echo "\t</fieldset>\n";
