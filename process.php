@@ -100,10 +100,10 @@
 		 
 		if( isset($cat2) )
 		{
-			$query = "INSERT INTO reference (id_categorie,id_fichier,id_type) VALUES ('".$cat1."'','#ID#','".$_POST['type']."');";
-			$query .= "INSERT INTO reference (id_categorie,id_fichier,id_type) VALUES ('".$cat2."'','#ID#','".$_POST['type']."');";			
+			$query = "INSERT INTO reference (id_categorie,id_fichier,id_type) VALUES ('".$cat1."','#ID#','".$_POST['type']."');";
+			$query .= "INSERT INTO reference (id_categorie,id_fichier,id_type) VALUES ('".$cat2."','#ID#','".$_POST['type']."');";			
 		} else {
-			$query = "INSERT INTO reference (id_categorie,id_fichier,id_type) VALUES ('".$cat1."'','#ID#','".$_POST['type']."');";
+			$query = "INSERT INTO reference (id_categorie,id_fichier,id_type) VALUES ('".$cat1."','#ID#','".$_POST['type']."');";
 		}
 	} else if ($action=="Désaffecter")
 	{
@@ -149,26 +149,33 @@
  * Exécution de la requête
  */
 
-	/* connection à la base */
-	$dblink = db_connect();
-
 	if( $action=="Ajouter" )
 	{
 		//$_SESSION['message'] = "Entrée ajoutée";
 		//header("Location: ./management.php?what=$what");
-		db_query( $dblink, $query );
+		$db->query( $query );
 		
 	} else {
 		$cids = count( $ids );
 
 		//print_r( $ids );
+#		$sth = $db->prepare( $query );
+#		$res = $db->executeMultiple( $sth,$ids );
+
+#print_r( $ids );
 
 		for( $i=0; $i<$cids; $i++ )
 		{
-			db_query( $dblink, preg_replace("/.ID./",$ids[$i],$query) );
-			//echo "<p>".preg_replace("/.ID./",$ids[$i],$query)."</p>";
+			$arr = explode( ';', $query );
+			foreach( $arr as $v ) {
+				$res = $db->query( preg_replace("/.ID./",$ids[$i],$v) );
+				//echo "<p>".preg_replace("/\?/",$ids[$i],$v)."</p>";
 
+				//if( PEAR::isError( $res ) )
+				//	print_r( $res );
+			}
 		}
+		
 	}
 
 

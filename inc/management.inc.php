@@ -47,6 +47,7 @@ function get_query($what)
 		default:
 		 $query = "SELECT * FROM $what";
 	}
+
 	return $query;
 }
 
@@ -156,7 +157,7 @@ function display_list_access($what,$offset)
 
 	if( !preg_match("/\*/",$query) )
 	{
-		$query = preg_replace("/SELECT.(\w+).*.FROM/","SELECT count(\\1) as count FROM", $query );
+		$query = preg_replace("/SELECT.((distinct\()?[\w]+?\)).*.FROM/","SELECT count(\\1) as count FROM", $query );
 		$query = preg_replace("/ ORDER BY (\S+)(.(\S+)*)?/",";",$query);
 	} else {
 		$query = preg_replace("/SELECT.(\S+).FROM/","SELECT count(id) as count FROM", $query );
