@@ -31,7 +31,7 @@ function get_query($what)
 				$query = "SELECT distinct(id_fichier),url,annee_prod,commentaire FROM reference,fichiers,categorie WHERE fichiers.id=reference.id_fichier AND categorie.id=id_categorie ORDER BY id_fichier DESC";	
 			} else if( $cat2!=0 and $cat1!=$cat2 )
 			{
-				$query = "SELECT count(id_fichier) as occur,url, id_fichier, id_categorie, commentaire
+				$query = "SELECT id_fichier, url, count(id_fichier) as occur, id_categorie, commentaire
 				FROM fichiers, reference, categorie
 				WHERE (
 					id_categorie = '$cat1'
@@ -47,7 +47,7 @@ function get_query($what)
 		default:
 		 $query = "SELECT * FROM $what";
 	}
-
+	//echo $query;
 	return $query;
 }
 
@@ -62,14 +62,19 @@ function display_list_entries($what,$offset)
 	global $db, $step, $format, $_DEBUG;
 	
 	if($what=="upload") return;
-	$query = $db->modifyLimitQuery( get_query($what), $offset, $step );
-	$result = $db->getAll($query,DB_FETCHMODE_ASSOC);
 
 	if( $_DEBUG )
 		echo "--".$result[0]["occur"]."--\n";
 
-	if( $what=="search" && isset($result[0]["occur"]) )
-		$result = array_filter( $result, "elag" );
+	if( $_GET['cat2']==0 ) $_GET['cat2'] = '';
+
+	if( $what=="search" and ($_GET['cat1']!='' and ($_GET['cat2']!='' ))) {
+		$result = $db->getAll( get_query( $what ),DB_FETCHMODE_ASSOC);
+		$result = array_slice( array_filter( $result, "elag" ), $offset, $step );
+	} else {
+		$query = $db->modifyLimitQuery( get_query($what), $offset, $step );
+		$result = $db->getAll($query,DB_FETCHMODE_ASSOC);
+	}
 	
 	echo "<table>\n";
 
