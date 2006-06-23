@@ -6,7 +6,7 @@
 function get_fs_entries()
 {
 	global $repos_abs;
-	system("find -type f $repos_abs", $file_table);
+	exec("find $repos_abs -type f", &$file_table);
 	return $file_table;
 }
 
@@ -17,13 +17,10 @@ function get_fs_entries()
  */
 function get_db_entries()
 {
+	global $db;
 	$SQL="SELECT * FROM fichiers";
-	$link = db_connect();
-	$result = db_query( $link, $SQL );
-	$file_table = db_fetch_array( $result );
-
-	db_close( $link );
-	return $file_table;
+	$result = $db->getAll( $SQL );
+	return $result;
 }
 
 /**

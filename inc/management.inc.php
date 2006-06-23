@@ -59,7 +59,7 @@ function get_query($what)
  */
 function display_list_entries($what,$offset)
 {
-	global $db, $step, $format, $_DEBUG;
+	global $db, $step, $format, $_DEBUG, $repos_html;
 	
 	if($what=="upload") return;
 
@@ -122,7 +122,7 @@ function display_list_entries($what,$offset)
 				preg_match( $format, $filename, $result );
 				echo "\t<td>".$result[1]."</td>\n";
 				echo "\t<td>".$result[2]."</td>\n";
-				echo "\t<td><a href=\"".$arr["url"]."\" title='".$v["commentaire"]."'>".$result[3]."</a></td>\n";
+				echo "\t<td><a href=\"".$repos_html.$arr["url"]."\" title='".$v["commentaire"]."'>".$result[3]."</a></td>\n";
 				break;
 			case "defect":
 				echo "\t<td><input type='checkbox' name='ids-$id' value='$id'/>\n";
@@ -160,16 +160,20 @@ function display_list_access($what,$offset)
 
 	$query = get_query($what);
 
-	if( !preg_match("/\*/",$query) )
-	{
-		$query = preg_replace("/SELECT.((distinct\()?[\w]+?\)).*.FROM/","SELECT count(\\1) as count FROM", $query );
-		$query = preg_replace("/ ORDER BY (\S+)(.(\S+)*)?/",";",$query);
-	} else {
-		$query = preg_replace("/SELECT.(\S+).FROM/","SELECT count(id) as count FROM", $query );
+	if( $what=="search" ) {
+		$result = count( array_filter( $db->getAll( $query,DB_FETCHMODE_ASSOC), "elag" ) );
+		$max = $result;
+	}else {
+		if( !preg_match("/\*/",$query) )
+		{
+			$query = preg_replace("/SELECT.((distinct\()?[\w]+?\)).*.FROM/","SELECT count(\\1) as count FROM", $query );
+			$query = preg_replace("/ ORDER BY (\S+)(.(\S+)*)?/",";",$query);
+		} else {
+			$query = preg_replace("/SELECT.(\S+).FROM/","SELECT count(id) as count FROM", $query );
+		}
+		$result =& $db->getRow( $query );
+		$max = $result[0];
 	}
-
-	$result =& $db->getRow( $query );
-	$max = $result[0];
 
 	$cat1 = isset($_GET['cat1']) ? $_GET['cat1'] : '';
 	$cat2 = isset($_GET['cat2']) ? $_GET['cat2'] : '';
