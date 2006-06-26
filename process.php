@@ -114,9 +114,9 @@
 	
 	
 	/* Gestion de la page d'upload */
-	if ($action=="upload") 
+	if ($action=="Télécharger") 
 	{
-		$uploadfile = $repos_abs . basename($_FILES['userfile']['name']);		
+		$uploadfile = $repos_abs . "upload/". basename($_FILES['userfile']['name']);		
 		if (move_uploaded_file($_FILES['userfile']['tmp_name'], $uploadfile))
 		{
 			$_SESSION['message'] = "Fichié téléchargé avec succès !";
@@ -125,10 +125,10 @@
 		}
 
 		$_SESSION["message"] .= "Nouveau fichier ajouté";
-		
-		$query = "INSERT INTO fichiers (url,annee_prod,commentaire) VALUES ('".$_POST['url']."','".$_POST['annee_prod']."','".$_POST['comment']."');";
+		$file = "file://upload/". basename($_FILES['userfile']['name']);	
+		$query = "INSERT INTO fichiers (url,annee_prod,commentaire) VALUES ('".$file."','".$_POST['annee_prod']."','".$_POST['comment']."');";
 		$db->query( $query );
-		$result = $db->query( "SELECT id FROM fichiers WHERE url='".$_POST['url']."'");
+		$result = $db->query( "SELECT id FROM fichiers WHERE url='".$file."'");
 		$id = $result[0];
 
 		if( isset($cat2) )
