@@ -110,10 +110,13 @@
 		$_SESSION['message'] = "Fichier $id déclassé";
 		$query = "DELETE FROM reference WHERE id_fichier='#ID#';";
 		
-	} else if ($action=="upload") {
+	}
 	
-		$uploadfile = $repos_abs . basename($_FILES['userfile']['name']);
-		
+	
+	/* Gestion de la page d'upload */
+	if ($action=="upload") 
+	{
+		$uploadfile = $repos_abs . basename($_FILES['userfile']['name']);		
 		if (move_uploaded_file($_FILES['userfile']['tmp_name'], $uploadfile))
 		{
 			$_SESSION['message'] = "Fichié téléchargé avec succès !";
@@ -124,65 +127,51 @@
 		$_SESSION["message"] .= "Nouveau fichier ajouté";
 		
 		$query = "INSERT INTO fichiers (url,annee_prod,commentaire) VALUES ('".$_POST['url']."','".$_POST['annee_prod']."','".$_POST['comment']."');";
+		$db->query( $query );
+		$result = $db->query( "SELECT id FROM fichiers WHERE url='".$_POST['url']."'");
+		$id = $result[0];
 
 		if( isset($cat2) )
 		{
-			$query .= "INSERT INTO reference (id_categorie,id_fichier,id_type) VALUES ('".$cat1."'','#ID#','".$_POST['type']."');";
-			$query .= "INSERT INTO reference (id_categorie,id_fichier,id_type) VALUES ('".$cat2."'','#ID#','".$_POST['type']."');";
+			$query = "INSERT INTO reference (id_categorie,id_fichier,id_type) VALUES ('".$cat1."'','$id','".$_POST['type']."');";
+			$db->query( $query );
+			$query = "INSERT INTO reference (id_categorie,id_fichier,id_type) VALUES ('".$cat2."'','$id','".$_POST['type']."');";
+			$db->query( $query );
 		} else {
-			$query .= "INSERT INTO reference (id_categorie,id_fichier,id_type) VALUES ('".$cat1."'','#ID#','".$_POST['type']."');";
+			$query = "INSERT INTO reference (id_categorie,id_fichier,id_type) VALUES ('".$cat1."'','$id','".$_POST['type']."');";
+			$db->query( $query );
 		}
-	}
+	}	else {
+		//echo "$action,\n";
+		//echo "<p>$query</p>";
 
-	//echo "$action,\n";
-	//echo "<p>$query</p>";
-
-	$ids = array();
-
-	foreach( $_POST as $key=>$value )
-	{
-		if( strpos($key,"ids-")!==FALSE )
-			$ids[] = $value;
-	}
-
-/*
- * Exécution de la requête
- */
-
-	if( $action=="Ajouter" )
-	{
-		//$_SESSION['message'] = "Entrée ajoutée";
-		//header("Location: ./management.php?what=$what");
-		$db->query( $query );
-		
-	} else {
-		$cids = count( $ids );
-
-		//print_r( $ids );
-#		$sth = $db->prepare( $query );
-#		$res = $db->executeMultiple( $sth,$ids );
-
-#print_r( $ids );
-
-		for( $i=0; $i<$cids; $i++ )
+		$ids = array();
+		foreach( $_POST as $key=>$value )
 		{
-			$arr = explode( ';', $query );
-			foreach( $arr as $v ) {
-				$res = $db->query( preg_replace("/.ID./",$ids[$i],$v) );
-				//echo "<p>".preg_replace("/\?/",$ids[$i],$v)."</p>";
-
-				//if( PEAR::isError( $res ) )
-				//	print_r( $res );
-			}
+			if( strpos($key,"ids-")!==FALSE )
+				$ids[] = $value;
 		}
-		
+
+		/* Exécution de la requête */
+		if( $action=="Ajouter" )
+		{
+			$db->query( $query );
+			
+		} else {
+			$cids = count( $ids );
+			for( $i=0; $i<$cids; $i++ )
+			{
+				$arr = explode( ';', $query );
+				foreach( $arr as $v ) {
+					$res = $db->query( preg_replace("/.ID./",$ids[$i],$v) );
+				}
+			}		
+		}
+
+		if( $cids==0 and $action!="Ajouter" )
+			$_SESSION['message'] = "Rien à faire";
 	}
-
-
-	if( $cids==0 and $action!="Ajouter" )
-	{
-		$_SESSION['message'] = "Rien à faire";
-	}
-
+	
+	/* Redirection finale */
 	header("Location: ./management.php?what=$what");
 ?>
