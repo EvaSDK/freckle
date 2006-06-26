@@ -71,7 +71,12 @@
 			unset($_SESSION['message']);
 		}
 
-		echo "<form action='process.php' method='POST'>\n";
+
+		if($what=="upload")
+			echo "<form action='process.php' enctype='multipart/form-data' method='POST'>\n";
+		else
+			echo "<form action='process.php' method='POST'>\n";
+		
 		display_list_entries($what,$current);
 		echo "</div>\n<div class='box'>\n<h3>Actions</h3>\n";
 		get_form($what); 

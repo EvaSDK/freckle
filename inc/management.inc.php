@@ -215,7 +215,7 @@ function get_form($what)
 	switch($what)
 	{
 		case "upload":
-			echo "\t\t<input type='file' name='file' value='' />\n";
+			echo "\t\t<input type='file' name='name' value='' />\n";
 			echo "<input type='submit' name='action' value='Télécharger' />\n";
 			break;
 		case "types":
