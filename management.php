@@ -68,6 +68,7 @@
 		if( isset($_SESSION['message']) )
 		{
 			echo "<p id='message'>".$_SESSION['message']."</p>\n";
+			$_SESSION['message'] = "";
 			unset($_SESSION['message']);
 		}
 

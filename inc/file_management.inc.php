@@ -7,7 +7,13 @@ function get_fs_entries()
 {
 	global $repos_abs;
 	exec("find $repos_abs -type f", &$file_table);
-	return $file_table;
+	/*foreach( $file_table as $value )
+	{
+		$url = str_replace( $repos_abs, "file://", $value );
+		$result[] = array( "id" => -1, "url" => $url );
+	}*/
+	$result = $file_table;
+	return $result;
 }
 
 
@@ -17,9 +23,17 @@ function get_fs_entries()
  */
 function get_db_entries()
 {
-	global $db;
-	$SQL="SELECT * FROM fichiers";
-	$result = $db->getAll( $SQL );
+	global $db, $repos_abs;
+	$SQL="SELECT id,url FROM fichiers";
+	$file_table = $db->getAll( $SQL, DB_FETCHMODE_ASSOC );
+	foreach( $file_table as $value )
+	{
+		if( strpos( "file://", $value['url']) ==0 )
+			$value['url'] =  "file://". $value['url'];
+
+		$url = str_replace( "file://", $repos_abs, $value['url'] );
+		$result[] = $url;
+	}
 	return $result;
 }
 
@@ -32,18 +46,16 @@ function clean_file_entries( $action )
 	$fs_entries = get_fs_entries();
 	$db_entries = get_db_entries();
 
-	$link = db_connect();
-
-
+	echo "<ul>";
 	if( $action=="ADD" or $action=="BOTH" )
 	{
 		$result = array_diff( $fs_entries, $db_entries );
 		
 		foreach( $result as $key=>$value )
 		{
-			echo "le fichier $value est dans le fs mais pas dans la bdd<br/>\n";
-/*			$SQL="INSERT INTO fichiers (url,annee_prod,commentaire) VALUES ($value,0,'');";
-			db_query( $link, $SQL );*/
+			#echo "le fichier $value est dans le fs mais pas dans la bdd<br/>\n";
+			$SQL[]="INSERT INTO fichiers (url,annee_prod,commentaire) VALUES ($value,0,'');";
+			echo "<li class='add'>$value a été ajouté la BDD</li>\n";
 		}
 	}
 
@@ -53,13 +65,12 @@ function clean_file_entries( $action )
 		
 		foreach( $result as $key=>$value )
 		{
-			echo "le fichier $value est dans la bdd mais pas dans le fs<br/>\n";
-/*			$SQL="DELETE FROM fichiers WHERE url='".addslashes($value)."';";
-			db_query( $link, $SQL );*/
+			#echo "le fichier $value est dans la bdd mais pas dans le fs<br/>\n";
+			$SQL[]="DELETE FROM fichiers WHERE url='".addslashes($value)."';";
+			echo "<li class='suppr'>$value a été enlevé de la BDD</li>\n";
 		}
 	}
-
-	db_close( $link );
+	echo "</ul>\n";
 }
 
 ?>

@@ -20,7 +20,7 @@ function get_query($what)
 			$query = "SELECT id,url,annee_prod,commentaire FROM fichiers LEFT JOIN reference ON id=id_fichier WHERE id_fichier IS NULL ";
 			break;
 		case "defect":
-			$query = " SELECT distinct(id_fichier),url,annee_prod,commentaire FROM fichiers LEFT JOIN reference ON id=id_fichier WHERE id_fichier IS NOT NULL";
+			$query = "SELECT distinct(id_fichier),url,annee_prod,commentaire FROM fichiers LEFT JOIN reference ON id=id_fichier WHERE id_fichier IS NOT NULL";
 			break;
 		case "search":
 			$cat1 = isset($_GET['cat1']) ? $_GET['cat1'] : '';
@@ -125,12 +125,14 @@ function display_list_entries($what,$offset)
 				echo "\t<td><a href=\"".$repos_html.$arr["url"]."\" title='".$v["commentaire"]."'>".$result[3]."</a></td>\n";
 				break;
 			case "defect":
+				$arr = vfs_handling( $v["url"] );
+				$filename = basename( $v["url"] );
 				echo "\t<td><input type='checkbox' name='ids-$id' value='$id'/>\n";
 				$result = array();
-				preg_match( $format, $v["url"], $result );
+				preg_match( $format, $filename, $result );
 				echo "\t<td>".$result[1]."</td>\n";
 				echo "\t<td>".$result[2]."</td>\n";
-				echo "\t<td>".$v["url"]."</td>\n";
+				echo "\t<td>".$result[3]."</td>\n";
 				break;
 		}
 

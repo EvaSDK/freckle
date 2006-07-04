@@ -14,9 +14,12 @@
   require_once("./pear/Compat.php");
   require_once("./pear/Compat/Function/array_change_key_case.php");
 
+/*
+echo "<pre>";
+print_r( get_fs_entries() );
+print_r( get_db_entries() );
+echo "</pre>";
+*/
 
-	echo "<pre>";
-	print_r( get_fs_entries() );
-	#print_r( get_db_entries() );
-	echo "</pre>";
+clean_file_entries( "BOTH" );
 ?>

@@ -6,6 +6,9 @@
 	include("./inc/auth.inc.php");
 	include("./inc/general.inc.php");
 
+  require_once("./pear/Compat.php");
+  require_once("./pear/Compat/Function/array_change_key_case.php");
+
 	if($_SESSION['admin']==FALSE) {
 		header("Location: index.php"); 
 	}
@@ -119,26 +122,30 @@
 		$uploadfile = $repos_abs . "upload/". basename($_FILES['userfile']['name']);		
 		if (move_uploaded_file($_FILES['userfile']['tmp_name'], $uploadfile))
 		{
-			$_SESSION['message'] = "Fichié téléchargé avec succès !";
+			$_SESSION['message'] = "Fichier téléchargé avec succès !";
 		} else {
 			$_SESSION['message'] = "Possible file upload attack!\n";
 		}
 
-		$_SESSION["message"] .= "Nouveau fichier ajouté";
+		$_SESSION["message"] .= "<br />Nouveau fichier ajouté";
 		$file = "file://upload/". basename($_FILES['userfile']['name']);	
 		$query = "INSERT INTO fichiers (url,annee_prod,commentaire) VALUES ('".$file."','".$_POST['annee_prod']."','".$_POST['comment']."');";
 		$db->query( $query );
-		$result = $db->query( "SELECT id FROM fichiers WHERE url='".$file."'");
-		$id = $result[0];
+		$result = $db->getAll( "SELECT id FROM fichiers WHERE url='".$file."'", DB_FETCHMODE_ASSOC );
+
+		$id = $result[0]['id'];
+
+		if( count( $result ) > 1 )
+			$_SESSION['message'] .= "<br />Attention un fichier porte déjà ce nom.";
 
 		if( isset($cat2) )
 		{
-			$query = "INSERT INTO reference (id_categorie,id_fichier,id_type) VALUES ('".$cat1."'','$id','".$_POST['type']."');";
+			$query = "INSERT INTO reference (id_categorie,id_fichier,id_type) VALUES ('".$cat1."','$id','".$_POST['type']."');";
 			$db->query( $query );
-			$query = "INSERT INTO reference (id_categorie,id_fichier,id_type) VALUES ('".$cat2."'','$id','".$_POST['type']."');";
+			$query = "INSERT INTO reference (id_categorie,id_fichier,id_type) VALUES ('".$cat2."','$id','".$_POST['type']."');";
 			$db->query( $query );
 		} else {
-			$query = "INSERT INTO reference (id_categorie,id_fichier,id_type) VALUES ('".$cat1."'','$id','".$_POST['type']."');";
+			$query = "INSERT INTO reference (id_categorie,id_fichier,id_type) VALUES ('".$cat1."','$id','".$_POST['type']."');";
 			$db->query( $query );
 		}
 	}	else {
