@@ -238,6 +238,7 @@ a#current_page {
 .admin-datalist#defect #defect,
 .admin-datalist#fichiers #fichiers,
 .admin-datalist#types #types,
+.admin-datalist#upload #upload,
 .admin-datalist#categorie #categorie {
 	color: red;
 }
@@ -323,3 +324,10 @@ td img {
 	margin-right: 4px;
 }
 
+.add {
+	background-color : #6CFF72;
+}
+
+.suppr {
+	background-color : #FF6C79;
+}
