@@ -38,6 +38,16 @@
 <body>
  
 	<div class="wrapper">
+
+               <div class="head">
+                        <h1>Freckle</h1>
+                </div>
+
+                <div class="menu">
+                <?php include("./inc/menu.inc.php"); ?>
+                </div>
+
+		<div class='content'>
 <?php
 /*
 echo "<pre>";

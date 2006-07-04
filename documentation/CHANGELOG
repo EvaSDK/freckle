@@ -1,6 +1,16 @@
 CHANGELOG
 --------
 
+[04-07-2006 eva@mobilix]
+ - beaucoup beacoup de modifications
+ - passage à PEAR-DB septembre 2005
+ - ajout d'un onglet téléchargement pour permettre l'upload par l'interface web
+ - la page permettant de vérifier la DB et le FS affiche ce qu'il faut
+ - changement du format de la db, on est passé à 3 colonnes dans la table référence parce que c'est mieux pour faire des vrais requêtes avec des vrais DBs, malheureusment comme y a pas ca au SMIG; on a ajouté un petit filtre PHP
+ - corrections de toutes les requêtes SQL vis à vis de la modif précédente
+ - ajout d'un système basé sur une regexp pour afficher les noms de fichiers en 3 colonnes avec les catégories qui intéressent les élèves (permet de voir le numéro de l'unité ce qui n'était pas le cas avant)
+ - probablement plein de trucs que j'oublie
+
 [17-12-2004 eva@clubnix]
  - modifications majeures dans tout les sens (passage dans le truc)
  - surlignage des onglets dans l'affichage pages par pages

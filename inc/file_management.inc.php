@@ -43,6 +43,7 @@ function get_db_entries()
  */
 function clean_file_entries( $action )
 {
+	global $repos_abs;
 	$fs_entries = get_fs_entries();
 	$db_entries = get_db_entries();
 
@@ -53,9 +54,10 @@ function clean_file_entries( $action )
 		
 		foreach( $result as $key=>$value )
 		{
+			$url = str_replace( $repos_abs, "", $value );
 			#echo "le fichier $value est dans le fs mais pas dans la bdd<br/>\n";
 			$SQL[]="INSERT INTO fichiers (url,annee_prod,commentaire) VALUES ($value,0,'');";
-			echo "<li class='add'>$value a été ajouté la BDD</li>\n";
+			echo "<li class='add'>$url a été ajouté la BDD</li>\n";
 		}
 	}
 
@@ -65,9 +67,10 @@ function clean_file_entries( $action )
 		
 		foreach( $result as $key=>$value )
 		{
+			$url = str_replace( $repos_abs, "", $value );
 			#echo "le fichier $value est dans la bdd mais pas dans le fs<br/>\n";
 			$SQL[]="DELETE FROM fichiers WHERE url='".addslashes($value)."';";
-			echo "<li class='suppr'>$value a été enlevé de la BDD</li>\n";
+			echo "<li class='suppr'>$url a été enlevé de la BDD</li>\n";
 		}
 	}
 	echo "</ul>\n";

@@ -7,15 +7,15 @@ TODO
 
 Section ADMIN
 
- @ Migration vers PostgreSQL
- * coder un backend SQL
+ - Migration vers PEAR-MDB2 (remplacant de PEAR-DB)
+ @ Migration vers PEAR-DB
  * Renommage massif des fichiers
  @ Script pour créer la base de donnée initiale des fichiers et leurs affectations en fonction de leur nom
  @ Pour la gestion des types/fichiers/catégorie, faire un système permettant de parcourir la liste complète des entrées et qui permet en même temps de modifier/ajouter/supprimer des entrées. Toutes les requêtes sont envoyés vers process.php qui fait le travail nécessaire.
  * permettre à process.php de renvoyer un message via $_SESSION à management.php même en cas d'erreur
  @ fonction de génération d'un formulaire à 2 entrées gérant les catégories
  * ajouter des vérifications sur les données envoyés à process.php pour éviter des oublis 
- - ajouter une interface de contrôle de la cohérence de la base de données vis à vis du système de fichiers (existance des fichiers présent dans la base de données)
+ * ajouter une interface de contrôle de la cohérence de la base de données vis à vis du système de fichiers (existance des fichiers présent dans la base de données)
  - (?) suppression des fichiers directement par l'interface web
  - (?) (obsolète ou presque) petit javascript pour compléter automatiquement les champs dans l'interface d'administration pour une gestion plus simple des fichiers
 
@@ -28,7 +28,7 @@ Section COMMUNE
  - aide intégrée
  * nombre de lignes max affichées changeable
  - panneau d'options (en fonction des 3 fonctions précédentes)
- - limiter les résultats affiché par une recherche de document et faire en sorte de pouvoir défiler les résultats
+ @ limiter les résultats affiché par une recherche de document et faire en sorte de pouvoir défiler les résultats
  - système de notation des fichiers pour dégager à terme ceux de mauvaises qualités qui font doublons
 
 

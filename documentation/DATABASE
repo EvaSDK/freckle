@@ -1,9 +1,11 @@
 SCHEMA DES TABLES
 -----------------
 
+Pour la table reference, le triplet de valeurs est un clé primaire composée.
+Il ne doit pas y avoir de redondance dans la table.
+
 reference:
-	id_categorie1 (int4) | id de la catégorie numéro 1 du fichier
-	id_categorie2 (int4) | même chose pour la 2ème catégorie
+	id_categorie (int4)  | id de la catégorie du fichier
 	id_fichier (int4)    | id du fichier
 	id_type (int4)       | id du type de document (cours, td,... )
 
