@@ -134,6 +134,9 @@ function getIcon ( $file )
 			case "txt": $image = "images/icones/text.gif"; break;
 
 			/* archives */
+			case "gz":
+			case "bz2":
+			case "tbz2":
 			case "tgz":
 			case "rar": 
 			case "ace":
