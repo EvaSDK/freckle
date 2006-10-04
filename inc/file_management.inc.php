@@ -28,10 +28,11 @@ function get_db_entries()
 	$file_table = $db->getAll( $SQL, DB_FETCHMODE_ASSOC );
 	foreach( $file_table as $value )
 	{
-		if( strpos( "file://", $value['url']) ==0 )
-			$value['url'] =  "file://". $value['url'];
-
-		$url = str_replace( "file://", $repos_abs, $value['url'] );
+		if( !preg_match("/file:\/\//", $value["url"]) ) {
+			$url = $repos_abs.$value['url'];
+		} else {
+			$url = str_replace( "file://", $repos_abs, $value['url'] );
+		}
 		$result[] = $url;
 	}
 	return $result;
@@ -56,7 +57,7 @@ function clean_file_entries( $action )
 		{
 			$url = str_replace( $repos_abs, "", $value );
 			#echo "le fichier $value est dans le fs mais pas dans la bdd<br/>\n";
-			$SQL[]="INSERT INTO fichiers (url,annee_prod,commentaire) VALUES ($value,0,'');";
+			$SQL[]="INSERT INTO fichiers (url,annee_prod,commentaire) VALUES ('$url',0,'');";
 			echo "<li class='add'>$url a été ajouté la BDD</li>\n";
 		}
 	}
@@ -69,11 +70,13 @@ function clean_file_entries( $action )
 		{
 			$url = str_replace( $repos_abs, "", $value );
 			#echo "le fichier $value est dans la bdd mais pas dans le fs<br/>\n";
-			$SQL[]="DELETE FROM fichiers WHERE url='".addslashes($value)."';";
+			$SQL[]="DELETE FROM fichiers WHERE url='".addslashes($url)."';";
 			echo "<li class='suppr'>$url a été enlevé de la BDD</li>\n";
 		}
 	}
 	echo "</ul>\n";
+
+	return $SQL;
 }
 
 ?>

@@ -7,7 +7,7 @@
  */
 
 	ini_set("arg_separator.output", "&amp;");
-  	ini_set("url_rewriter.tags", "0");
+	ini_set("url_rewriter.tags", "0");
 
 	session_start();
 	require_once("./config/config.php");
@@ -48,6 +48,10 @@
                 </div>
 
 		<div class='content'>
+
+		<h2>Maintenance de la base</h2>
+
+		<div class='box'>
 <?php
 /*
 echo "<pre>";
@@ -56,9 +60,20 @@ print_r( get_db_entries() );
 echo "</pre>";
 */
 
-	clean_file_entries( "BOTH" );
+	$sql = clean_file_entries( "BOTH" );
+
+	if( count($sql)>0 ) {
+		foreach( $sql as $value ) {
+			$db->query( $value );
+		}
+	} else {
+		echo "Rien a faire pour le moment";
+	}
+	
 ?>
 		</div>
+		</div>
+
 
 	 <hr />
 

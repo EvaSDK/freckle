@@ -286,7 +286,7 @@ function vfs_handling( $arr )
 	switch( $scheme )
 	{
 		case "file" :
-			$arr["url"] = preg_replace("/file:\/\//", $repos_html, $arr["url"]);
+			$arr["url"] = preg_replace("/file:\/\//", "", $arr["url"]);
 			$arr["disp"] = basename( substr( $arr["url"], strpos( $arr["url"], "-",  strpos( $arr["url"], "-") + 1 ) + 1 ) );
 			$arr["icon"] = getIcon($arr["disp"]);
 			break;
