@@ -22,8 +22,13 @@
 	require_once("./pear/Compat/Function/array_change_key_case.php");
 
 
-	if( !isset($_SESSION['admin']) )
+	if( !isset($_SESSION['admin']) ) {
 		$_SESSION['admin'] = false;
+	}
+
+	if( $_SESSION['admin']==false ) {
+		header("Location: index.php");
+	}
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
@@ -38,33 +43,33 @@
 <body>
  
 	<div class="wrapper">
+		<div class="head">
+			<h1>Freckle</h1>
+		</div>
 
-               <div class="head">
-                        <h1>Freckle</h1>
-                </div>
-
-                <div class="menu">
-                <?php include("./inc/menu.inc.php"); ?>
-                </div>
+		<div class="menu">
+			<?php include("./inc/menu.inc.php"); ?>
+		</div>
 
 		<div class='content'>
+			<h2 class="titre-page">Administration</h2>
 
-		<h2>Maintenance de la base</h2>
-
-		<div class='box'>
+			<div class='box'>
+			<h3>Maintenance de la base</h3>
 <?php
-/*
-echo "<pre>";
-print_r( get_fs_entries() );
-print_r( get_db_entries() );
-echo "</pre>";
-*/
-
 	$sql = clean_file_entries( "BOTH" );
 
 	if( count($sql)>0 ) {
-		foreach( $sql as $value ) {
-			$db->query( $value );
+
+		if( isset($_POST['confirm']) && $_POST['confirm']=="OK" )
+		{
+			foreach( $sql as $value ) {
+				$db->query( $value );
+			}
+		} else {
+			echo "<p>Êtes-vous sur de vouloir appliquer ces changements ?";
+			echo "<form method='POST' action'#'>\n<input type='submit' name='confirm' value='OK' /></form>\n";
+			echo "</p>\n";
 		}
 	} else {
 		echo "Rien a faire pour le moment";
@@ -72,10 +77,8 @@ echo "</pre>";
 	
 ?>
 		</div>
-		</div>
-
-
-	 <hr />
+	</div>
+		<hr />
 
 	 <div class="foot">
 		<?php include("./inc/foot.inc.php"); ?>
