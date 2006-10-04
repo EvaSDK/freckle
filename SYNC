@@ -1,0 +1,3 @@
+
+# from me to freckle
+rsync -ac --recursive --progress --verbose freckle@acme1.esiee.fr:~/public_html/ . --exclude=fichiers --exclude=pear --exclude=htdocs --exclude=*/.svn --exclude=documentation

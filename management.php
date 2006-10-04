@@ -70,15 +70,17 @@
 		echo "\t<a id='affect'    href='management.php?what=affect'>Classer</a>\n";
 		echo "\t<a id='defect'    href='management.php?what=defect'>Désaffecter</a>\n";
 		echo "\t</div>\n";
-		display_list_access($what,$current);
+		
+		if( $what!="upload" )
+			display_list_access($what,$current);
+
 		echo "</h4>\n";
 
 		$msg = $_SESSION['message'];
 		unset($_SESSION['message']);
+		
 		if($msg!='')
-		{
 			echo "<p id='message'>$msg</p>\n";
-		}
 
 		if( $what=="upload" )
 		{

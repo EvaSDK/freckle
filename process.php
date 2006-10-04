@@ -41,9 +41,49 @@
 		}
 
 		$result = array();
-		preg_match("/([A-Z]+)-([0-9]+)\.?)-(\w+?).\w+/", $_POST['file'], &$result );
+		preg_match("/([A-Z]+)-([0-9.]+)-(\w+)\.\w+/", $uploadfile, $result );
 
-		$print_r( $result );
+		//print_r( $result );
+
+		/* découpe les unités */
+		$units = split( "\.", $result[2] );
+
+		echo "Unité : ";
+		echo "<pre>\n";
+		print_r( $units );
+		echo "</pre>\n";
+
+		echo "Matière : ".$result[1]."<br/>";
+		echo "Nom du document : ".$result[3]."<br/>";
+		
+		$dblink = db_connect();
+		$result = db_query( $dblink, "SELECT count(*) as CPT FROM fichiers WHERE url='".$uploadfile."'" );
+		$table = db_fetch_array( $result );
+
+		if( $table['CPT']>1 ) {
+			$_SESSION['message'] = "Le fichier existe déjà.<br />";
+		} else {
+			$_SESSION['message'] = "Le fichier $uploadfile a été ajouté.<br />";
+			db_query( $dblink, "INSERT INTO fichiers (url,annee_prod,commentaire) VALUES ('".$uploadfile."','".date("Y", time())."','')" );
+		}
+
+		foreach( $units as $key=>$value )
+		{
+			if( is_numeric( $year = substr($value,1,1)+0) )
+				$value = "I".$year;
+
+  	  $result = db_query( $dblink, "SELECT count(*) as CPT,id FROM categorie WHERE ccourt='".$value."'" );
+  	  $table = db_fetch_array( $result );
+
+    	if( $table['CPT']>1 ) {
+  	    $_SESSION['message'] = "La catégorie $value existe.<br />";
+    	} else {
+  	    $_SESSION['message'] = "La catégorie $value a été ajoutée.<br />";
+    	  db_query( $dblink, "INSERT INTO categorie (ccourt,clong) VALUES ('".$value."','".$value."')" );
+    	}
+		}
+		
+		db_close( $dblink );
 
 	}
 	
