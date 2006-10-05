@@ -36,7 +36,7 @@
 <head>
 	<title>FRECKLE</title>
 	<link href="./styles/style-light-blue.css" type="text/css" media="screen" rel="stylesheet" title="light blue"/>
-	<link href="./styles/style-noel.css" type="text/css" media="screen" rel="alternate stylesheet" title="NoÃ«l" />	
+	<link href="./styles/style-noel.css" type="text/css" media="screen" rel="alternate stylesheet" title="Noël" />	
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
 </head>
 
@@ -66,8 +66,9 @@
 			foreach( $sql as $value ) {
 				$db->query( $value );
 			}
+			echo "<p>Les changements ont été appliqué.</p>";
 		} else {
-			echo "<p>ÃŠtes-vous sur de vouloir appliquer ces changements ?";
+			echo "<p>êtes-vous sur de vouloir appliquer ces changements ?";
 			echo "<form method='POST' action'#'>\n<input type='submit' name='confirm' value='OK' /></form>\n";
 			echo "</p>\n";
 		}

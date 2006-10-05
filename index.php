@@ -20,10 +20,6 @@
 	require_once("./pear/Compat.php");
 	require_once("./pear/Compat/Function/array_change_key_case.php");
 
-
-
-//TODO la page d'admin classer n'a pas une liste d'accès rapide correspondant à ce qu'elle doit effectivement classer
-
 /*
 	if ( !isset($_SERVER["HTTP_ACCEPT"]) ||
 		stristr($_SERVER["HTTP_ACCEPT"], "application/xhtml+xml") )

@@ -17,7 +17,7 @@ function get_query($what)
 	switch( $what )
 	{
 		case "affect":
-			$query = "SELECT id,url,annee_prod,commentaire FROM fichiers LEFT JOIN reference ON id=id_fichier WHERE id_fichier IS NULL ";
+			$query = "SELECT distinct(id),url,annee_prod,commentaire FROM fichiers LEFT JOIN reference ON id=id_fichier WHERE id_fichier IS NULL ";
 			break;
 		case "defect":
 			$query = "SELECT distinct(id_fichier),url,annee_prod,commentaire FROM fichiers LEFT JOIN reference ON id=id_fichier WHERE id_fichier IS NOT NULL";
@@ -165,7 +165,7 @@ function display_list_access($what,$offset)
 	if( $what=="search" ) {
 		$result = count( array_filter( $db->getAll( $query,DB_FETCHMODE_ASSOC), "elag" ) );
 		$max = $result;
-	}else {
+	} else {
 		if( !preg_match("/\*/",$query) )
 		{
 			$query = preg_replace("/SELECT.((distinct\()?[\w]+?\)).*.FROM/","SELECT count(\\1) as count FROM", $query );
@@ -173,6 +173,7 @@ function display_list_access($what,$offset)
 		} else {
 			$query = preg_replace("/SELECT.(\S+).FROM/","SELECT count(id) as count FROM", $query );
 		}
+
 		$result =& $db->getRow( $query );
 		$max = $result[0];
 	}
