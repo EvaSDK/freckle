@@ -57,8 +57,8 @@ function clean_file_entries( $action )
 		{
 			$url = str_replace( $repos_abs, "", $value );
 			#echo "le fichier $value est dans le fs mais pas dans la bdd<br/>\n";
-			$SQL[]="INSERT INTO fichiers (url,annee_prod,commentaire) VALUES ('$url',0,'');";
-			echo "<li class='add'>$url a été ajouté la BDD</li>\n";
+			$SQL[]="INSERT INTO fichiers (url,annee_prod,commentaire) VALUES ('file://$url',0,'');";
+			echo "<li class='add'>$url a été ajouté dans la base.</li>\n";
 		}
 	}
 
@@ -77,6 +77,27 @@ function clean_file_entries( $action )
 	echo "</ul>\n";
 
 	return $SQL;
+}
+
+/**
+ * Fonction qui assigne les fichiers non classé dans les catégories.
+ */
+function autoassign_file_entries() {
+	global $db, $format;
+	$cats = $db->getAll("SELECT * FROM categorie" );
+
+	foreach( $cats as $key=>$value )
+		$categorie[$value[0]] = $value[1];
+
+	$categorie = array_flip( $categorie );
+
+	/* récupérer les ids et l'url des fichiers non classés */
+
+	preg_match( $format, substr($url,3), $cats );
+
+	/* faire une boucle qui insère dans _toutes_ les catégories */
+	$SQL[]="INSERT INFO reference (id_categorie,id_fichier,id_type) VALUES ('','','')";
+	echo "$url a été classé dans la catégorie ".$categorie[$cats[1]]." et ".$categorie["I".substr($cats[2],0,1)]."</li>\n";
 }
 
 ?>
