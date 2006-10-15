@@ -18,12 +18,16 @@
 function display_categorie()
 {
 	$link = db_connect();
-	$ptr = db_query($link,"SELECT * FROM categorie ORDER BY id;");
+	$ptr = db_query($link,"SELECT * FROM categorie;");/* "SELECT categorie.id,count(reference.id_fichier) as nombre,categorie.ccourt,categorie.clong FROM reference,categorie WHERE reference.id_categorie=categorie.id GROUP BY reference.id_categorie;");
+	echo mysql_error();*/
 	$i=0;
-	
+
+/*	print_r( db_fetch_array($ptr) );*/
+
 	echo "<table>\n";
 	while( $row = db_fetch_object($ptr) )
 	{
+	
 		if( $i==0 ) echo "<tr>\n";
 		echo "\t<td class='right'>[$row->ccourt]</td>\n";
 		echo "\t<td><a href='index.php?what=search&amp;cat1=".$row->id."&amp;cat2='>$row->clong</a></td>\n";
@@ -38,7 +42,7 @@ function display_categorie()
 	/* rajouter un </tr> si le nombre d'elements est impaire */
 	if ( $i == 1 )
 		echo "\t<td colspan='2'>&nbsp;</td>\n</tr>\n";
-	
+
 	db_close($link);
 	echo "</table>\n";
 }
