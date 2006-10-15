@@ -1,22 +1,31 @@
 <?php
+/**
+ * @package freckle
+ * @license GPL 2
+ * @author Gilles Dartiguelongue
+ * @version 2.0
+ */
 
-	/* backend SQL */
+	/**#@+
+	 * backend SQL */
 	$SQL = "mySQL";
 
-	/* paramètre de connection à la base de donnée */
+	/** paramètre de connection à la base de donnée */
 	$hostname = "localhost";
 	$username = "freckle";
 	$password = "bidon";
 	$dbname   = "FRECKLE";
 
-	/* paramètre section administration */
+	/** paramètre section administration */
 	$admin_pass = "coin";
 	$admin_user = "freckle_admin";
 
-	/* nombre de résultats par page */
+	/** nombre de résultats par page */
 	$step = 15;
 
-  /* répertoire de base pour l'entrepôt de fichiers */
+	/** répertoire de base pour l'entrepôt de fichiers */
 	$repos_abs  = "/home/eva/web/files/";
 	$repos_html = "~freckle/files/";
+
+	/**#@- */
 ?>

@@ -1,15 +1,17 @@
 <?php
 	session_start();
+	require("./config/config.php");
 	require("./inc/definitions.inc.php");
-	require("./inc/backend_sql.php");
 
 	include("./inc/auth.inc.php");
 	include("./inc/general.inc.php");
 
+	require_once("./pear/Compat.php");
+	require_once("./pear/Compat/Function/array_change_key_case.php");
+
 	if($_SESSION['admin']==FALSE) {
 		header("Location: index.php"); 
 	}
-	
  
 	$action = $_POST['action'];
 	$what = $_POST['what'];
@@ -27,65 +29,22 @@
 		$cat2 = 0;
 	}
 
-	if($action=='Envoyer')
+
+
+	/** début du traitement des données */
+/*
+	switch( $action )
 	{
-		$uploaddir = $repos_abs;
-		$uploadrel = $repos_html;
-		$uploadfile = $uploaddir . basename($_FILES['userfile']['name']);
-				 
-		if (move_uploaded_file($_FILES['userfile']['tmp_name'], $uploadfile))
-		{
-			$_SESSION['message'] = "Photo enregistrée avec succès !";
-		} else {
-			$_SESSION['message'] = "Possible file upload attack!\n";
-		}
-
-		$result = array();
-		preg_match("/([A-Z]+)-([0-9.]+)-(\w+)\.\w+/", $uploadfile, $result );
-
-		//print_r( $result );
-
-		/* découpe les unités */
-		$units = split( "\.", $result[2] );
-
-		echo "Unité : ";
-		echo "<pre>\n";
-		print_r( $units );
-		echo "</pre>\n";
-
-		echo "Matière : ".$result[1]."<br/>";
-		echo "Nom du document : ".$result[3]."<br/>";
-		
-		$dblink = db_connect();
-		$result = db_query( $dblink, "SELECT count(*) as CPT FROM fichiers WHERE url='".$uploadfile."'" );
-		$table = db_fetch_array( $result );
-
-		if( $table['CPT']>1 ) {
-			$_SESSION['message'] = "Le fichier existe déjà.<br />";
-		} else {
-			$_SESSION['message'] = "Le fichier $uploadfile a été ajouté.<br />";
-			db_query( $dblink, "INSERT INTO fichiers (url,annee_prod,commentaire) VALUES ('".$uploadfile."','".date("Y", time())."','')" );
-		}
-
-		foreach( $units as $key=>$value )
-		{
-			if( is_numeric( $year = substr($value,1,1)+0) )
-				$value = "I".$year;
-
-  	  $result = db_query( $dblink, "SELECT count(*) as CPT,id FROM categorie WHERE ccourt='".$value."'" );
-  	  $table = db_fetch_array( $result );
-
-    	if( $table['CPT']>1 ) {
-  	    $_SESSION['message'] = "La catégorie $value existe.<br />";
-    	} else {
-  	    $_SESSION['message'] = "La catégorie $value a été ajoutée.<br />";
-    	  db_query( $dblink, "INSERT INTO categorie (ccourt,clong) VALUES ('".$value."','".$value."')" );
-    	}
-		}
-		
-		db_close( $dblink );
-
+		case "Ajouter"     : $arr = processAjout(); break;
+		case "Supprimer"   : $arr = processSuppr(); break;
+		case "Classer"     : $arr = processClass(); break;
+		case "Modifier"    : $arr = processModif(); break;
+		case "Désaffecter" : $arr = processDesaf(); break;
 	}
+
+	le résultat arr doit être un array ( message, query );
+*/
+
 	
 	if($action=='Ajouter')
 	{
@@ -144,60 +103,82 @@
 		 
 		if( isset($cat2) )
 		{
-			$query .= "INSERT INTO reference (id_categorie1,id_categorie2,id_fichier,id_type) VALUES ('".$cat1."','".$cat2."','#ID#','".$_POST['type']."');";
+			$query = "INSERT INTO reference (id_categorie,id_fichier,id_type) VALUES ('".$cat1."','#ID#','".$_POST['type']."');";
+			$query .= "INSERT INTO reference (id_categorie,id_fichier,id_type) VALUES ('".$cat2."','#ID#','".$_POST['type']."');";			
 		} else {
-			$query = "INSERT INTO reference (id_categorie1,id_categorie2,id_fichier,id_type) VALUES ('".$cat1."','0','#ID#','".$_POST['type']."');";
+			$query = "INSERT INTO reference (id_categorie,id_fichier,id_type) VALUES ('".$cat1."','#ID#','".$_POST['type']."');";
 		}
 	} else if ($action=="Désaffecter")
 	{
 		$_SESSION['message'] = "Fichier $id déclassé";
 		$query = "DELETE FROM reference WHERE id_fichier='#ID#';";
-	}
-
-	//echo "$action,\n";
-	//echo "<p>$query</p>";
-
-	$ids = array();
-
-	foreach( $_POST as $key=>$value )
-	{
-		if( strpos($key,"ids-")!==FALSE )
-			$ids[] = $value;
-	}
-
-/*
- * Exécution de la requête
- */
-
-	/* connection à la base */
-	$dblink = db_connect();
-
-	if( $action=="Ajouter" )
-	{
-		//$_SESSION['message'] = "Entrée ajoutée";
-		//header("Location: ./management.php?what=$what");
-		db_query( $dblink, $query );
 		
-	} else {
-		$cids = count( $ids );
-
-		//print_r( $ids );
-
-		for( $i=0; $i<$cids; $i++ )
-		{
-			db_query( $dblink, preg_replace("/.ID./",$ids[$i],$query) );
-			//echo "<p>".preg_replace("/.ID./",$ids[$i],$query)."</p>";
-
-		}
 	}
-
-	/* déconnexion de la base */
-	db_close($dblink);
-
-	if( $cids==0 and $action!="Ajouter" )
+	
+	
+	/* Gestion de la page d'upload */
+	if ($action=="Télécharger") 
 	{
-		$_SESSION['message'] = "Rien à faire";
-	}
+		$uploadfile = $repos_abs . "upload/". basename($_FILES['userfile']['name']);		
+		if (move_uploaded_file($_FILES['userfile']['tmp_name'], $uploadfile))
+		{
+			$_SESSION['message'] = "Fichier téléchargé avec succès !";
+		} else {
+			$_SESSION['message'] = "Possible file upload attack!\n";
+		}
 
+		$_SESSION["message"] .= "<br />Nouveau fichier ajouté";
+		$file = "file://upload/". basename($_FILES['userfile']['name']);	
+		$query = "INSERT INTO fichiers (url,annee_prod,commentaire) VALUES ('".$file."','".$_POST['annee_prod']."','".$_POST['comment']."');";
+		$db->query( $query );
+		$result = $db->getAll( "SELECT id FROM fichiers WHERE url='".$file."'", DB_FETCHMODE_ASSOC );
+
+		$id = $result[0]['id'];
+
+		if( count( $result ) > 1 )
+			$_SESSION['message'] .= "<br />Attention un fichier porte déjà ce nom.";
+
+		if( isset($cat2) )
+		{
+			$query = "INSERT INTO reference (id_categorie,id_fichier,id_type) VALUES ('".$cat1."','$id','".$_POST['type']."');";
+			$db->query( $query );
+			$query = "INSERT INTO reference (id_categorie,id_fichier,id_type) VALUES ('".$cat2."','$id','".$_POST['type']."');";
+			$db->query( $query );
+		} else {
+			$query = "INSERT INTO reference (id_categorie,id_fichier,id_type) VALUES ('".$cat1."','$id','".$_POST['type']."');";
+			$db->query( $query );
+		}
+	}	else {
+		//echo "$action,\n";
+		//echo "<p>$query</p>";
+
+		$ids = array();
+		foreach( $_POST as $key=>$value )
+		{
+			if( strpos($key,"ids-")!==FALSE )
+				$ids[] = $value;
+		}
+
+		/* Exécution de la requête */
+		if( $action=="Ajouter" )
+		{
+			$db->query( $query );
+			
+		} else {
+			$cids = count( $ids );
+			for( $i=0; $i<$cids; $i++ )
+			{
+				$arr = explode( ';', $query );
+				foreach( $arr as $v ) {
+					$res = $db->query( preg_replace("/.ID./",$ids[$i],$v) );
+				}
+			}		
+		}
+
+		if( $cids==0 and $action!="Ajouter" )
+			$_SESSION['message'] = "Rien à faire";
+	}
+	
+	/* Redirection finale */
 	header("Location: ./management.php?what=$what");
 ?>

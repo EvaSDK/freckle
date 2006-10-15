@@ -1,16 +1,20 @@
 <?php
 	session_start();
 	require("./inc/definitions.inc.php");
-	require("./inc/backend_sql.php");
 	
 	require("./inc/auth.inc.php");
 	require("./inc/general.inc.php");
 	require("./inc/management.inc.php");
-	
-	$pass = $_POST['password'];
-	$user = $_POST['username'];
+	require_once("./pear/Compat.php");
+	require_once("./pear/Compat/Function/array_change_key_case.php");
+
+	require_once("./inc/administration.php");
+	require_once("./config/config.php");
+
+	$pass = isset($_POST['password']) ? $_POST['password'] : '';
+	$user = isset($_POST['username']) ? $_POST['username'] : '';
  
-	if ($_GET['logout']==TRUE) {
+	if ( isset($_GET['logout']) && $_GET['logout']==TRUE) {
 		logout_admin();
 	}
 
@@ -52,60 +56,31 @@
 	if ($_SESSION['admin']==FALSE)
 	{
 		login_admin();
-	} else
-	{
-		$what = $_GET['what'];
-		$current = $_GET['current'];
+		
+	} else {
 
-		if ($what=='') { $what="types"; }
-		if ($current=='') { $current = 0; }
+		$what = isset($_GET['what']) ? $_GET['what'] : 'types';
+		$current = isset($_GET['current']) ? $_GET['current'] : 0;
 
 		echo "<h3>Vue des données</h3>\n";
-		echo "<h4>\n";
-		echo "\t<div class='admin-datalist' id='".$_GET['what']."'>\n";
-		echo "\t<a id='types'     href='management.php?what=upload'>Upload</a>\n";
-		echo "\t<a id='types'     href='management.php?what=types'>Types</a>\n";
-		echo "\t<a id='fichiers'  href='management.php?what=fichiers'>Fichiers</a>\n";
-		echo "\t<a id='categorie' href='management.php?what=categorie'>Catégorie</a>\n";
-		echo "\t<a id='affect'    href='management.php?what=affect'>Classer</a>\n";
-		echo "\t<a id='defect'    href='management.php?what=defect'>Désaffecter</a>\n";
-		echo "\t</div>\n";
-		
-		if( $what!="upload" )
-			display_list_access($what,$current);
+		adminMenu( $what, $current );
 
-		echo "</h4>\n";
-
-		$msg = $_SESSION['message'];
-		unset($_SESSION['message']);
-		
-		if($msg!='')
-			echo "<p id='message'>$msg</p>\n";
-
-		if( $what=="upload" )
+		if( isset($_SESSION['message']) )
 		{
-?>
-		<!-- The data encoding type, enctype, MUST be specified as below -->
-		<form enctype="multipart/form-data" action="process.php" method="POST">
-
-		<!-- MAX_FILE_SIZE must precede the file input field (ne pas dépasser 3Mo grand max) -->
-		<input type="hidden" name="MAX_FILE_SIZE" value="3000000" />
-		<!-- Name of input element determines name in $_FILES array -->
-
-		<label for='cmt'>Commentaire du document&nbsp;: </label>
-		<input type='text' id='cmt' name='cmt' value='' /><br /><br />
-		<label for='userfile'>Envoyer ce fichier&nbsp;: </label><br />
-		<input id='userfile' name="userfile" type="file" />
-		<input type="submit" name='action' value="Envoyer" />
-		</form>
-<?php
-		} else {
-			echo "<form action='process.php' method='POST'>\n";
-			display_list_entries($what,$current);
-			echo "</div>\n<div class='box'>\n<h3>Actions</h3>\n";
-			get_form($what); 
-			echo "</form>\n";
+			echo "<p id='message'>".$_SESSION['message']."</p>\n";
+			$_SESSION['message'] = "";
+			unset($_SESSION['message']);
 		}
+
+		if($what=="upload")
+			echo "<form action='process.php' enctype='multipart/form-data' method='POST'>\n";
+		else
+			echo "<form action='process.php' method='POST'>\n";
+		
+		display_list_entries($what,$current);
+		echo "</div>\n<div class='box'>\n<h3>Actions</h3>\n";
+		get_form($what); 
+		echo "</form>\n";
 	}
 ?> 
 			</div>

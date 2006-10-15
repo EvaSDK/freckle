@@ -1,36 +1,34 @@
 <?php
-
-/* Freckle v2.0
- * Distributed under the terms of the General Public Licence (GPL)
- * Copyright 2004 Gilles Dartiguelongue
+/**
+ * fonctions d'utilisation générale
  *
- * File Name: general.inc.php
- * Developper: Gilles Dartiguelongue
- * Date: 2004-08-01
- *
- *  fonctions d'utilisation générale
+ * @package freckle
+ * @version v2.0
  */
 
 
 /**
- * Affiche le tableau des categories
+ * Affiche les catégories dans un tableau
  */
 function display_categorie()
 {
-	$link = db_connect();
-	$ptr = db_query($link,"SELECT * FROM categorie;");/* "SELECT categorie.id,count(reference.id_fichier) as nombre,categorie.ccourt,categorie.clong FROM reference,categorie WHERE reference.id_categorie=categorie.id GROUP BY reference.id_categorie;");
-	echo mysql_error();*/
+	global $db;
+	/*$result = $db->getAll("SELECT * FROM categorie ORDER BY id",DB_FETCHMODE_ASSOC);*/
+	$result = $db->getAll("SELECT id,count(id_fichier) as docs, ccourt,clong FROM categorie,reference WHERE id=id_categorie GROUP BY id,ccourt,clong", DB_FETCHMODE_ASSOC);
 	$i=0;
 
-/*	print_r( db_fetch_array($ptr) );*/
-
+/*
+	echo "<pre>";
+	print_r( $result );
+	echo "</pre>";
+*/
 	echo "<table>\n";
-	while( $row = db_fetch_object($ptr) )
+	foreach( $result as $key=>$value )
 	{
 	
 		if( $i==0 ) echo "<tr>\n";
-		echo "\t<td class='right'>[$row->ccourt]</td>\n";
-		echo "\t<td><a href='index.php?what=search&amp;cat1=".$row->id."&amp;cat2='>$row->clong</a></td>\n";
+		echo "\t<td class='right'>[".$value['ccourt']."]</td>\n";
+		echo "\t<td><a href='index.php?what=search&amp;cat1=".$value['id']."&amp;cat2=' title=\"Catégorie: ".$value['clong']." contient ".$value["docs"]." documents.\">".$value['clong']." (".$value["docs"].")</a></td>\n";
 		if( $i==1 )
 		{
 			echo "</tr>\n";
@@ -43,72 +41,71 @@ function display_categorie()
 	if ( $i == 1 )
 		echo "\t<td colspan='2'>&nbsp;</td>\n</tr>\n";
 
-	db_close($link);
 	echo "</table>\n";
 }
 
 
 /**
- * Affiche 2 boites de séléction de catégorie
+ * Affiche 2 boites de sélection de catégorie
  */
 function display_categorie_select()
 {
-	$link = db_connect();
-	$ptr = db_query($link,"SELECT * FROM categorie;");
+	global $db;
+	
+	$result = $db->getAll("SELECT * FROM categorie;",DB_FETCHMODE_ASSOC);
 
 	/* on récupère les valeurs de la recherche */
-	if ( isset($_GET['cat1']) )
-		$cat1 = $_GET['cat1'];
-		
-	if ( isset($_GET['cat2']) )
-		$cat2 = $_GET['cat2'];
+	$cat1 = isset($_GET['cat1']) ? $_GET['cat1'] : '';
+	$cat2 = isset($_GET['cat2']) ? $_GET['cat2'] : '';
 
 	/* premier <select> */
 	echo "<select name='cat1'>\n";
-	while($row = db_fetch_object($ptr)) {
-		echo "\t<option value='".$row->id."'";
-		if( $cat1==$row->id )
+	foreach( $result as $k=>$v )
+	{
+		echo "\t<option value='".$v['id']."'";
+		if( $cat1==$v['id'] )
 			echo " selected='selected'";
-		echo ">[$row->ccourt] $row->clong</option>\n";
+		echo ">[".$v['ccourt']."] ".$v['clong']."</option>\n";
 	}
 	echo "</select>";
 	
-	$ptr = db_query($link, "SELECT * FROM categorie ORDER BY ccourt");
+	$result = $db->getAll("SELECT * FROM categorie ORDER BY ccourt",DB_FETCHMODE_ASSOC);
 
 	/* deuxième <select> */
 	echo "<select name='cat2'>\n";
 	echo "<option value='0'>Second Critère</option>\n";
-	while($row = db_fetch_object($ptr)) {
-		echo "\t<option value='".$row->id."'";
-		if( $cat2==$row->id )
+	foreach( $result as $k=>$v )
+	{
+		echo "\t<option value='".$v['id']."'";
+		if( $cat2==$v['id'] )
 			echo " selected='selected'";
-		echo ">[$row->ccourt] $row->clong</option>\n";
+		echo ">[".$v['ccourt']."] ".$v['clong']."</option>\n";
 	}
 	echo "</select>\n";
-	db_close($link);
 }
 
 
 /**
- * Affiche le type sélectionné
+ * Affiche un <select> pour les types
  */
 function display_types_select()
 {
-	$link = db_connect();
-	$result = db_query($link, "SELECT * FROM types;");
+	global $db;
+	$result = $db->getAll("SELECT * FROM types", DB_FETCHMODE_ASSOC);
 
 	echo "<select name='type'>\n";
-	while( $row = db_fetch_object($result) )
+	foreach( $result as $key=>$value )
 	{
-		echo "\t<option value=".$row->id.">".$row->type."</option>\n";
+		echo "\t<option value=".$value['id'].">".$value['type']."</option>\n";
 	}
 	echo "</select>\n";
-	db_close($link);
 }
 
 
 /**
  * renvoie l'icône correspondant à l'extension du fichier
+ * @param string est le nom du fichier dans on veut l'extension
+ * @return string url vers l'icône correspondant au type de fichier
  */
 function getIcon ( $file )
 {
@@ -120,6 +117,7 @@ function getIcon ( $file )
 		switch ($file_ext)
 		{
 			/* images */
+			case "avi":
 			case "gif":
 			case "bmp":
 			case "jpg": $image = "images/icones/image.gif"; break;
@@ -137,6 +135,9 @@ function getIcon ( $file )
 			case "txt": $image = "images/icones/text.gif"; break;
 
 			/* archives */
+			case "gz":
+			case "bz2":
+			case "tbz2":
 			case "tgz":
 			case "rar": 
 			case "ace":
@@ -145,7 +146,7 @@ function getIcon ( $file )
 			/* autres */
 			default: $image = "images/icones/unknown.gif";
 		}
-		return($image);
+		return $image;
 	}
 }
 
@@ -155,31 +156,28 @@ function getIcon ( $file )
  */
 function description_critere()
 {
-	$link = db_connect();
-	$cat1 = $_GET['cat1'];
-	$cat2 = $_GET['cat2'];
+	global $db;
+	
+	$cat1 = isset($_GET['cat1']) ? $_GET['cat1'] : '';
+	$cat2 = isset($_GET['cat2']) ? $_GET['cat2'] : '';
 
-	if( $cat1!="" )
+	if( $cat1!='' )
 		echo "<h4>Recherche des documents en ";
 	
-	if( $cat1!="" )
+	if( $cat1!='' )
 	{
-		$result = db_query($link,"SELECT ccourt FROM categorie where id='$cat1'");
-		$res =  db_fetch_object($result);
-		echo $res->ccourt;
+		$res = $db->getAll("SELECT ccourt FROM categorie where id='$cat1'",DB_FETCHMODE_ASSOC);
+		echo $res[0]['ccourt'];
 	}
-	if( $cat2!="" )
+	if( $cat2!='' and $cat2!=0 )
 	{
 		echo " et ";
-		$result = db_query($link,"SELECT ccourt FROM categorie where id='$cat2'");
-		$res = db_fetch_object($result);
-		echo $res->ccourt;
+		$res = $db->getAll("SELECT ccourt FROM categorie where id='$cat2'",DB_FETCHMODE_ASSOC);
+		echo $res[0]['ccourt'];
 	}
 
-	if( $cat1!="" )
+	if( $cat1!='' )
 		echo ".</h4>\n";
-		
-	db_close($link);
 }
 
 ?>
