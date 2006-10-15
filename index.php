@@ -64,9 +64,9 @@
 
 	switch( $what )
 	{
-		case "accueil" : include("accueil.php"); break;
+		case "accueil" : include("accueil.php");   break;
 		case "search"  : include("documents.php"); break;
-		case "tools"	 : include("tools.php"); break;
+		case "tools"   : include("tools.php");     break;
 	}
 
 ?>
