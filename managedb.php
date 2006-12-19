@@ -75,7 +75,18 @@
 	} else {
 		echo "Rien a faire pour le moment";
 	}
-	
+
+	/* nettoyage des entrées de la table reference qui n'existe plus dans la table fichiers
+	 * TODO : à remplacer par des foreign keys probablement */
+	$SQL = "SELECT id_fichier FROM `reference`,`categorie` WHERE id_categorie=categorie.id and id_fichier not in (SELECT id_fichier FROM `reference`,`fichiers` WHERE id_categorie=categorie.id AND id_fichier=fichiers.id)";
+
+	$result = $db->getAll( $SQL, DB_FETCHMODE_ASSOC);
+	foreach( $result as $value )
+	{
+		$db->query("DELETE FROM fichiers WHERE id='".$value."'");
+	}
+
+
 ?>
 		</div>
 	</div>
